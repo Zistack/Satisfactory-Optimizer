@@ -19,7 +19,7 @@ This tool uses [Z3](https://github.com/z3prover/z3), a powerful SMT solver to pl
 	A Satisfactory planner/optimizer based on Z3
 
 	positional arguments:
-	  problem_file_name     The location of the file containing the problem description (default: standard input).
+	  problem_file_name     The location of the file containing the problem description.
 
 	options:
 	  -h, --help            show this help message and exit
@@ -67,17 +67,24 @@ For the most part, the recipe names are the same as they are in-game.  The excep
 There are also some additional recipes to be aware of that help plan factories.
 
  * "Extract Water"
+
    This recipe allows for water to be produced from nothing by way of water extractors.
    This is useful when you want to account for the power cost of water extractors in your factory.
+
  * "Burn [Fuel Item]"
+
    This recipe exists for every fuel item in the game that is consumed by a Biomass Burner, a Coal Generator, or a Fuel Generator.
    They provide negative power consumption to the factory, and can help with planning power plants.
    Nuclear Power Plants have their own recipes.
+
  * "Uranium Waste" and "Plutonium Waste"
+
    These are the recipes for nuclear power plants.
    Like the above recipes, they provide negative power consumption.
    They also have material outputs, as nuclear power plants produce waste.
+
  * "Sink [Item]"
+
    For every item that has a sink value, this recipe exists and can be used to plan factories that generate awesome sink points.
 
 In addition to specifying recipes directly by name, they can also be specified in groups.
@@ -145,32 +152,51 @@ Each goal is a list with two parameters.
 The first parameter is a string that specifies the type of optimization goal, and the second parameter .
 The goal types and their behaviors are described below.
 
- * \["maximize_item_production", "Item"\]
+ * ["maximize_item_production", "Item"]
+
    Maximizes the number of the named item that is output by the factory (produced and not consumed).
- * \["minimize_item_production", "Item"\]
+
+ * ["minimize_item_production", "Item"]
+
    Minimizes the number of the named item that is output by the factory.
    This is useful for minimizing byproducts.
- * \["maximize_items_production", {"Item": Real, ...}\]
+
+ * ["maximize_items_production", {"Item": Real, ...}]
+
    Maximizes the number of the named items that are output by the factory in the ratio specified by the quantities.
    For example, `"maximize_items_production": {"Iron Plate": 2, "Iron Rod": 1}` would maximize iron plate and iron rod production, but would maintain a 2:1 ratio between them.
- * \["maximize_item_consumption", "Item"\]
+
+ * ["maximize_item_consumption", "Item"]
+
    Maximizes the number of the named item that is _input_ by the factory (consumed but not produced).
    Mostly included for symmetry, but might be useful for pushing around which recipes are favored by the planner, though there are more direct ways to do that.
- * \["minimize_item_consumption", "Item"\]
+
+ * ["minimize_item_consumption", "Item"]
+
    Minimizes the number of the named item that is input by the factory.
- * \["maximize_item_flow", "Item"\]
+
+ * ["maximize_item_flow", "Item"]
+
    Maximizes the number of the named item that is produced by the factory, but does not require that all of those items are outputs.
    This can be used to maximize the production of an item that is ultimately sinked, for example.
- * \["minimize_item_flow", "Item"\]
+
+ * ["minimize_item_flow", "Item"]
+
    Minimizes the number of the named item that is produced by the factory, including internally.
    This could be used to push the factory away from using certain items that are difficult to transport like Screws, for example.
- * \["maximize_items_flow": {"Item": Real, ...}\]
+
+ * ["maximize_items_flow": {"Item": Real, ...}]
+
    The analog to "maximize_items_production", but like the other "flow" objectives, does not require that the items are all outputs of the factory.
    Useful for designing a factory that produces the Phase 4 project parts in the right ratios but ultimately sinks them, for example.
- * \["maximize_recipe": "Recipe"\]
+
+ * ["maximize_recipe": "Recipe"]
+
    Maxmizes the use of the named recipe.
    Can be useful for planning power plants.
- * \["minimize_recipe": "Recipe"\]
+
+ * ["minimize_recipe": "Recipe"]
+
    Minimizes the use of the named recipe.
 
 Multiple goals may be specified.
