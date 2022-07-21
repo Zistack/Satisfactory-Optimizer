@@ -1,0 +1,3086 @@
+{
+	# Water Extractor Recipes
+	"Extract Water": {
+		"inputs": {},
+		"outputs": {"Water": 1},
+		"time": 0.5,
+		"machine": "Water Extractor",
+		"power_consumption": 20,
+		"tags": ["extraction"]
+	},
+
+	# Constructor Recipes
+	"Actual Snow": {
+		"inputs": {"FICSMAS Gift": 5},
+		"outputs": {"Actual Snow": 2},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"Aluminum Casing": {
+		"inputs": {"Aluminum Ingot": 3},
+		"outputs": {"Aluminum Casing": 2},
+		"time": 2,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Biocoal": {
+		"inputs": {"Biomass": 5},
+		"outputs": {"Coal": 6},
+		"time": 8,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Biomass (Alien Protein)": {
+		"inputs": {"Alien Protein": 1},
+		"outputs": {"Biomass": 100},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Biomass (Leaves)": {
+		"inputs": {"Leaves": 10},
+		"outputs": {"Biomass": 5},
+		"time": 5,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Biomass (Mycelia)": {
+		"inputs": {"Mycelia": 10},
+		"outputs": {"Biomass": 10},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Biomass (Wood)": {
+		"inputs": {"Wood": 4},
+		"outputs": {"Biomass": 20},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Cable": {
+		"inputs": {"Wire": 2},
+		"outputs": {"Cable": 1},
+		"time": 2,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Candy Cane": {
+		"inputs": {"FICSMAS Gift": 3},
+		"outputs": {"Candy Cane": 1},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"Cast Screw": {
+		"inputs": {"Iron Ingot": 5},
+		"outputs": {"Screw": 20},
+		"time": 24,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Caterium Wire": {
+		"inputs": {"Caterium Ingot": 1},
+		"outputs": {"Wire": 8},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Charcoal": {
+		"inputs": {"Wood": 1},
+		"outputs": {"Coal": 10},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Color Cartridge": {
+		"inputs": {"Flower Petals": 5},
+		"outputs": {"Color Cartridge": 10},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["all", "default"]
+	},
+	"Concrete": {
+		"inputs": {"Limestone": 3},
+		"outputs": {"Concrete": 1},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Copper Powder": {
+		"inputs": {"Copper Ingot": 30},
+		"outputs": {"Copper Powder": 5},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Copper Sheet": {
+		"inputs": {"Copper Ingot": 2},
+		"outputs": {"Copper Sheet": 1},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Empty Canister": {
+		"inputs": {"Plastic": 2},
+		"outputs": {"Empty Canister": 4},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Empty Fluid Tank": {
+		"inputs": {"Aluminum Ingot": 1},
+		"outputs": {"Empty Fluid Tank": 1},
+		"time": 1,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"FICSMAS Bow": {
+		"inputs": {"FICSMAS Gift": 2},
+		"outputs": {"FICSMAS Bow": 1},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"FICSMAS Tree Branch": {
+		"inputs": {"FICSMAS Gift": 1},
+		"outputs": {"FICSMAS Tree Branch": 1},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"Hatcher Protein": {
+		"inputs": {"Hatcher Remains": 1},
+		"outputs": {"Alien Protein": 1},
+		"time": 3,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Hog Protein": {
+		"inputs": {"Hog Remains": 1},
+		"outputs": {"Alien Protein": 1},
+		"time": 3,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Iron Plate": {
+		"inputs": {"Iron Ingot": 3},
+		"outputs": {"Iron Plate": 2},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Iron Rod": {
+		"inputs": {"Iron Ingot": 1},
+		"outputs": {"Iron Rod": 1},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Iron Wire": {
+		"inputs": {"Iron Ingot": 5},
+		"outputs": {"Wire": 9},
+		"time": 24,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Organic Data Capsule": {
+		"inputs": {"Alien Protein": 1},
+		"outputs": {"Organic Data Capsule": 1},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Power Shard (1)": {
+		"inputs": {"Blue Power Slug": 1},
+		"outputs": {"Power Shard": 1},
+		"time": 8,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Power Shard (2)": {
+		"inputs": {"Yellow Power Slug": 1},
+		"outputs": {"Power Shard": 2},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Power Shard (5)": {
+		"inputs": {"Purple Power Slug": 1},
+		"outputs": {"Power Shard": 5},
+		"time": 24,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Quartz Crystal": {
+		"inputs": {"Raw Quartz": 5},
+		"outputs": {"Quartz Crystal": 3},
+		"time": 8,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Quickwire": {
+		"inputs": {"Caterium Ingot": 1},
+		"outputs": {"Quickwire": 5},
+		"time": 5,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Screw": {
+		"inputs": {"Iron Rod": 1},
+		"outputs": {"Screw": 4},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Silica": {
+		"inputs": {"Raw Quartz": 3},
+		"outputs": {"Silica": 5},
+		"time": 8,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Snowball": {
+		"inputs": {"Actual Snow": 3},
+		"outputs": {"Snowball": 1},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"Solid Biofuel": {
+		"inputs": {"Biomass": 8},
+		"outputs": {"Solid Biofuel": 4},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Iron Rebar": {
+		"inputs": {"Iron Rod": 1},
+		"outputs": {"Iron Rebar": 1},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Spitter Protein": {
+		"inputs": {"Plasma Spitter Remains": 1},
+		"outputs": {"Alien Protein": 1},
+		"time": 3,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Steel Beam": {
+		"inputs": {"Steel Ingot": 4},
+		"outputs": {"Steel Beam": 1},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Steel Canister": {
+		"inputs": {"Steel Ingot": 3},
+		"outputs": {"Empty Canister": 2},
+		"time": 3,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Steel Pipe": {
+		"inputs": {"Steel Ingot": 3},
+		"outputs": {"Steel Pipe": 2},
+		"time": 6,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Steel Rod": {
+		"inputs": {"Steel Ingot": 1},
+		"outputs": {"Iron Rod": 4},
+		"time": 5,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Steel Screw": {
+		"inputs": {"Steel Beam": 1},
+		"outputs": {"Screw": 52},
+		"time": 12,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Stinger Protein": {
+		"inputs": {"Stinger Remains": 1},
+		"outputs": {"Alien Protein": 1},
+		"time": 3,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Wire": {
+		"inputs": {"Copper Ingot": 1},
+		"outputs": {"Wire": 2},
+		"time": 4,
+		"machine": "Constructor",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+
+	# Assembler Recipes
+	"Adhered Iron Plate": {
+		"inputs": {"Iron Plate": 3, "Rubber": 1},
+		"outputs": {"Reinforced Iron Plate": 1},
+		"time": 16,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"AI Limiter": {
+		"inputs": {"Copper Sheet": 5, "Quickwire": 20},
+		"outputs": {"AI Limiter": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Alclad Aluminum Sheet": {
+		"inputs": {"Aluminum Ingot": 3, "Copper Ingot": 1},
+		"outputs": {"Alclad Aluminum Sheet": 3},
+		"time": 6,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Alclad Casing": {
+		"inputs": {"Aluminum Ingot": 20, "Copper Ingot": 10},
+		"outputs": {"Aluminum Casing": 15},
+		"time": 8,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Assembly Director System": {
+		"inputs": {"Adaptive Control Unit": 2, "Supercomputer": 1},
+		"outputs": {"Assembly Director System": 1},
+		"time": 80,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Automated Wiring": {
+		"inputs": {"Stator": 1, "Cable": 20},
+		"outputs": {"Automated Wiring": 1},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Black Powder": {
+		"inputs": {"Coal": 1, "Sulfur": 1},
+		"outputs": {"Black Powder": 2},
+		"time": 4,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Bolted Frame": {
+		"inputs": {"Reinforced Iron Plate": 3, "Screw": 56},
+		"outputs": {"Modular Frame": 2},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Bolted Iron Plate": {
+		"inputs": {"Iron Plate": 18, "Screw": 50},
+		"outputs": {"Reinforced Iron Plate": 3},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Caterium Circuit Board": {
+		"inputs": {"Plastic": 10, "Quickwire": 30},
+		"outputs": {"Circuit Board": 7},
+		"time": 48,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Cheap Silical": {
+		"inputs": {"Raw Quartz": 3, "Limestone": 5},
+		"outputs": {"Silica": 7},
+		"time": 16,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Circuit Board": {
+		"inputs": {"Copper Sheet": 2, "Plastic": 4},
+		"outputs": {"Circuit Board": 1},
+		"time": 8,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Cluster Nobelisk": {
+		"inputs": {"Nobelisk": 3, "Smokeless Powder": 4},
+		"outputs": {"Cluster Nobelisk": 1},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Coated Iron Canister": {
+		"inputs": {"Iron Plate": 2, "Copper Sheet": 1},
+		"outputs": {"Empty Canister": 4},
+		"time": 4,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Coated Iron Plate": {
+		"inputs": {"Iron Ingot": 10, "Plastic": 2},
+		"outputs": {"Iron Plate": 15},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Compacted Coal": {
+		"inputs": {"Coal": 5, "Sulfur": 5},
+		"outputs": {"Compacted Coal": 5},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Copper Rotor": {
+		"inputs": {"Copper Sheet": 6, "Screw": 52},
+		"outputs": {"Rotor": 3},
+		"time": 16,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Crystal Computer": {
+		"inputs": {"Circuit Board": 8, "Crystal Oscillator": 3},
+		"outputs": {"Computer": 3},
+		"time": 64,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Electric Motor": {
+		"inputs": {"Electromagnetic Control Rod": 1, "Rotor": 2},
+		"outputs": {"Motor": 2},
+		"time": 16,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Electrode Circuit Board": {
+		"inputs": {"Rubber": 6, "Petroleum Coke": 9},
+		"outputs": {"Circuit Board": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Electromagnetic Connection Rod": {
+		"inputs": {"Stator": 2, "High-Speed Connector": 1},
+		"outputs": {"Electromagnetic Control Rod": 2},
+		"time": 15,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Electromagnetic Control Rod": {
+		"inputs": {"Stator": 3, "AI Limiter": 2},
+		"outputs": {"Electromagnetic Control Rod": 2},
+		"time": 30,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Encased Industrial Beam": {
+		"inputs": {"Steel Beam": 4, "Concrete": 5},
+		"outputs": {"Encased Industrial Beam": 1},
+		"time": 10,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Encased Industrial Pipe": {
+		"inputs": {"Steel Pipe": 7, "Concrete": 5},
+		"outputs": {"Encased Industrial Beam": 1},
+		"time": 15,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Encased Plutonium Cell": {
+		"inputs": {"Plutonium Pellet": 2, "Concrete": 4},
+		"outputs": {"Encased Plutonium Cell": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Fabric": {
+		"inputs": {"Mycelia": 1, "Biomass": 5},
+		"outputs": {"Fabric": 1},
+		"time": 4,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Fancy Fireworks": {
+		"inputs": {"FICSMAS Tree Branch": 4, "FICSMAS Bow": 3},
+		"outputs": {"Fancy Fireworks": 1},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"FICSMAS Decoration": {
+		"inputs": {"FICSMAS Tree Branch": 15, "FICSMAS Ornament Bundle": 6},
+		"outputs": {"FICSMAS Decoration": 2},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"FICSMAS Ornament Bundle": {
+		"inputs": {"Copper FICSMAS Ornament": 1, "Iron FICSMAS Ornament": 1},
+		"outputs": {"FICSMAS Ornament Bundle": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"FICSMAS Wonder Star": {
+		"inputs": {"FICSMAS Decoration": 5, "Candy Cane": 20},
+		"outputs": {"FICSMAS Wonder Star": 1},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"Fine Black Powder": {
+		"inputs": {"Sulfur": 2, "Compacted Coal": 1},
+		"outputs": {"Black Powder": 4},
+		"time": 16,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Fine Concrete": {
+		"inputs": {"Silica": 3, "Limestone": 12},
+		"outputs": {"Concrete": 10},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Fused Quickwire": {
+		"inputs": {"Caterium Ingot": 1, "Copper Ingot": 5},
+		"outputs": {"Quickwire": 12},
+		"time": 8,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Fused Wire": {
+		"inputs": {"Copper Ingot": 4, "Caterium Ingot": 1},
+		"outputs": {"Wire": 30},
+		"time": 20,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Gas Nobelisk": {
+		"inputs": {"Nobelisk": 1, "Biomass": 10},
+		"outputs": {"Gas Nobelisk": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Heat Exchanger": {
+		"inputs": {"Aluminum Casing": 3, "Rubber": 3},
+		"outputs": {"Heat Sink": 1},
+		"time": 6,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Heat Sink": {
+		"inputs": {"Alclad Aluminum Sheet": 5, "Copper Sheet": 3},
+		"outputs": {"Heat Sink": 1},
+		"time": 8,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Homing Rifle Ammo": {
+		"inputs": {"Rifle Ammo": 20, "High-Speed Connector": 1},
+		"outputs": {"Homing Rifle Ammo": 10},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Insulated Cable": {
+		"inputs": {"Wire": 9, "Rubber": 6},
+		"outputs": {"Cable": 20},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Modular Frame": {
+		"inputs": {"Reinforced Iron Plate": 3, "Iron Rod": 12},
+		"outputs": {"Modular Frame": 2},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Motor": {
+		"inputs": {"Rotor": 2, "Stator": 2},
+		"outputs": {"Motor": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Nobelisk": {
+		"inputs": {"Steel Pipe": 2, "Black Powder": 2},
+		"outputs": {"Nobelisk": 1},
+		"time": 6,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"OC Supercomputer": {
+		"inputs": {"Radio Control Unit": 3, "Cooling System": 3},
+		"outputs": {"Supercomputer": 1},
+		"time": 20,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Plutonium Fuel Unit": {
+		"inputs": {"Encased Plutonium Cell": 20, "Pressure Conversion Cube": 1},
+		"outputs": {"Plutonium Fuel Rod": 1},
+		"time": 120,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Pressure Conversion Cube": {
+		"inputs": {"Fused Modular Frame": 1, "Radio Control Unit": 2},
+		"outputs": {"Pressure Conversion Cube": 1},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Pulse Nobelisk": {
+		"inputs": {"Nobelisk": 5, "Crystal Oscillator": 1},
+		"outputs": {"Pulse Nobelisk": 5},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Quickwire Cable": {
+		"inputs": {"Quickwire": 3, "Rubber": 2},
+		"outputs": {"Cable": 11},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Quickwire Stator": {
+		"inputs": {"Steel Pipe": 4, "Quickwire": 15},
+		"outputs": {"Stator": 2},
+		"time": 15,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Reinforced Iron Plate": {
+		"inputs": {"Iron Plate": 6, "Screw": 12},
+		"outputs": {"Reinforced Iron Plate": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Rifle Ammo": {
+		"inputs": {"Copper Sheet": 3, "Smokeless Powder": 2},
+		"outputs": {"Rifle Ammo": 15},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Rotor": {
+		"inputs": {"Iron Rod": 5, "Screw": 25},
+		"outputs": {"Rotor": 1},
+		"time": 15,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Rubber Concrete": {
+		"inputs": {"Limestone": 10, "Rubber": 2},
+		"outputs": {"Concrete": 9},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Shatter Rebar": {
+		"inputs": {"Iron Rebar": 2, "Quartz Crystal": 3},
+		"outputs": {"Shatter Rebar": 1},
+		"time": 6,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Silicon Circuit Board": {
+		"inputs": {"Copper Sheet": 11, "Silica": 11},
+		"outputs": {"Circuit Board": 5},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Smart Plating": {
+		"inputs": {"Reinforced Iron Plate": 1, "Rotor": 1},
+		"outputs": {"Smart Plating": 1},
+		"time": 30,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Sparkly Fireworks": {
+		"inputs": {"FICSMAS Tree Branch": 3, "Actual Snow": 2},
+		"outputs": {"Sparkly Fireworks": 1},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"Stator": {
+		"inputs": {"Steel Pipe": 3, "Wire": 8},
+		"outputs": {"Stator": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Steel Coated Plate": {
+		"inputs": {"Steel Ingot": 3, "Plastic": 2},
+		"outputs": {"Iron Plate": 18},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Steel Rotor": {
+		"inputs": {"Steel Pipe": 2, "Wire": 6},
+		"outputs": {"Rotor": 1},
+		"time": 12,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Steeled Frame": {
+		"inputs": {"Reinforced Iron Plate": 2, "Steel Pipe": 10},
+		"outputs": {"Modular Frame": 3},
+		"time": 60,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Stitched Iron Plate": {
+		"inputs": {"Iron Plate": 10, "Wire": 20},
+		"outputs": {"Reinforced Iron Plate": 3},
+		"time": 32,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "alternate"]
+	},
+	"Stun Rebar": {
+		"inputs": {"Iron Rebar": 1, "Quickwire": 5},
+		"outputs": {"Stun Rebar": 1},
+		"time": 6,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+	"Sweet Fireworks": {
+		"inputs": {"FICSMAS Tree Branch": 6, "Candy Cane": 3},
+		"outputs": {"Sweet Fireworks": 1},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "ficsmas"]
+	},
+	"Versatile Framework": {
+		"inputs": {"Modular Frame": 1, "Steel Beam": 12},
+		"outputs": {"Versatile Framework": 2},
+		"time": 24,
+		"machine": "Assembler",
+		"power_consumption": 15,
+		"tags": ["production", "default"]
+	},
+
+	# Manufacturer Recipes
+	"Adaptive Control Unit": {
+		"inputs": {
+			"Automated Wiring": 15,
+			"Circuit Board": 10,
+			"Heavy Modular Frame": 2,
+			"Computer": 2
+		},
+		"outputs": {"Adaptive Control Unit": 2},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Automated Miner": {
+		"inputs": {"Motor": 1, "Steel Pipe": 4, "Iron Rod": 4, "Iron Plate": 2},
+		"outputs": {"Portable Miner": 1},
+		"time": 60,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Automated Speed Wiring": {
+		"inputs": {"Stator": 2, "Wire": 40, "High-Speed Connector": 1},
+		"outputs": {"Automated Wiring": 4},
+		"time": 32,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Beacon": {
+		"inputs": {"Iron Plate": 3, "Iron Rod": 1, "Wire": 15, "Cable": 2},
+		"outputs": {"Beacon": 1},
+		"time": 8,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Caterium Computer": {
+		"inputs": {"Circuit Board": 7, "Quickwire": 28, "Rubber": 12},
+		"outputs": {"Computer": 1},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Classic Battery": {
+		"inputs": {
+			"Sulfur": 6,
+			"Alclad Aluminum Sheet": 7,
+			"Plastic": 8,
+			"Wire": 12
+		},
+		"outputs": {"Battery": 4},
+		"time": 8,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Computer": {
+		"inputs": {"Circuit Board": 10, "Cable": 9, "Plastic": 18, "Screw": 52},
+		"outputs": {"Computer": 1},
+		"time": 24,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Crystal Beacon": {
+		"inputs": {"Steel Beam": 4, "Steel Pipe": 16, "Crystal Oscillator": 1},
+		"outputs": {"Beacon": 20},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Crystal Oscillator": {
+		"inputs": {
+			"Quartz Crystal": 36,
+			"Cable": 28,
+			"Reinforced Iron Plate": 5
+		},
+		"outputs": {"Crystal Oscillator": 2},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Explosive Rebar": {
+		"inputs": {"Iron Rebar": 2, "Smokeless Powder": 2, "Steel Pipe": 2},
+		"outputs": {"Explosive Rebar": 1},
+		"time": 6,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Flexible Framework": {
+		"inputs": {"Modular Frame": 1, "Steel Beam": 6, "Rubber": 8},
+		"outputs": {"Versatile Framework": 2},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Gas Filter": {
+		"inputs": {"Coal": 5, "Rubber": 2, "Fabric": 2},
+		"outputs": {"Gas Filter": 1},
+		"time": 8,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Heavy Encased Frame": {
+		"inputs": {
+			"Modular Frame": 8,
+			"Encased Industrial Beam": 10,
+			"Steel Pipe": 36,
+			"Concrete": 22
+		},
+		"outputs": {"Heavy Modular Frame": 3},
+		"time": 64,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Heavy Flexible Frame": {
+		"inputs": {
+			"Modular Frame": 5,
+			"Encased Industrial Beam": 3,
+			"Rubber": 20,
+			"Screw": 104
+		},
+		"outputs": {"Heavy Modular Frame": 1},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Heavy Modular Frame": {
+		"inputs": {
+			"Modular Frame": 5,
+			"Steel Pipe": 15,
+			"Encased Industrial Beam": 5,
+			"Screw": 100
+		},
+		"outputs": {"Heavy Modular Frame": 1},
+		"time": 30,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"High-Speed Connector": {
+		"inputs": {"Quickwire": 56, "Cable": 10, "Circuit Board": 1},
+		"outputs": {"High-Speed Connector": 1},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Infused Uranium Cell": {
+		"inputs": {"Uranium": 5, "Silica": 3, "Sulfur": 5, "Quickwire": 15},
+		"outputs": {"Encased Uranium Cell": 4},
+		"time": 12,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Insulated Crystal Oscillator": {
+		"inputs": {"Quartz Crystal": 10, "Rubber": 7, "AI Limiter": 1},
+		"outputs": {"Crystal Oscillator": 1},
+		"time": 32,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Iodine Infused Filter": {
+		"inputs": {"Gas Filter": 1, "Quickwire": 8, "Aluminum Casing": 1},
+		"outputs": {"Iodine Infused Filter": 1},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Magnetic Field Generator": {
+		"inputs": {
+			"Versatile Framework": 5,
+			"Electromagnetic Control Rod": 2,
+			"Battery": 10
+		},
+		"outputs": {"Magnetic Field Generator": 2},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Modular Engine": {
+		"inputs": {"Motor": 2, "Rubber": 15, "Smart Plating": 2},
+		"outputs": {"Modular Engine": 1},
+		"time": 60,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Nuke Nobelisk": {
+		"inputs": {
+			"Nobelisk": 5,
+			"Encased Uranium Cell": 20,
+			"Smokeless Powder": 10,
+			"AI Limiter": 6
+		},
+		"outputs": {"Nuke Nobelisk": 1},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Plastic Smart Plating": {
+		"inputs": {"Reinforced Iron Plate": 1, "Rotor": 1, "Plastic": 3},
+		"outputs": {"Smart Plating": 2},
+		"time": 24,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Plutonium Fuel Rod": {
+		"inputs": {
+			"Encased Plutonium Cell": 30,
+			"Steel Beam": 18,
+			"Electromagnetic Control Rod": 6,
+			"Heat Sink": 10,
+		},
+		"outputs": {"Plutonium Fuel Rod": 1},
+		"time": 240,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Radio Connection Unit": {
+		"inputs": {
+			"Heat Sink": 4,
+			"High-Speed Connector": 2,
+			"Quartz Crystal": 12
+		},
+		"outputs": {"Radio Control Unit": 1},
+		"time": 16,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Radio Control System": {
+		"inputs": {
+			"Crystal Oscillator": 1,
+			"Circuit Board": 10,
+			"Aluminum Casing": 60,
+			"Rubber": 30
+		},
+		"outputs": {"Radio Control Unit": 30},
+		"time": 40,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Radio Control Unit": {
+		"inputs": {
+			"Aluminum Casing": 32,
+			"Crystal Oscillator": 1,
+			"Computer": 1
+		},
+		"outputs": {"Radio Control Unit": 2},
+		"time": 48,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Rigour Motor": {
+		"inputs": {"Rotor": 3, "Stator": 3, "Crystal Oscillator": 1},
+		"outputs": {"Motor": 6},
+		"time": 48,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Seismic Nobelisk": {
+		"inputs": {"Black Powder": 8, "Steel Pipe": 8, "Crystal Oscillator": 1},
+		"outputs": {"Nobelisk": 4},
+		"time": 40,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Silicon High-Speed Connector": {
+		"inputs": {"Quickwire": 60, "Silica": 25, "Circuit Board": 2},
+		"outputs": {"High-Speed Connector": 2},
+		"time": 40,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Super-State Computer": {
+		"inputs": {
+			"Computer": 3,
+			"Electromagnetic Control Rod": 2,
+			"Battery": 20,
+			"Wire": 45
+		},
+		"outputs": {"Supercomputer": 2},
+		"time": 50,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Supercomputer": {
+		"inputs": {
+			"Computer": 2,
+			"AI Limiter": 2,
+			"High-Speed Connector": 3,
+			"Plastic": 28
+		},
+		"outputs": {"Supercomputer": 1},
+		"time": 32,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Thermal Propulsion Rocket": {
+		"inputs": {
+			"Modular Engine": 5,
+			"Turbo Motor": 2,
+			"Cooling System": 6,
+			"Fused Modular Frame": 2
+		},
+		"outputs": {"Thermal Propulsion Rocket": 2},
+		"time": 120,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Turbo Electric Motor": {
+		"inputs": {
+			"Motor": 7,
+			"Radio Control Unit": 9,
+			"Electromagnetic Control Rod": 5,
+			"Rotor": 7
+		},
+		"outputs": {"Turbo Motor": 3},
+		"time": 64,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Turbo Motor": {
+		"inputs": {
+			"Cooling System": 4,
+			"Radio Control Unit": 2,
+			"Motor": 4,
+			"Rubber": 24
+		},
+		"outputs": {"Turbo Motor": 1},
+		"time": 32,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Turbo Pressure Motor": {
+		"inputs": {
+			"Motor": 4,
+			"Pressure Conversion Cube": 1,
+			"Packaged Nitrogen Gas": 24,
+			"Stator": 8
+		},
+		"outputs": {"Turbo Motor": 2},
+		"time": 32,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+	"Packaged Turbo Rifle Ammo": {
+		"inputs": {
+			"Rifle Ammo": 25,
+			"Aluminum Casing": 3,
+			"Packaged Turbofuel": 3
+		},
+		"outputs": {"Turbo Rifle Ammo": 50},
+		"time": 12,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Uranium Fuel Rod": {
+		"inputs": {
+			"Encased Uranium Cell": 50,
+			"Encased Industrial Beam": 3,
+			"Electromagnetic Control Rod": 5
+		},
+		"outputs": {"Uranium Fuel Rod": 1},
+		"time": 150,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "default"]
+	},
+	"Uranium Fuel Unit": {
+		"inputs": {
+			"Encased Uranium Cell": 100,
+			"Electromagnetic Control Rod": 10,
+			"Crystal Oscillator": 3,
+			"Beacon": 6
+		},
+		"outputs": {"Uranium Fuel Rod": 3},
+		"time": 300,
+		"machine": "Manufacturer",
+		"power_consumption": 55,
+		"tags": ["production", "alternate"]
+	},
+
+	# Packager Recipes
+	"Packaged Alumina Solution": {
+		"inputs": {"Alumina Solution": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Alumina Solution": 2},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Fuel": {
+		"inputs": {"Fuel": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Fuel": 2},
+		"time": 3,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Heavy Oil Residue": {
+		"inputs": {"Heavy Oil Residue": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Heavy Oil Residue": 2},
+		"time": 4,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Liquid Biofuel": {
+		"inputs": {"Liquid Biofuel": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Liquid Biofuel": 2},
+		"time": 3,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Nitric Acid": {
+		"inputs": {"Nitric Acid": 1, "Empty Fluid Tank": 1},
+		"outputs": {"Packaged Nitric Acid": 1},
+		"time": 2,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Nitrogen Gas": {
+		"inputs": {"Nitrogen Gas": 4, "Empty Fluid Tank": 1},
+		"outputs": {"Packaged Nitrogen Gas": 1},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Oil": {
+		"inputs": {"Crude Oil": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Oil": 2},
+		"time": 4,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Sulfuric Acid": {
+		"inputs": {"Sulfuric Acid": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Sulfuric Acid": 2},
+		"time": 3,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Turbofuel": {
+		"inputs": {"Turbofuel": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Turbofuel": 2},
+		"time": 6,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Packaged Water": {
+		"inputs": {"Water": 2, "Empty Canister": 2},
+		"outputs": {"Packaged Water": 2},
+		"time": 2,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Alumina Solution": {
+		"inputs": {"Packaged Alumina Solution": 2},
+		"outputs": {"Alumina Solution": 2, "Empty Canister": 2},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Fuel": {
+		"inputs": {"Packaged Fuel": 2},
+		"outputs": {"Fuel": 2, "Empty Canister": 2},
+		"time": 2,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Heavy Oil Residue": {
+		"inputs": {"Packaged Heavy Oil Residue": 2},
+		"outputs": {"Heavy Oil Residue": 2, "Empty Canister": 2},
+		"time": 6,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Liquid Biofuel": {
+		"inputs": {"Packaged Liquid Biofuel": 2},
+		"outputs": {"Liquid Biofuel": 2, "Empty Canister": 2},
+		"time": 2,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Nitric Acid": {
+		"inputs": {"Packaged Nitric Acid": 1},
+		"outputs": {"Nitric Acid": 1, "Empty Fluid Tank": 1},
+		"time": 3,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Nitrogen Gas": {
+		"inputs": {"Packaged Nitrogen Gas": 1},
+		"outputs": {"Nitrogen Gas": 4, "Empty Fluid Tank": 1},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Oil": {
+		"inputs": {"Packaged Oil": 2},
+		"outputs": {"Crude Oil": 2, "Empty Canister": 2},
+		"time": 2,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Sulfuric Acid": {
+		"inputs": {"Packaged Sulfuric Acid": 2},
+		"outputs": {"Sulfuric Acid": 2, "Empty Canister": 2},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Turbofuel": {
+		"inputs": {"Packaged Turbofuel": 2},
+		"outputs": {"Turbofuel": 2, "Empty Canister": 2},
+		"time": 6,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+	"Unpackage Water": {
+		"inputs": {"Packaged Water": 2},
+		"outputs": {"Water": 2, "Empty Canister": 2},
+		"time": 1,
+		"machine": "Packager",
+		"power_consumption": 10,
+		"tags": ["production", "default"]
+	},
+
+	# Refinery Recipes
+	"Alumina Solution": {
+		"inputs": {"Bauxite": 12, "Water": 18},
+		"outputs": {"Alumina Solution": 12, "Silica": 5},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Aluminum Scrap": {
+		"inputs": {"Alumina Solution": 4, "Coal": 2},
+		"outputs": {"Aluminum Scrap": 6, "Water": 2},
+		"time": 1,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Coated Cable": {
+		"inputs": {"Wire": 5, "Heavy Oil Residue": 2},
+		"outputs": {"Cable": 8},
+		"time": 8,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Diluted Packaged Fuel": {
+		"inputs": {"Heavy Oil Residue": 1, "Packaged Water": 2},
+		"outputs": {"Packaged Fuel": 2},
+		"time": 2,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Electrode Aluminum Scrap": {
+		"inputs": {"Alumina Solution": 12, "Petroleum Coke": 4},
+		"outputs": {"Aluminum Scrap": 20, "Water": 7},
+		"time": 4,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Fuel": {
+		"inputs": {"Crude Oil": 6},
+		"outputs": {"Fuel": 4, "Polymer Resin": 3},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Heavy Oil Residue": {
+		"inputs": {"Crude Oil": 3},
+		"outputs": {"Heavy Oil Residue": 4, "Polymer Resin": 3},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Liquid Biofuel": {
+		"inputs": {"Solid Biofuel": 6, "Water": 3},
+		"outputs": {"Liquid Biofuel": 4},
+		"time": 4,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Petroleum Coke": {
+		"inputs": {"Heavy Oil Residue": 4},
+		"outputs": {"Petroleum Coke": 12},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Plastic": {
+		"inputs": {"Crude Oil": 3},
+		"outputs": {"Plastic": 2, "Heavy Oil Residue": 1},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Polyester Fabric": {
+		"inputs": {"Polymer Resin": 1, "Water": 1},
+		"outputs": {"Fabric": 1},
+		"time": 2,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Polymer Resin": {
+		"inputs": {"Crude Oil": 6},
+		"outputs": {"Polymer Resin": 13, "Heavy Oil Residue": 2},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Pure Caterium Ingot": {
+		"inputs": {"Caterium Ore": 2, "Water": 2},
+		"outputs": {"Caterium Ingot": 1},
+		"time": 5,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Pure Copper Ingot": {
+		"inputs": {"Copper Ore": 6, "Water": 4},
+		"outputs": {"Copper Ingot": 15},
+		"time": 24,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Pure Iron Ingot": {
+		"inputs": {"Iron Ore": 7, "Water": 4},
+		"outputs": {"Iron Ingot": 13},
+		"time": 12,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Pure Quartz Crystal": {
+		"inputs": {"Raw Quartz": 9, "Water": 5},
+		"outputs": {"Quartz Crystal": 7},
+		"time": 8,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Recycled Plastic": {
+		"inputs": {"Rubber": 6, "Fuel": 6},
+		"outputs": {"Plastic": 12},
+		"time": 12,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Recycled Rubber": {
+		"inputs": {"Plastic": 6, "Fuel": 6},
+		"outputs": {"Rubber": 12},
+		"time": 12,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Residual Fuel": {
+		"inputs": {"Heavy Oil Residue": 6},
+		"outputs": {"Fuel": 4},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Residual Plastic": {
+		"inputs": {"Polymer Resin": 6, "Water": 2},
+		"outputs": {"Plastic": 2},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Residual Rubber": {
+		"inputs": {"Polymer Resin": 4, "Water": 4},
+		"outputs": {"Rubber": 2},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Rubber": {
+		"inputs": {"Crude Oil": 3},
+		"outputs": {"Rubber": 2, "Heavy Oil Residue": 2},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Sloppy Alumina": {
+		"inputs": {"Bauxite": 10, "Water": 10},
+		"outputs": {"Alumina Solution": 12},
+		"time": 3,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Smokeless Powder": {
+		"inputs": {"Black Powder": 2, "Heavy Oil Residue": 1},
+		"outputs": {"Smokeless Powder": 2},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Steamed Copper Sheet": {
+		"inputs": {"Copper Ingot": 3, "Water": 3},
+		"outputs": {"Copper Sheet": 3},
+		"time": 8,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Sulfuric Acid": {
+		"inputs": {"Sulfur": 5, "Water": 5},
+		"outputs": {"Sulfuric Acid": 5},
+		"time": 6,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "default"]
+	},
+	"Turbo Heavy Fuel": {
+		"inputs": {"Heavy Oil Residue": 5, "Compacted Coal": 4},
+		"outputs": {"Turbofuel": 4},
+		"time": 8,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Turbofuel": {
+		"inputs": {"Fuel": 6, "Compacted Coal": 4},
+		"outputs": {"Turbofuel": 5},
+		"time": 16,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+	"Wet Concrete": {
+		"inputs": {"Limestone": 6, "Water": 5},
+		"outputs": {"Concrete": 4},
+		"time": 3,
+		"machine": "Refinery",
+		"power_consumption": 30,
+		"tags": ["production", "alternate"]
+	},
+
+	# Blender Recipes
+	"Battery": {
+		"inputs": {
+			"Sulfuric Acid": 2.5,
+			"Alumina Solution": 2,
+			"Aluminum Casing": 1
+		},
+		"outputs": {"Battery": 1, "Water": 1.5},
+		"time": 3,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Cooling Device": {
+		"inputs": {"Heat Sink": 5, "Motor": 1, "Nitrogen Gas": 24},
+		"outputs": {"Cooling System": 2},
+		"time": 32,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Cooling System": {
+		"inputs": {"Heat Sink": 2, "Rubber": 2, "Water": 5, "Nitrogen Gas": 25},
+		"outputs": {"Cooling System": 1},
+		"time": 10,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Diluted Fuel": {
+		"inputs": {"Heavy Oil Residue": 5, "Water": 10},
+		"outputs": {"Fuel": 10},
+		"time": 6,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Encased Uranium Cell": {
+		"inputs": {"Uranium": 10, "Concrete": 3, "Sulfuric Acid": 8},
+		"outputs": {"Encased Uranium Cell": 5, "Sulfuric Acid": 2},
+		"time": 12,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Fertile Uranium": {
+		"inputs": {
+			"Uranium": 5,
+			"Uranium Waste": 5,
+			"Nitric Acid": 3,
+			"Sulfuric Acid": 5
+		},
+		"outputs": {"Non-fissile Uranium": 20, "Water": 8},
+		"time": 12,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Fused Modular Frame": {
+		"inputs": {
+			"Heavy Modular Frame": 1,
+			"Aluminum Casing": 50,
+			"Nitrogen Gas": 25
+		},
+		"outputs": {"Fused Modular Frame": 1},
+		"time": 40,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Heat-Fused Frame": {
+		"inputs": {
+			"Heavy Modular Frame": 1,
+			"Aluminum Ingot": 50,
+			"Nitric Acid": 8,
+			"Fuel": 10}
+		,
+		"outputs": {"Fused Modular Frame": 1},
+		"time": 20,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Instant Scrap": {
+		"inputs": {"Bauxite": 15, "Coal": 10, "Sulfuric Acid": 5, "Water": 6},
+		"outputs": {"Aluminum Scrap": 30, "Water": 5},
+		"time": 6,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Nitric Acid": {
+		"inputs": {"Nitrogen Gas": 12, "Water": 3, "Iron Plate": 1},
+		"outputs": {"Nitric Acid": 3},
+		"time": 6,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Non-fissile Uranium": {
+		"inputs": {
+			"Uranium Waste": 15,
+			"Silica": 10,
+			"Nitric Acid": 6,
+			"Sulfuric Acid": 6
+		},
+		"outputs": {"Non-fissile Uranium": 20, "Water": 6},
+		"time": 24,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+	"Turbo Blend Fuel": {
+		"inputs": {
+			"Fuel": 2,
+			"Heavy Oil Residue": 4,
+			"Sulfur": 3,
+			"Petroleum Coke": 3
+		},
+		"outputs": {"Turbofuel": 6},
+		"time": 8,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "alternate"]
+	},
+	"Turbo Rifle Ammo": {
+		"inputs": {"Rifle Ammo": 25, "Aluminum Casing": 3, "Turbofuel": 3},
+		"outputs": {"Turbo Rifle Ammo": 50},
+		"time": 12,
+		"machine": "Blender",
+		"power_consumption": 75,
+		"tags": ["production", "default"]
+	},
+
+	# Particle Accelerator Recipes
+	"Instant Plutonium Cell": {
+		"inputs": {"Non-fissile Uranium": 150, "Aluminum Casing": 20},
+		"outputs": {"Encased Plutonium Cell": 20},
+		"time": 120,
+		"machine": "Particle Accelerator",
+		"power_consumption": 500,
+		"tags": ["production", "alternate"]
+	},
+	"Nuclear Pasta": {
+		"inputs": {"Copper Powder": 200, "Pressure Conversion Cube": 1},
+		"outputs": {"Nuclear Pasta": 1},
+		"time": 120,
+		"machine": "Particle Accelerator",
+		"power_consumption": 1000,
+		"tags": ["production", "default"]
+	},
+	"Plutonium Pellet": {
+		"inputs": {"Non-fissile Uranium": 100, "Uranium Waste": 25},
+		"outputs": {"Plutonium Pellet": 30},
+		"time": 60,
+		"machine": "Particle Accelerator",
+		"power_consumption": 500,
+		"tags": ["production", "default"]
+	},
+
+	# Smelter Recipes
+	"Blue FICSMAS Ornament": {
+		"inputs": {"FICSMAS Gift": 1},
+		"outputs": {"Blue FICSMAS Ornament": 2},
+		"time": 12,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+	"Caterium Ingot": {
+		"inputs": {"Caterium Ore": 3},
+		"outputs": {"Caterium Ingot": 1},
+		"time": 4,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Copper Ingot": {
+		"inputs": {"Copper Ore": 1},
+		"outputs": {"Copper Ingot": 1},
+		"time": 2,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Iron Ingot": {
+		"inputs": {"Iron Ore": 1},
+		"outputs": {"Iron Ingot": 1},
+		"time": 2,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "default"]
+	},
+	"Pure Aluminum Ingot": {
+		"inputs": {"Aluminum Scrap": 2},
+		"outputs": {"Aluminum Ingot": 1},
+		"time": 2,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "alternate"]
+	},
+	"Red FICSMAS Ornament": {
+		"inputs": {"FICSMAS Gift": 1},
+		"outputs": {"Red FICSMAS Ornament": 1},
+		"time": 12,
+		"machine": "Smelter",
+		"power_consumption": 4,
+		"tags": ["production", "ficsmas"]
+	},
+
+	# Foundry Recipes
+	"Aluminum Ingot": {
+		"inputs": {"Aluminum Scrap": 6, "Silica": 5},
+		"outputs": {"Aluminum Ingot": 4},
+		"time": 4,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "default"]
+	},
+	"Coke Steel Ingot": {
+		"inputs": {"Iron Ore": 15, "Petroleum Coke": 15},
+		"outputs": {"Steel Ingot": 20},
+		"time": 12,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "alternate"]
+	},
+	"Compacted Steel Ingot": {
+		"inputs": {"Iron Ore": 6, "Compacted Coal": 3},
+		"outputs": {"Steel Ingot": 10},
+		"time": 16,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "alternate"]
+	},
+	"Copper Alloy Ingot": {
+		"inputs": {"Copper Ore": 10, "Iron Ore": 5},
+		"outputs": {"Copper Ingot": 20},
+		"time": 12,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "alternate"]
+	},
+	"Copper FICSMAS Ornament": {
+		"inputs": {"Red FICSMAS Ornament": 2, "Copper Ingot": 2},
+		"outputs": {"Copper FICSMAS Ornament": 1},
+		"time": 12,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "ficsmas"]
+	},
+	"Iron Alloy Ingot": {
+		"inputs": {"Iron Ore": 2, "Copper Ore": 2},
+		"outputs": {"Iron Ingot": 5},
+		"time": 6,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "alternate"]
+	},
+	"Iron FICSMAS Ornament": {
+		"inputs": {"Blue FICSMAS Ornament": 3, "Iron Ingot": 3},
+		"outputs": {"Iron FICSMAS Ornament": 1},
+		"time": 12,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "ficsmas"]
+	},
+	"Solid Steel Ingot": {
+		"inputs": {"Iron Ingot": 2, "Coal": 2},
+		"outputs": {"Steel Ingot": 3},
+		"time": 3,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "alternate"]
+	},
+	"Steel Ingot": {
+		"inputs": {"Iron Ore": 3, "Coal": 3},
+		"outputs": {"Steel Ingot": 3},
+		"time": 4,
+		"machine": "Foundry",
+		"power_consumption": 16,
+		"tags": ["production", "default"]
+	},
+
+	# Biomass Burner Recipes
+	"Burn Leaves": {
+		"inputs": {"Leaves": 1},
+		"outputs": {},
+		"time": 0.5,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Flower Petals": {
+		"inputs": {"Flower Petals": 3},
+		"outputs": {},
+		"time": 10,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Wood": {
+		"inputs": {"Wood": 3},
+		"outputs": {},
+		"time": 10,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Mycelia": {
+		"inputs": {"Mycelia": 3},
+		"outputs": {},
+		"time": 2,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Biomass": {
+		"inputs": {"Biomass": 1},
+		"outputs": {},
+		"time": 6,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Solid Biofuel": {
+		"inputs": {"Solid Biofuel": 1},
+		"outputs": {},
+		"time": 15,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Packaged Liquid Biofuel": {
+		"inputs": {"Packaged Liquid Biofuel": 1},
+		"outputs": {},
+		"time": 25,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+	"Burn Fabric": {
+		"inputs": {"Fabric": 1},
+		"outputs": {},
+		"time": 0.5,
+		"machine": "Biomass Burner",
+		"power_consumption": -30,
+		"tags": ["power"]
+	},
+
+	# Coal Generator Recipes
+	"Burn Coal": {
+		"inputs": {"Coal": 1, "Water": 3},
+		"outputs": {},
+		"time": 4,
+		"machine": "Coal Generator",
+		"power_consumption": -75,
+		"tags": ["power"]
+	},
+	"Burn Compacted Coal": {
+		"inputs": {"Compacted Coal": 1, "Water": 6.3},
+		"outputs": {},
+		"time": 8.4,
+		"machine": "Coal Generator",
+		"power_consumption": -75,
+		"tags": ["power"]
+	},
+	"Burn Petroleum Coke": {
+		"inputs": {"Petroleum Coke": 1, "Water": 1.8},
+		"outputs": {},
+		"time": 2.4,
+		"machine": "Coal Generator",
+		"power_consumption": -75,
+		"tags": ["power"]
+	},
+
+	# Fuel Generator Recipes
+	"Burn Fuel": {
+		"inputs": {"Fuel": 1},
+		"outputs": {},
+		"time": 5,
+		"machine": "Fuel Generator",
+		"power_consumption": -150,
+		"tags": ["power"]
+	},
+	"Burn Liquid Biofuel": {
+		"inputs": {"Liquid Biofuel": 1},
+		"outputs": {},
+		"time": 5,
+		"machine": "Fuel Generator",
+		"power_consumption": -150,
+		"tags": ["power"]
+	},
+	"Burn Turbofuel": {
+		"inputs": {"Turbofuel": 3},
+		"outputs": {},
+		"time": 40,
+		"machine": "Fuel Generator",
+		"power_consumption": -150,
+		"tags": ["power"]
+	},
+
+	# Nuclear Power Plant Recipes
+	"Plutonium Waste": {
+		"inputs": {"Plutonium Fuel Rod": 1, "Water": 3000},
+		"outputs": {"Plutonium Waste": 10},
+		"time": 600,
+		"machine": "Nuclear Power Plant",
+		"power_consumption": -2500,
+		"tags": ["production", "default", "power"]
+	},
+	"Uranium Waste": {
+		"inputs": {"Uranium Fuel Rod": 1, "Water": 1500},
+		"outputs": {"Uranium Waste": 50},
+		"time": 300,
+		"machine": "Nuclear Power Plant",
+		"power_consumption": -2500,
+		"tags": ["production", "default", "power"]
+	},
+
+	# Awesome Sink Recipes
+	"Sink Red FICSMAS Ornament": {
+		"inputs": {"Red FICSMAS Ornament": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Sparkly Fireworks": {
+		"inputs": {"Sparkly Fireworks": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Fancy Fireworks": {
+		"inputs": {"Fancy Fireworks": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Iron Ore": {
+		"inputs": {"Iron Ore": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Blue FICSMAS Ornament": {
+		"inputs": {"Blue FICSMAS Ornament": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Decoration": {
+		"inputs": {"FICSMAS Decoration": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Actual Snow": {
+		"inputs": {"Actual Snow": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Tree Branch": {
+		"inputs": {"FICSMAS Tree Branch": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Iron FICSMAS Ornament": {
+		"inputs": {"Iron FICSMAS Ornament": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Ornament Bundle": {
+		"inputs": {"FICSMAS Ornament Bundle": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Copper FICSMAS Ornament": {
+		"inputs": {"Copper FICSMAS Ornament": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Gift": {
+		"inputs": {"FICSMAS Gift": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Snowball": {
+		"inputs": {"Snowball": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Bow": {
+		"inputs": {"FICSMAS Bow": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Sweet Fireworks": {
+		"inputs": {"Sweet Fireworks": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink FICSMAS Wonder Star": {
+		"inputs": {"FICSMAS Wonder Star": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Candy Cane": {
+		"inputs": {"Candy Cane": 1},
+		"outputs": {"Awesome Sink Point": 1},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_ficsmas"]
+	},
+	"Sink Iron Ingot": {
+		"inputs": {"Iron Ingot": 1},
+		"outputs": {"Awesome Sink Point": 2},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Screw": {
+		"inputs": {"Screw": 1},
+		"outputs": {"Awesome Sink Point": 2},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Limestone": {
+		"inputs": {"Limestone": 1},
+		"outputs": {"Awesome Sink Point": 2},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Copper Ore": {
+		"inputs": {"Copper Ore": 1},
+		"outputs": {"Awesome Sink Point": 3},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Coal": {
+		"inputs": {"Coal": 1},
+		"outputs": {"Awesome Sink Point": 3},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Leaves": {
+		"inputs": {"Leaves": 1},
+		"outputs": {"Awesome Sink Point": 3},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Iron Rod": {
+		"inputs": {"Iron Rod": 1},
+		"outputs": {"Awesome Sink Point": 4},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Copper Ingot": {
+		"inputs": {"Copper Ingot": 1},
+		"outputs": {"Awesome Sink Point": 6},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Wire": {
+		"inputs": {"Wire": 1},
+		"outputs": {"Awesome Sink Point": 6},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Iron Plate": {
+		"inputs": {"Copper Ingot": 1},
+		"outputs": {"Awesome Sink Point": 6},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Caterium Ore": {
+		"inputs": {"Caterium Ore": 1},
+		"outputs": {"Awesome Sink Point": 7},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Steel Ingot": {
+		"inputs": {"Steel Ingot": 1},
+		"outputs": {"Awesome Sink Point": 8},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Bauxite": {
+		"inputs": {"Bauxite": 1},
+		"outputs": {"Awesome Sink Point": 8},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Color Cartridge": {
+		"inputs": {"Color Cartridge": 1},
+		"outputs": {"Awesome Sink Point": 10},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Flower Petals": {
+		"inputs": {"Flower Petals": 1},
+		"outputs": {"Awesome Sink Point": 10},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Mycelia": {
+		"inputs": {"Mycelia": 1},
+		"outputs": {"Awesome Sink Point": 10},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Sulfur": {
+		"inputs": {"Sulfur": 1},
+		"outputs": {"Awesome Sink Point": 11},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Concrete": {
+		"inputs": {"Concrete": 1},
+		"outputs": {"Awesome Sink Point": 12},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Polymer Resin": {
+		"inputs": {"Polymer Resin": 1},
+		"outputs": {"Awesome Sink Point": 12},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Biomass": {
+		"inputs": {"Biomass": 1},
+		"outputs": {"Awesome Sink Point": 12},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Raw Quartz": {
+		"inputs": {"Raw Quartz": 1},
+		"outputs": {"Awesome Sink Point": 15},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Quickwire": {
+		"inputs": {"Quickwire": 1},
+		"outputs": {"Awesome Sink Point": 17},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Petroleum Coke": {
+		"inputs": {"Petroleum Coke": 1},
+		"outputs": {"Awesome Sink Point": 20},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Silica": {
+		"inputs": {"Silica": 1},
+		"outputs": {"Awesome Sink Point": 20},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Copper Sheet": {
+		"inputs": {"Copper Sheet": 1},
+		"outputs": {"Awesome Sink Point": 24},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Cable": {
+		"inputs": {"Cable": 1},
+		"outputs": {"Awesome Sink Point": 24},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Steel Pipe": {
+		"inputs": {"Copper Sheet": 1},
+		"outputs": {"Awesome Sink Point": 24},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Rifle Ammo": {
+		"inputs": {"Rifle Ammo": 1},
+		"outputs": {"Awesome Sink Point": 25},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Aluminum Scrap": {
+		"inputs": {"Aluminum Scrap": 1},
+		"outputs": {"Awesome Sink Point": 27},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Compacted Coal": {
+		"inputs": {"Compacted Coal": 1},
+		"outputs": {"Awesome Sink Point": 28},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Wood": {
+		"inputs": {"Wood": 1},
+		"outputs": {"Awesome Sink Point": 30},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Uranium": {
+		"inputs": {"Uranium": 1},
+		"outputs": {"Awesome Sink Point": 35},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Caterium Ingot": {
+		"inputs": {"Caterium Ingot": 1},
+		"outputs": {"Awesome Sink Point": 42},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Solid Biofuel": {
+		"inputs": {"Solid Biofuel": 1},
+		"outputs": {"Awesome Sink Point": 48},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Quartz Crystal": {
+		"inputs": {"Quartz Crystal": 1},
+		"outputs": {"Awesome Sink Point": 50},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Black Powder": {
+		"inputs": {"Black Powder": 1},
+		"outputs": {"Awesome Sink Point": 50},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Portable Miner": {
+		"inputs": {"Portable Miner": 1},
+		"outputs": {"Awesome Sink Point": 60},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Rubber": {
+		"inputs": {"Rubber": 1},
+		"outputs": {"Awesome Sink Point": 60},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Empty Canister": {
+		"inputs": {"Empty Canister": 1},
+		"outputs": {"Awesome Sink Point": 60},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Steel Beam": {
+		"inputs": {"Steel Beam": 1},
+		"outputs": {"Awesome Sink Point": 64},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Copper Powder": {
+		"inputs": {"Copper Powder": 1},
+		"outputs": {"Awesome Sink Point": 72},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Plastic": {
+		"inputs": {"Plastic": 1},
+		"outputs": {"Awesome Sink Point": 75},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Iron Rebar": {
+		"inputs": {"Iron Rebar": 1},
+		"outputs": {"Awesome Sink Point": 100},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Reinforced Iron Plate": {
+		"inputs": {"Reinforced Iron Plate": 1},
+		"outputs": {"Awesome Sink Point": 120},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Turbo Rifle Ammo": {
+		"inputs": {"Turbo Rifle Ammo": 1},
+		"outputs": {"Awesome Sink Point": 120},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Water": {
+		"inputs": {"Packaged Water": 1},
+		"outputs": {"Awesome Sink Point": 130},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Aluminum Ingot": {
+		"inputs": {"Aluminum Ingot": 1},
+		"outputs": {"Awesome Sink Point": 131},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Fabric": {
+		"inputs": {"Fabric": 1},
+		"outputs": {"Awesome Sink Point": 140},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Rotor": {
+		"inputs": {"Rotor": 1},
+		"outputs": {"Awesome Sink Point": 140},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Encased Uranium Cell": {
+		"inputs": {"Encased Uranium Cell": 1},
+		"outputs": {"Awesome Sink Point": 147},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Sulfuric Acid": {
+		"inputs": {"Packaged Sulfuric Acid": 1},
+		"outputs": {"Awesome Sink Point": 152},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Nobelisk": {
+		"inputs": {"Nobelisk": 1},
+		"outputs": {"Awesome Sink Point": 152},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Alumina Solution": {
+		"inputs": {"Packaged Alumina Solution": 1},
+		"outputs": {"Awesome Sink Point": 160},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Heavy Oil Residue": {
+		"inputs": {"Packaged Heavy Oil Residue": 1},
+		"outputs": {"Awesome Sink Point": 180},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Oil": {
+		"inputs": {"Packaged Oil": 1},
+		"outputs": {"Awesome Sink Point": 180},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Stun Rebar": {
+		"inputs": {"Stun Rebar": 1},
+		"outputs": {"Awesome Sink Point": 186},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Empty Fluid Tank": {
+		"inputs": {"Empty Fluid Tank": 1},
+		"outputs": {"Awesome Sink Point": 225},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Stator": {
+		"inputs": {"Stator": 1},
+		"outputs": {"Awesome Sink Point": 240},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Alclad Aluminum Sheet": {
+		"inputs": {"Alclad Aluminum Sheet": 1},
+		"outputs": {"Awesome Sink Point": 266},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Fuel": {
+		"inputs": {"Packaged Fuel": 1},
+		"outputs": {"Awesome Sink Point": 270},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Nitrogen Gas": {
+		"inputs": {"Packaged Nitrogen Gas": 1},
+		"outputs": {"Awesome Sink Point": 312},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Beacon": {
+		"inputs": {"Beacon": 1},
+		"outputs": {"Awesome Sink Point": 320},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Shatter Rebar": {
+		"inputs": {"Shatter Rebar": 1},
+		"outputs": {"Awesome Sink Point": 332},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Explosive Rebar": {
+		"inputs": {"Explosive Rebar": 1},
+		"outputs": {"Awesome Sink Point": 360},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Liquid Biofuel": {
+		"inputs": {"Packaged Liquid Biofuel": 1},
+		"outputs": {"Awesome Sink Point": 370},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Aluminum Casing": {
+		"inputs": {"Aluminum Casing": 1},
+		"outputs": {"Awesome Sink Point": 393},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Modular Frame": {
+		"inputs": {"Modular Frame": 1},
+		"outputs": {"Awesome Sink Point": 408},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Nitric Acid": {
+		"inputs": {"Packaged Nitric Acid": 1},
+		"outputs": {"Awesome Sink Point": 412},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Battery": {
+		"inputs": {"Battery": 1},
+		"outputs": {"Awesome Sink Point": 465},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Smart Plating": {
+		"inputs": {"Smart Plating": 1},
+		"outputs": {"Awesome Sink Point": 520},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Gas Nobelisk": {
+		"inputs": {"Gas Nobelisk": 1},
+		"outputs": {"Awesome Sink Point": 544},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Packaged Turbofuel": {
+		"inputs": {"Packaged Turbofuel": 1},
+		"outputs": {"Awesome Sink Point": 570},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Parachute": {
+		"inputs": {"Parachute": 1},
+		"outputs": {"Awesome Sink Point": 608},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Encased Industrial Beam": {
+		"inputs": {"Encased Industrial Beam": 1},
+		"outputs": {"Awesome Sink Point": 632},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Circuit Board": {
+		"inputs": {"Circuit Board": 1},
+		"outputs": {"Awesome Sink Point": 696},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Gas Filter": {
+		"inputs": {"Gas Filter": 1},
+		"outputs": {"Awesome Sink Point": 830},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Homing Rifle Ammo": {
+		"inputs": {"Homing Rifle Ammo": 1},
+		"outputs": {"Awesome Sink Point": 855},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink AI Limiter": {
+		"inputs": {"AI Limiter": 1},
+		"outputs": {"Awesome Sink Point": 920},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Versatile Framework": {
+		"inputs": {"Versatile Framework": 1},
+		"outputs": {"Awesome Sink Point": 1176},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Cluster Nobelisk": {
+		"inputs": {"Cluster Nobelisk": 1},
+		"outputs": {"Awesome Sink Point": 1376},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Automated Wiring": {
+		"inputs": {"Automated Wiring": 1},
+		"outputs": {"Awesome Sink Point": 1440},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Motor": {
+		"inputs": {"Motor": 1},
+		"outputs": {"Awesome Sink Point": 1520},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Pulse Nobelisk": {
+		"inputs": {"Pulse Nobelisk": 1},
+		"outputs": {"Awesome Sink Point": 1533},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Electromagnetic Control Rod": {
+		"inputs": {"Electromagnetic Control Rod": 1},
+		"outputs": {"Awesome Sink Point": 2560},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Iodine Infused Filter": {
+		"inputs": {"Iodine Infused Filter": 1},
+		"outputs": {"Awesome Sink Point": 2718},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Heat Sink": {
+		"inputs": {"Heat Sink": 1},
+		"outputs": {"Awesome Sink Point": 2804},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Crystal Oscillator": {
+		"inputs": {"Crystal Oscillator": 1},
+		"outputs": {"Awesome Sink Point": 3072},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink High-Speed Connector": {
+		"inputs": {"High-Speed Connector": 1},
+		"outputs": {"Awesome Sink Point": 3776},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Modular Engine": {
+		"inputs": {"Modular Engine": 1},
+		"outputs": {"Awesome Sink Point": 9960},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Heavy Modular Frame": {
+		"inputs": {"Heavy Modular Frame": 1},
+		"outputs": {"Awesome Sink Point": 11520},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Cooling System": {
+		"inputs": {"Cooling System": 1},
+		"outputs": {"Awesome Sink Point": 12006},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Magnetic Field Generator": {
+		"inputs": {"Magnetic Field Generator": 1},
+		"outputs": {"Awesome Sink Point": 15650},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Computer": {
+		"inputs": {"Computer": 1},
+		"outputs": {"Awesome Sink Point": 17260},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Nuke Nobelisk": {
+		"inputs": {"Nuke Nobelisk": 1},
+		"outputs": {"Awesome Sink Point": 19600},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Radio Control Unit": {
+		"inputs": {"Radio Control Unit": 1},
+		"outputs": {"Awesome Sink Point": 32908},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Uranium Fuel Rod": {
+		"inputs": {"Uranium Fuel Rod": 1},
+		"outputs": {"Awesome Sink Point": 44092},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Fused Modular Frame": {
+		"inputs": {"Fused Modular Frame": 1},
+		"outputs": {"Awesome Sink Point": 62840},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Adaptive Control Unit": {
+		"inputs": {"Adaptive Control Unit": 1},
+		"outputs": {"Awesome Sink Point": 86120},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Supercomputer": {
+		"inputs": {"Supercomputer": 1},
+		"outputs": {"Awesome Sink Point": 99576},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Plutonium Fuel Rod": {
+		"inputs": {"Plutonium Fuel Rod": 1},
+		"outputs": {"Awesome Sink Point": 153184},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Turbo Motor": {
+		"inputs": {"Turbo Motor": 1},
+		"outputs": {"Awesome Sink Point": 242720},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Pressure Conversion Cube": {
+		"inputs": {"Pressure Conversion Cube": 1},
+		"outputs": {"Awesome Sink Point": 257312},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Nuclear Pasta": {
+		"inputs": {"Nuclear Pasta": 1},
+		"outputs": {"Awesome Sink Point": 543424},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Assembly Director System": {
+		"inputs": {"Assembly Director System": 1},
+		"outputs": {"Awesome Sink Point": 543632},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+	"Sink Thermal Propulsion Rocket": {
+		"inputs": {"Thermal Propulsion Rocket": 1},
+		"outputs": {"Awesome Sink Point": 732956},
+		"time": "60/780",
+		"machine": "Awesome Sink",
+		"power_consumption": 30,
+		"tags": ["sink_production"]
+	},
+}
