@@ -39,7 +39,7 @@ All file input and output is formatted as JSON, with the extension that single-l
 The items, machines, and recipes are provided inside of the repository, and generally don't need to be specified unless you want to use a different set of recipes.
 The recipes provided are for U6.
 
-## problem-file
+## problem-file: {*}
 
 The problem file is where you specify what you'd like your factory to do.
 You decide what recipes to use, what resources are available, and what constraints on the production graph you'd like to be satisfied.
@@ -210,6 +210,52 @@ If you don't want to plan a power plant, don't enable power generation recipes.
 This is one special item that is noteworthy here: "Awesome Sink Point".
 It is not an item in the traditional sense, but it is the output of all of the "Sink [Item]" recipes.
 It is possible to attempt to maximize or minimize the production of Awesome Sink points by naming this item in a maximization goal.
+
+## Output Format: {*}
+
+Once the script is run, it will produce some output.
+Assuming that there are no syntax errors or runtime bugs, it will either produce a factory plan, or it will say 'No solution found' in the case that the problem specification is over-constrained.
+
+The factory plan is reported as a JSON dictionary/object with 4 entries.
+
+### "items": {"Item": Real, ...}
+
+The "items" entry reports the number per minute of each item that passes through the factory, be that as in input, an output, an intermediate product, or some combination thereof.
+Only items that actually appear in the factory plan with nonzero flows are reported.
+
+### "recipes": {"Recipe": {*}, ...}
+
+The "recipes" entry reports some statistics about each recipe that is used in the factory plan.
+Each recipe has 4 entries.
+
+#### "machine_count": Real
+
+The number of machines used to produce this recipe.
+
+#### "inputs": {"Item": Real, ...}
+
+The number of items consumed by this recipe per minute for each item consumed.
+
+#### "outputs": {"Item": Real, ...}
+
+The number of items produced by this recipe per minute for each item produced.
+
+#### "power consumption": Real
+
+The power consumption of all of the machines used to produce this recipe.
+
+### "machines": {"Machine": Real, ...}
+
+The "machines" entry reports the number of each type of machine that is used in the factory.
+As it is the sum of potentially fractional values, and a single machine cannot be used for more than one recipe, this is really a lower bound on the actual number of machines that you will have to build.
+It can still be used to get an idea of how the production is distributed.
+
+### "total_power_consumption": Real
+
+Lastly, the "total_power_consumption" entry reports the total power consumption of the entire factory, in MW.
+Negative values imply that the factory actually _generates_ power.
+
+# Appendix
 
 ## items-file: ["Item", ...]
 
