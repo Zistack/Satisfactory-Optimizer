@@ -95,6 +95,13 @@ class Problem:
 
 		solver . add (self . total_power_consumption_calculation (recipes))
 
+		if self . max_power_consumption != None:
+
+			solver . add (
+				self . total_power_consumption_variable
+					<= self . max_power_consumption
+			)
+
 	def add_objective_functions (self, solver):
 
 		for optimization_goal in self . optimization_goals:
