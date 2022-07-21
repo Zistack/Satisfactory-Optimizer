@@ -46,7 +46,11 @@ You decide what recipes to use, what resources are available, and what constrain
 You can also specify some optimization parameters as well.
 The solver minimizes the power consumption of all factories once all other constraints are satisfied.
 
-`test.json` is a problem file included in the repository which may be viewed as an example.
+Some example problems may be found in the repository.
+
+ * `test.json` describes a power-maximized waste-free nuclear power setup.
+ * `employee_of_the_universe.json` describes a factory that exploits all of the resources on the map to produce as many of the phase 4 project parts as is possible in the correct ratios.
+ * `the_big_cheese.json` describes a factory that exploits all of the resources on the map to produce as many awesome sink points as is possible.
 
 The problem description is broken up into several fields.
 Each field is documented separately below.
