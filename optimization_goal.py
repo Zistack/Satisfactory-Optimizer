@@ -118,6 +118,12 @@ def get_optimization_goal (goal_type, goal_data, items, recipes):
 			utils . get_item (goal_data, items)
 		)
 
+	if goal_type == 'maximize_items_production':
+
+		return MaximizeItemsConsumption (
+			utils . get_finite_item_quantities (goal_data, items)
+		)
+
 	if goal_type == 'maximize_item_consumption':
 
 		return MaximizeItemProduction (
@@ -128,12 +134,6 @@ def get_optimization_goal (goal_type, goal_data, items, recipes):
 
 		return MinimizeItemConsumption (
 			utils . get_item (goal_data, items)
-		)
-
-	if goal_type == 'maximize_items_production':
-
-		return MaximizeItemsConsumption (
-			utils . get_finite_item_quantities (goal_data, items)
 		)
 
 	if goal_type == 'maximize_item_flow':
