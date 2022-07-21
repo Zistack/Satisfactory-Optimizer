@@ -1,3 +1,5 @@
+from z3 import *
+
 import utils
 
 class MaximizeItemProduction:
@@ -48,12 +50,21 @@ class MaximizeItemsProduction:
 
 	def add_objective_function (self, solver):
 
-		solver . maximize (
-			sum (
-				item . output_variable * quantity
-				for item, quantity in self . items . items ()
+		variable_name = (
+			utils . variable_name (
+				' ' . join (
+					item . pretty_name for item in self . items . keys ()
+				)
 			)
+			+ '_production'
 		)
+		variable = Real (variable_name)
+
+		for item, quantity in self . items . items ():
+
+			solver . add (item . output_variable == quantity * variable)
+
+		solver . maximize (variable)
 
 class MaximizeItemFlow:
 
@@ -83,12 +94,21 @@ class MaximizeItemsFlow:
 
 	def add_objective_function (self, solver):
 
-		solver . maximize (
-			sum (
-				item . flow_variable * quantity
-				for item, quantity in self . items . items ()
+		variable_name = (
+			utils . variable_name (
+				' ' . join (
+					item . pretty_name for item in self . items . keys ()
+				)
 			)
+			+ '_flow'
 		)
+		variable = Real (variable_name)
+
+		for item, quantity in self . items . items ():
+
+			solver . add (item . flow_variable == quantity * variable)
+
+		solver . maximize (variable)
 
 class MaximizeRecipe:
 
