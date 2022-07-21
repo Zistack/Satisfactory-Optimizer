@@ -444,7 +444,7 @@
 		"power_consumption": 15,
 		"tags": ["production", "alternate"]
 	},
-	"Cheap Silical": {
+	"Cheap Silica": {
 		"inputs": {"Raw Quartz": 3, "Limestone": 5},
 		"outputs": {"Silica": 7},
 		"time": 16,
