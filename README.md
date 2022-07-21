@@ -121,7 +121,7 @@ Quantities can also be strings containing numbers as decimals or fractions.
 Because these values are interpreted by the Z3 library, they are treated as exact, and can have an arbitrary number of digits.
 This is true of all locations where numbers may be specified.
 
-**Quantities here are all specified in units of items per minute.**
+Quantities here are all specified in units of items per minute.
 
 There is also a special value which may be supplied in place of the quantity here: "unlimited".
 This is useful for when you don't want to apply a particular upper bound to a resource, but want to supply it to the factory.
