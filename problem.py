@@ -140,7 +140,7 @@ def load_problem (problem_file_name, items, recipes, groups):
 
 		for excluded_recipe in excluded_recipes:
 
-			problem_recipes -= get_recipe_set (included_recipe, recipes, groups)
+			problem_recipes -= get_recipe_set (excluded_recipe, recipes, groups)
 
 	# Input items
 
