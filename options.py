@@ -39,9 +39,7 @@ parser . add_argument (
 
 parser . add_argument (
 	'problem_file_name',
-	default = None,
-	help = 'The location of the file containing the problem description '
-		+ '(default: standard input).'
+	help = 'The location of the file containing the problem description.'
 )
 
 def parse_args ():

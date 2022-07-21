@@ -111,9 +111,11 @@ def get_recipe_set (meta_recipe_name, recipes, groups):
 
 	return {utils . get_recipe (meta_recipe_name, recipes)}
 
-def read_problem (problem_file, items, recipes, groups):
+def load_problem (problem_file_name, items, recipes, groups):
 
-	problem_data = commentjson . load (problem_file)
+	with open (problem_file_name, 'r') as problem_file:
+
+		problem_data = commentjson . load (problem_file)
 
 	# Recipes
 
@@ -185,9 +187,3 @@ def read_problem (problem_file, items, recipes, groups):
 		max_power_consumption,
 		optimization_goals
 	)
-
-def load_problem (problem_file_name, items, recipes, groups):
-
-	with open (problem_file_name, 'r') as problem_file:
-
-		return read_problem (problem_file, items, recipes, groups)

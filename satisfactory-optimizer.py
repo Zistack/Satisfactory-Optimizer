@@ -27,18 +27,12 @@ def main ():
 		machines
 	)
 
-	if options . problem_file_name != None:
-
-		problem = load_problem (
-			options . problem_file_name,
-			items,
-			recipes,
-			groups
-		)
-
-	else:
-
-		problem = read_problem (sys . stdin, items, recipes, groups)
+	problem = load_problem (
+		options . problem_file_name,
+		items,
+		recipes,
+		groups
+	)
 
 	if options . precision >= 0:
 
