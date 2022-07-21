@@ -229,21 +229,21 @@ Only items that actually appear in the factory plan with nonzero flows are repor
 The "recipes" entry reports some statistics about each recipe that is used in the factory plan.
 Each recipe has 4 entries.
 
-#### "machine_count": Real
+ * "machine_count": Real
 
-The number of machines used to produce this recipe.
+   The number of machines used to produce this recipe.
 
-#### "inputs": {"Item": Real, ...}
+ * "inputs": {"Item": Real, ...}
 
-The number of items consumed by this recipe per minute for each item consumed.
+   The number of items consumed by this recipe per minute for each item consumed.
 
-#### "outputs": {"Item": Real, ...}
+ * "outputs": {"Item": Real, ...}
 
-The number of items produced by this recipe per minute for each item produced.
+   The number of items produced by this recipe per minute for each item produced.
 
-#### "power consumption": Real
+ * "power consumption": Real
 
-The power consumption of all of the machines used to produce this recipe.
+   The power consumption of all of the machines used to produce this recipe.
 
 ### "machines": {"Machine": Real, ...}
 
