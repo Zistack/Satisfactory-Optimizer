@@ -1,7 +1,7 @@
 # Satisfactory Optimizer
 
 A simple command-line utility for planning factories in Satisfactory.
-In addition to being a full teplacement for online calculators (albeit with a less convenient user interface), it is capable of responding to optimization queries, like maximizing the output of a product given a set of input resources.
+In addition to being a full replacement for online calculators (albeit with a less convenient user interface), it is capable of responding to optimization queries, like maximizing the output of a product given a set of input resources.
 This tool uses [Z3](https://github.com/z3prover/z3), a powerful SMT solver to plan and optimize factories.
 
 ## Installation
@@ -33,10 +33,10 @@ This tool uses [Z3](https://github.com/z3prover/z3), a powerful SMT solver to pl
 	                        Specifies the number of digits to display after the decimal point when reporting fractional results (default: 2). Set to a negative number to display fractional values as exact fractions.
 
 This is the main script file.
-It takes a file listing the items, a file listing the machines, a file describing all of the available recipes, and a file describing the optimmization problem that you would like it to solve, and produces a factory plan.
+It takes a file listing the items, a file listing the machines, a file describing all of the available recipes, and a file describing the optimization problem that you would like it to solve, and produces a factory plan.
 All file input and output is formatted as JSON, with the extension that single-line comments are allowed.
 
-The items, machines, and recipes are provided inside of the reposity, and generally don't need to be spacified unless you want to use a different set of recipes.
+The items, machines, and recipes are provided inside of the repository, and generally don't need to be specified unless you want to use a different set of recipes.
 The recipes provided are for U6.
 
 ## problem-file
@@ -62,7 +62,7 @@ For the most part, the recipe names are the same as they are in-game.  The excep
 
  * "Alternate: Alclad Casing" -> "Alclad Casing"
  * "Electrode - Aluminum Scrap" -> "Electrode Aluminum Scrap"
- * "Turbo Rifle Ammo" -> "Pckaged Turbo Rifle Ammo" (For the recipe that uses the manufacturer)
+ * "Turbo Rifle Ammo" -> "Packaged Turbo Rifle Ammo" (For the recipe that uses the manufacturer)
 
 There are also some additional recipes to be aware of that help plan factories.
 
@@ -178,7 +178,7 @@ The goal types and their behaviors are described below.
  * ["maximize_item_flow", "Item"]
 
    Maximizes the number of the named item that is produced by the factory, but does not require that all of those items are outputs.
-   This can be used to maximize the production of an item that is ultimately sinked, for example.
+   This can be used to maximize the production of an item that is ultimately sunk, for example.
 
  * ["minimize_item_flow", "Item"]
 
@@ -192,7 +192,7 @@ The goal types and their behaviors are described below.
 
  * ["maximize_recipe": "Recipe"]
 
-   Maxmizes the use of the named recipe.
+   Maximizes the use of the named recipe.
    Can be useful for planning power plants.
 
  * ["minimize_recipe": "Recipe"]
