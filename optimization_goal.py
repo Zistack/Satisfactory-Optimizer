@@ -49,7 +49,10 @@ class MaximizeItemsProduction:
 	def add_objective_function (self, solver):
 
 		solver . maximize (
-			sum (item . output_variable * quantity for item, quantity in items)
+			sum (
+				item . output_variable * quantity
+				for item, quantity in self . items . items ()
+			)
 		)
 
 class MaximizeItemFlow:
@@ -81,7 +84,10 @@ class MaximizeItemsFlow:
 	def add_objective_function (self, solver):
 
 		solver . maximize (
-			sum (item . flow_variable * quantity for item, quantity in items)
+			sum (
+				item . flow_variable * quantity
+				for item, quantity in self . items . items ()
+			)
 		)
 
 class MaximizeRecipe:
@@ -120,13 +126,13 @@ def get_optimization_goal (goal_type, goal_data, items, recipes):
 
 	if goal_type == 'maximize_items_production':
 
-		return MaximizeItemsConsumption (
+		return MaximizeItemsProduction (
 			utils . get_finite_item_quantities (goal_data, items)
 		)
 
 	if goal_type == 'maximize_item_consumption':
 
-		return MaximizeItemProduction (
+		return MaximizeItemConsumption (
 			utils . get_item (goal_data, items)
 		)
 
