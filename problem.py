@@ -4,10 +4,6 @@ from z3 import *
 
 import utils
 
-from power_consumption_goal import (
-	get_power_consumption_goal,
-	SetPowerConsumption
-)
 from optimization_goal import get_optimization_goal
 
 class Problem:
@@ -17,14 +13,14 @@ class Problem:
 		recipes,
 		input_items,
 		output_items,
-		power_consumption_goal,
+		max_power_consumption,
 		optimization_goals
 	):
 
 		self . recipes = recipes
 		self . input_items = input_items
 		self . output_items = output_items
-		self . power_consumption_goal = power_consumption_goal
+		self . max_power_consumption = max_power_consumption
 		self . optimization_goals = optimization_goals
 
 		self . total_power_consumption_variable = Real (
@@ -99,19 +95,13 @@ class Problem:
 
 		solver . add (self . total_power_consumption_calculation (recipes))
 
-		if self . power_consumption_goal != None:
-
-			self . power_consumption_goal . add_constraint (solver, self)
-
 	def add_objective_functions (self, solver):
 
 		for optimization_goal in self . optimization_goals:
 
 			optimization_goal . add_objective_function (solver)
 
-		if type (self . power_consumption_goal) != SetPowerConsumption:
-
-			solver . minimize (self . total_power_consumption_variable)
+		solver . minimize (self . total_power_consumption_variable)
 
 def get_recipe_set (meta_recipe_name, recipes, groups):
 
@@ -165,7 +155,13 @@ def read_problem (problem_file, items, recipes, groups):
 
 	# Power Consumption
 
-	power_consumption_goal = get_power_consumption_goal (problem_data)
+	if 'max_power_consumption' in problem_data:
+
+		max_power_consumption = RealVal (problem_data ['max_power_consumption'])
+
+	else:
+
+		max_power_consumption = None
 
 	# Optimization Goals
 
@@ -186,7 +182,7 @@ def read_problem (problem_file, items, recipes, groups):
 		problem_recipes,
 		input_items,
 		output_items,
-		power_consumption_goal,
+		max_power_consumption,
 		optimization_goals
 	)
 
