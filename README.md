@@ -86,6 +86,7 @@ There are also some additional recipes to be aware of that help plan factories.
  * "Sink [Item]"
 
    For every item that has a sink value, this recipe exists and can be used to plan factories that generate awesome sink points.
+   These recipes assume that the awesome sink is fed by a mk.5 belt.
 
 In addition to specifying recipes directly by name, they can also be specified in groups.
 The recipe groups are also defined in the recipes file.
