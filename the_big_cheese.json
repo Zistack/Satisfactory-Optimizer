@@ -1,0 +1,37 @@
+{
+	"included_recipes": [
+		"production",
+		"Extract Water",
+		"sink_production",
+		"power"
+	],
+	"input_items": {
+		"Iron Ore": 70380,
+		"Copper Ore": 28860,
+		"Limestone": 52860,
+		"Coal": 30120,
+		"Caterium Ore": 11040,
+		"Raw Quartz": 10500,
+		"Sulfur": 6840,
+		"Uranium": 2100,
+		"Bauxite": 9780,
+		"Nitrogen Gas": 12000,
+		"Crude Oil": 11700
+	},
+	# * The total power consumption from maxed miners on all nodes is ~41750 MW.
+	#
+	# * The total power consumption from maxed oil extractors on all nodes is
+	#   ~5199 MW.
+	#
+	# * The total power consumption from maxed well pressurizers on
+	#   all wells is ~10397 MW.
+	#
+	# * The water wells would displace 2362.5 MW of water extractors.
+	#
+	# * All geothermal generators together will produce 4500 MW.
+	#
+	# This means that the total power consumption which must be left over should
+	# be 4500 + 2362.5 - 10397 - 5199 - 41750 = -50483.5 MW.
+	"max_power_consumption": -50483.5,
+	"optimization_goals": [["maximize_item_production", "Awesome Sink Point"]]
+}
