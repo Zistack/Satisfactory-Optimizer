@@ -1503,7 +1503,7 @@
 	},
 	"Heavy Oil Residue": {
 		"inputs": {"Crude Oil": 3},
-		"outputs": {"Heavy Oil Residue": 4, "Polymer Resin": 3},
+		"outputs": {"Heavy Oil Residue": 4, "Polymer Resin": 2},
 		"time": 6,
 		"machine": "Refinery",
 		"power_consumption": 30,
