@@ -1132,7 +1132,7 @@
 			"Aluminum Casing": 60,
 			"Rubber": 30
 		},
-		"outputs": {"Radio Control Unit": 30},
+		"outputs": {"Radio Control Unit": 3},
 		"time": 40,
 		"machine": "Manufacturer",
 		"power_consumption": 55,
