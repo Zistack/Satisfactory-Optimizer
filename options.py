@@ -5,6 +5,22 @@ parser = argparse . ArgumentParser (
 )
 
 parser . add_argument (
+	'--node-types-file',
+	dest = 'node_types_file_name',
+	default = 'node_types.json',
+	help = 'The location of the file containing node type data (default: '
+		+ 'node_types.json).'
+)
+
+parser . add_argument (
+	'--well-types-file',
+	dest = 'well_types_file_name',
+	default = 'well_types.json',
+	help = 'The location of the file containing well type data (default: '
+		+ 'well_types.json).'
+)
+
+parser . add_argument (
 	'--items-file',
 	dest = 'items_file_name',
 	default = 'items.json',

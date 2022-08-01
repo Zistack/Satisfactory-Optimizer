@@ -1,5 +1,4 @@
 import commentjson
-import sys
 
 from z3 import *
 
@@ -7,27 +6,25 @@ import utils
 
 class Machine:
 
-	def __init__ (self, pretty_name, name):
+	def __init__ (self, pretty_name):
 
 		self . pretty_name = pretty_name
 
-		self . count_variable = Real ('total_' + name + '_count')
+		name = utils . name (pretty_name)
 
-		self . supported_recipes = list ()
+		self . count_variable = Real (name + '_count')
 
-	def add_supported_recipe (self, recipe):
+	def __count (self, supported_recipes):
 
-		self . supported_recipes . append (recipe)
+		return sum (
+			supported_recipe . recipe . machine_count_variable
+			for supported_recipe in supported_recipes
+		)
 
-	def add_constraints (self, solver):
+	def add_constraints (self, solver, supported_recipes):
 
-		solver . add (self . count_calculation ())
-
-	def count_calculation (self):
-
-		return self . count_variable == sum (
-			supported_recipe . machine_count_variable
-			for supported_recipe in self . supported_recipes
+		solver . add (
+			self . count_variable == self . __count (supported_recipes)
 		)
 
 	def interpret_model (self, model):
@@ -50,8 +47,16 @@ def load_machines (machines_file_name):
 
 	for machine_pretty_name in machines_data:
 
-		name = utils . variable_name (machine_pretty_name)
-
-		machines [machine_pretty_name] = Machine (machine_pretty_name, name)
+		machines [machine_pretty_name] = Machine (machine_pretty_name)
 
 	return machines
+
+def get_machine (machine_name, machines):
+
+	if machine_name not in machines:
+
+		raise ValueError (
+			'\'' + machine_name + '\' does not name a valid machine'
+		)
+
+	return machines [machine_name]

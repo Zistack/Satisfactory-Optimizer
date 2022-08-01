@@ -1,0 +1,45 @@
+[
+	"Impure Iron Node",
+	"Normal Iron Node",
+	"Pure Iron Node",
+
+	"Impure Copper Node",
+	"Normal Copper Node",
+	"Pure Copper Node",
+
+	"Impure Limestone Node",
+	"Normal Limestone Node",
+	"Pure Limestone Node",
+
+	"Impure Coal Node",
+	"Normal Coal Node",
+	"Pure Coal Node",
+
+	"Impure Caterium Node",
+	"Normal Caterium Node",
+	"Pure Caterium Node",
+
+	"Impure Raw Quartz Node",
+	"Normal Raw Quartz Node",
+	"Pure Raw Quartz Node",
+
+	"Impure Sulfur Node",
+	"Normal Sulfur Node",
+	"Pure Sulfur Node",
+
+	"Impure Uranium Node",
+	"Normal Uranium Node",
+	"Pure Uranium Node",
+
+	"Impure Bauxite Node",
+	"Normal Bauxite Node",
+	"Pure Bauxite Node",
+
+	"Impure Crude Oil Node",
+	"Normal Crude Oil Node",
+	"Pure Crude Oil Node",
+
+	"Impure Geyser",
+	"Normal Geyser",
+	"Pure Geyser"
+]

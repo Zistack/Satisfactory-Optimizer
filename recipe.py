@@ -1,7 +1,3 @@
-import commentjson
-import sys
-
-from collections import defaultdict
 from z3 import *
 
 import utils
@@ -11,58 +7,124 @@ class Recipe:
 	def __init__ (
 		self,
 		pretty_name,
-		name,
-		input_quantities,
-		output_quantities,
-		time,
 		machine,
-		power_consumption
+		power_consumption,
+		overclock_exponent
 	):
 
-		self . pretty_name = pretty_name
-
-		self . input_quantities = input_quantities
-		self . output_quantities = output_quantities
-		self . time = time
 		self . machine = machine
 		self . power_consumption = power_consumption
 
-		self . machine_count_variable = Real (name + '_machine_count')
+		if overclock_exponent != None:
 
-		for item in self . input_quantities . keys ():
+			self . overclock_exponent = overclock_exponent
 
-			item . add_consuming_recipe (self)
+		else:
 
-		for item in self . output_quantities . keys ():
+			if simplify (self . power_consumption >= 0):
 
-			item . add_producing_recipe (self)
+				self . overclock_exponent = 1.6
 
-		self . machine . add_supported_recipe (self)
+			else:
 
-	def __rate_calculation (self, quantity):
+				self . overclock_exponent = 1 / 1.3
 
-		return (
-			self . machine_count_variable
-			* quantity
-			* RealVal (60)
-			/ self . time
+		self . name = utils . name (pretty_name)
+
+		self . machine_count_variable = Real (self . name + '_machine_count')
+		self . magnitude_variable = Real (self . name + '_magnitude')
+		self . power_consumption_variable = Real (
+			self . name + '_power_consumption'
 		)
 
-	def input_rate_calculation (self, item):
+		self . linear_magnitude_variable = Real (
+			self . name + '_linear_magnitude'
+		)
 
-		return self . __rate_calculation (self . input_quantities [item])
+	def __linear_magnitude (self, machine_count_variables, overclock_limits):
 
-	def output_rate_calculation (self, item):
+		return sum (
+			machine_count_variable * clock_speed
+			for machine_count_variable, clock_speed
+			in zip (machine_count_variables, overclock_limits . clock_speeds ())
+		)
 
-		return self . __rate_calculation (self . output_quantities [item])
+	def __power_magnitude (self, machine_count_variables, overclock_limits):
 
-	def power_consumption_calculation (self):
+			return sum (
+				machine_count_variable * power_factor
+				for machine_count_variable, power_factor
+				in zip (
+					machine_count_variables,
+					overclock_limits . power_factors (
+						self . overclock_exponent
+					)
+				)
+			)
 
-		return self . machine_count_variable * self . power_consumption
+	def __magnitude (self, machine_count_variables, overclock_limits):
 
-	def add_constraints (self, solver):
+		if simplify (self . power_consumption >= 0):
 
-		solver . add (self . machine_count_variable >= 0)
+			return self . __linear_magnitude (
+				machine_count_variables,
+				overclock_limits
+			)
+
+		else:
+
+			return self . __power_magnitude (
+				machine_count_variables,
+				overclock_limits
+			)
+
+	def __power_consumption (self, machine_count_variables, overclock_limits):
+
+		return self . power_consumption * sum (
+			machine_count_variable * power_factor
+			for machine_count_variable, power_factor
+			in zip (
+				machine_count_variables,
+				overclock_limits . power_factors (self . overclock_exponent)
+			)
+		)
+
+	def add_constraints (self, solver, overclock_limits):
+
+		machine_count_variables = list (
+			Real (
+				self . name + '_machine_count_clock_' + str (scaled_clock_speed)
+			)
+			for scaled_clock_speed
+			in overclock_limits . scaled_clock_speeds ()
+		)
+
+		for machine_count_variable in machine_count_variables:
+
+			solver . add (machine_count_variable >= 0)
+
+		solver . add (
+			self . machine_count_variable == sum (machine_count_variables)
+		)
+		solver . add (
+			self . magnitude_variable == self . __magnitude (
+				machine_count_variables,
+				overclock_limits
+			)
+		)
+		solver . add (
+			self . power_consumption_variable == self . __power_consumption (
+				machine_count_variables,
+				overclock_limits
+			)
+		)
+
+		solver . add (
+			self . linear_magnitude_variable == self . __linear_magnitude (
+				machine_count_variables,
+				overclock_limits
+			)
+		)
 
 	def interpret_model (self, model):
 
@@ -72,83 +134,18 @@ class Recipe:
 
 			return None
 
-		inputs = dict (
-			(
-				item . pretty_name,
-				str (model . eval (self . __rate_calculation (quantity)))
-			)
-			for item, quantity in self . input_quantities . items ()
-		)
-		outputs = dict (
-			(
-				item . pretty_name,
-				str (model . eval (self . __rate_calculation (quantity)))
-			)
-			for item, quantity in self . output_quantities . items ()
+		results = {'machine_count': str (machine_count)}
+
+		clock_speed = model . eval (
+			self . linear_magnitude_variable / self . machine_count_variable
 		)
 
-		power_consumption = str (
-			model . eval (self . power_consumption_calculation ())
+		if simplify (clock_speed != 1):
+
+			results ['clock_speed'] = str (clock_speed)
+
+		results ['power_consumption'] = (
+			str (model . eval (self . power_consumption_variable))
 		)
 
-		return {
-			'machine_count': str (machine_count),
-			'inputs': inputs,
-			'outputs': outputs,
-			'power_consumption': power_consumption
-		}
-
-def get_tags (recipe_data):
-
-	if 'tags' in recipe_data:
-
-		return recipe_data ['tags']
-
-	else:
-
-		return []
-
-def load_recipes (recipes_file_name, items, machines):
-
-	with open (recipes_file_name, 'r') as recipes_file:
-
-		recipes_data = commentjson . load (recipes_file)
-
-	recipes = dict ()
-	groups = defaultdict (set)
-
-	for recipe_pretty_name, recipe_data in recipes_data . items ():
-
-		name = utils . variable_name (recipe_pretty_name)
-
-		input_quantities = utils . get_item_quantities (
-			recipe_data ['inputs'],
-			items
-		)
-
-		output_quantities = utils . get_item_quantities (
-			recipe_data ['outputs'],
-			items
-		)
-
-		time = RealVal (recipe_data ['time'])
-		machine = utils . get_machine (recipe_data ['machine'], machines)
-		power_consumption = RealVal (recipe_data ['power_consumption'])
-
-		recipe = Recipe (
-			recipe_pretty_name,
-			name,
-			input_quantities,
-			output_quantities,
-			time,
-			machine,
-			power_consumption
-		)
-
-		for tag in get_tags (recipe_data):
-
-			groups [tag] . add (recipe)
-
-		recipes [recipe_pretty_name] = recipe
-
-	return recipes, groups
+		return results

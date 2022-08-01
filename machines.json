@@ -1,6 +1,7 @@
 [
 	"Water Extractor",
 	"Oil Extractor",
+	"Resource Well Pressurizer",
 	"Constructor",
 	"Assembler",
 	"Manufacturer",
@@ -16,6 +17,7 @@
 	"Biomass Burner",
 	"Coal Generator",
 	"Fuel Generator",
+	"Geothermal Generator",
 	"Nuclear Power Plant",
 	"Awesome Sink"
 ]

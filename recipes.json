@@ -1,7 +1,712 @@
 {
+	# Miner Mk.1 Recipes
+	"Mine Mk.1 Impure Iron": {
+		"node_type": "Impure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Iron": {
+		"node_type": "Normal Iron Node",
+		"resource": "Iron Ore",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Iron": {
+		"node_type": "Pure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Copper": {
+		"node_type": "Impure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Copper": {
+		"node_type": "Normal Copper Node",
+		"resource": "Copper Ore",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Copper": {
+		"node_type": "Pure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Limestone": {
+		"node_type": "Impure Limestone Node",
+		"resource": "Limestone",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Limestone": {
+		"node_type": "Normal Limestone Node",
+		"resource": "Limestone",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Limestone": {
+		"node_type": "Pure Limestone Node",
+		"resource": "Limestone",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Coal": {
+		"node_type": "Impure Coal Node",
+		"resource": "Coal",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Coal": {
+		"node_type": "Normal Coal Node",
+		"resource": "Coal",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Coal": {
+		"node_type": "Pure Coal Node",
+		"resource": "Coal",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Caterium": {
+		"node_type": "Impure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Caterium": {
+		"node_type": "Normal Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Caterium": {
+		"node_type": "Pure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Raw Quartz": {
+		"node_type": "Impure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Raw Quartz": {
+		"node_type": "Normal Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Raw Quartz": {
+		"node_type": "Pure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Sulfur": {
+		"node_type": "Impure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Sulfur": {
+		"node_type": "Normal Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Sulfur": {
+		"node_type": "Pure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Uranium": {
+		"node_type": "Impure Uranium Node",
+		"resource": "Uranium",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Uranium": {
+		"node_type": "Normal Uranium Node",
+		"resource": "Uranium",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Uranium": {
+		"node_type": "Pure Uranium Node",
+		"resource": "Uranium",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Impure Bauxite": {
+		"node_type": "Impure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 30,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Normal Bauxite": {
+		"node_type": "Normal Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 60,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+	"Mine Mk.1 Pure Bauxite": {
+		"node_type": "Pure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 120,
+		"machine": "Miner Mk.1",
+		"power_consumption": 5,
+		"tags": ["extraction", "miner_mk1"]
+	},
+
+	# Miner Mk.2 Recipes
+	"Mine Mk.2 Impure Iron": {
+		"node_type": "Impure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Iron": {
+		"node_type": "Normal Iron Node",
+		"resource": "Iron Ore",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Iron": {
+		"node_type": "Pure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Copper": {
+		"node_type": "Impure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Copper": {
+		"node_type": "Normal Copper Node",
+		"resource": "Copper Ore",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Copper": {
+		"node_type": "Pure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Limestone": {
+		"node_type": "Impure Limestone Node",
+		"resource": "Limestone",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Limestone": {
+		"node_type": "Normal Limestone Node",
+		"resource": "Limestone",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Limestone": {
+		"node_type": "Pure Limestone Node",
+		"resource": "Limestone",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Coal": {
+		"node_type": "Impure Coal Node",
+		"resource": "Coal",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Coal": {
+		"node_type": "Normal Coal Node",
+		"resource": "Coal",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Coal": {
+		"node_type": "Pure Coal Node",
+		"resource": "Coal",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Caterium": {
+		"node_type": "Impure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Caterium": {
+		"node_type": "Normal Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Caterium": {
+		"node_type": "Pure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Raw Quartz": {
+		"node_type": "Impure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Raw Quartz": {
+		"node_type": "Normal Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Raw Quartz": {
+		"node_type": "Pure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Sulfur": {
+		"node_type": "Impure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Sulfur": {
+		"node_type": "Normal Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Sulfur": {
+		"node_type": "Pure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Uranium": {
+		"node_type": "Impure Uranium Node",
+		"resource": "Uranium",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Uranium": {
+		"node_type": "Normal Uranium Node",
+		"resource": "Uranium",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Uranium": {
+		"node_type": "Pure Uranium Node",
+		"resource": "Uranium",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Impure Bauxite": {
+		"node_type": "Impure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 60,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Normal Bauxite": {
+		"node_type": "Normal Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 120,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+	"Mine Mk.2 Pure Bauxite": {
+		"node_type": "Pure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 240,
+		"machine": "Miner Mk.2",
+		"power_consumption": 12,
+		"tags": ["extraction", "miner_mk2"]
+	},
+
+	# Miner Mk.3 Recipes
+	"Mine Mk.3 Impure Iron": {
+		"node_type": "Impure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Iron": {
+		"node_type": "Normal Iron Node",
+		"resource": "Iron Ore",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Iron": {
+		"node_type": "Pure Iron Node",
+		"resource": "Iron Ore",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Copper": {
+		"node_type": "Impure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Copper": {
+		"node_type": "Normal Copper Node",
+		"resource": "Copper Ore",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Copper": {
+		"node_type": "Pure Copper Node",
+		"resource": "Copper Ore",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Limestone": {
+		"node_type": "Impure Limestone Node",
+		"resource": "Limestone",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Limestone": {
+		"node_type": "Normal Limestone Node",
+		"resource": "Limestone",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Limestone": {
+		"node_type": "Pure Limestone Node",
+		"resource": "Limestone",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Coal": {
+		"node_type": "Impure Coal Node",
+		"resource": "Coal",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Coal": {
+		"node_type": "Normal Coal Node",
+		"resource": "Coal",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Coal": {
+		"node_type": "Pure Coal Node",
+		"resource": "Coal",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Caterium": {
+		"node_type": "Impure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Caterium": {
+		"node_type": "Normal Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Caterium": {
+		"node_type": "Pure Caterium Node",
+		"resource": "Caterium Ore",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Raw Quartz": {
+		"node_type": "Impure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Raw Quartz": {
+		"node_type": "Normal Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Raw Quartz": {
+		"node_type": "Pure Raw Quartz Node",
+		"resource": "Raw Quartz",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Sulfur": {
+		"node_type": "Impure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Sulfur": {
+		"node_type": "Normal Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Sulfur": {
+		"node_type": "Pure Sulfur Node",
+		"resource": "Sulfur",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Uranium": {
+		"node_type": "Impure Uranium Node",
+		"resource": "Uranium",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Uranium": {
+		"node_type": "Normal Uranium Node",
+		"resource": "Uranium",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Uranium": {
+		"node_type": "Pure Uranium Node",
+		"resource": "Uranium",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Impure Bauxite": {
+		"node_type": "Impure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 120,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Normal Bauxite": {
+		"node_type": "Normal Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 240,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+	"Mine Mk.3 Pure Bauxite": {
+		"node_type": "Pure Bauxite Node",
+		"resource": "Bauxite",
+		"rate": 480,
+		"machine": "Miner Mk.3",
+		"power_consumption": 30,
+		"tags": ["extraction", "miner_mk3"]
+	},
+
+	# Oil Extractor Recipes
+	"Extract Impure Oil": {
+		"node_type": "Impure Crude Oil Node",
+		"resource": "Crude Oil",
+		"rate": 60,
+		"machine": "Oil Extractor",
+		"power_consumption": 40,
+		"tags": ["extraction", "oil_extractor"]
+	},
+	"Extract Normal Oil": {
+		"node_type": "Normal Crude Oil Node",
+		"resource": "Crude Oil",
+		"rate": 120,
+		"machine": "Oil Extractor",
+		"power_consumption": 40,
+		"tags": ["extraction", "oil_extractor"]
+	},
+	"Extract Pure Oil": {
+		"node_type": "Pure Crude Oil Node",
+		"resource": "Crude Oil",
+		"rate": 240,
+		"machine": "Oil Extractor",
+		"power_consumption": 40,
+		"tags": ["extraction", "oil_extractor"]
+	},
+
+	# Resource Well Pressurizer Recipes
+	"Pressurize Nitrogen Gas": {
+		"well_type": "Nitrogen Gas Well",
+		"resource": "Nitrogen Gas",
+		"purity_rates": {"Impure": 30, "Normal": 60, "Pure": 120},
+		"machine": "Resource Well Pressurizer",
+		"power_consumption": 150,
+		"tags": ["extraction", "well_pressurizer"]
+	},
+	"Pressurize Crude Oil": {
+		"well_type": "Crude Oil Well",
+		"resource": "Crude Oil",
+		"purity_rates": {"Impure": 30, "Normal": 60, "Pure": 120},
+		"machine": "Resource Well Pressurizer",
+		"power_consumption": 150,
+		"tags": ["extraction", "well_pressurizer"]
+	},
+	"Pressurize Nitrogen Gas": {
+		"well_type": "Water Well",
+		"resource": "Water",
+		"purity_rates": {"Impure": 30, "Normal": 60, "Pure": 120},
+		"machine": "Resource Well Pressurizer",
+		"power_consumption": 150,
+		"tags": ["extraction", "well_pressurizer"]
+	},
+
 	# Water Extractor Recipes
 	"Extract Water": {
-		"inputs": {},
 		"outputs": {"Water": 1},
 		"time": 0.5,
 		"machine": "Water Extractor",
@@ -1973,119 +2678,125 @@
 	# Biomass Burner Recipes
 	"Burn Leaves": {
 		"inputs": {"Leaves": 1},
-		"outputs": {},
 		"time": 0.5,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Flower Petals": {
 		"inputs": {"Flower Petals": 3},
-		"outputs": {},
 		"time": 10,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Wood": {
 		"inputs": {"Wood": 3},
-		"outputs": {},
 		"time": 10,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Mycelia": {
 		"inputs": {"Mycelia": 3},
-		"outputs": {},
 		"time": 2,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Biomass": {
 		"inputs": {"Biomass": 1},
-		"outputs": {},
 		"time": 6,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Solid Biofuel": {
 		"inputs": {"Solid Biofuel": 1},
-		"outputs": {},
 		"time": 15,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Packaged Liquid Biofuel": {
 		"inputs": {"Packaged Liquid Biofuel": 1},
-		"outputs": {},
 		"time": 25,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 	"Burn Fabric": {
 		"inputs": {"Fabric": 1},
-		"outputs": {},
 		"time": 0.5,
 		"machine": "Biomass Burner",
 		"power_consumption": -30,
-		"tags": ["power"]
+		"tags": ["power", "biomass_burner"]
 	},
 
 	# Coal Generator Recipes
 	"Burn Coal": {
 		"inputs": {"Coal": 1, "Water": 3},
-		"outputs": {},
 		"time": 4,
 		"machine": "Coal Generator",
 		"power_consumption": -75,
-		"tags": ["power"]
+		"tags": ["power", "coal_generator"]
 	},
 	"Burn Compacted Coal": {
 		"inputs": {"Compacted Coal": 1, "Water": 6.3},
-		"outputs": {},
 		"time": 8.4,
 		"machine": "Coal Generator",
 		"power_consumption": -75,
-		"tags": ["power"]
+		"tags": ["power", "coal_generator"]
 	},
 	"Burn Petroleum Coke": {
 		"inputs": {"Petroleum Coke": 1, "Water": 1.8},
-		"outputs": {},
 		"time": 2.4,
 		"machine": "Coal Generator",
 		"power_consumption": -75,
-		"tags": ["power"]
+		"tags": ["power", "coal_generator"]
 	},
 
 	# Fuel Generator Recipes
 	"Burn Fuel": {
 		"inputs": {"Fuel": 1},
-		"outputs": {},
 		"time": 5,
 		"machine": "Fuel Generator",
 		"power_consumption": -150,
-		"tags": ["power"]
+		"tags": ["power", "fuel_generator"]
 	},
 	"Burn Liquid Biofuel": {
 		"inputs": {"Liquid Biofuel": 1},
-		"outputs": {},
 		"time": 5,
 		"machine": "Fuel Generator",
 		"power_consumption": -150,
-		"tags": ["power"]
+		"tags": ["power", "fuel_generator"]
 	},
 	"Burn Turbofuel": {
 		"inputs": {"Turbofuel": 3},
-		"outputs": {},
 		"time": 40,
 		"machine": "Fuel Generator",
 		"power_consumption": -150,
-		"tags": ["power"]
+		"tags": ["power", "fuel_generator"]
+	},
+
+	# Geothermal Generator Recipes
+	"Generate Impure Geothermal Power": {
+		"node_type": "Impure Geyser",
+		"machine": "Geothermal Generator",
+		"power_consumption": -100,
+		"tags": ["extraction", "power", "geothermal_generator"]
+	},
+	"Generate Normal Geothermal Power": {
+		"node_type": "Normal Geyser",
+		"machine": "Geothermal Generator",
+		"power_consumption": -200,
+		"tags": ["extraction", "power", "geothermal_generator"]
+	},
+	"Generate Pure Geothermal Power": {
+		"node_type": "Pure Geyser",
+		"machine": "Geothermal Generator",
+		"power_consumption": -400,
+		"tags": ["extraction", "power", "geothermal_generator"]
 	},
 
 	# Nuclear Power Plant Recipes
@@ -2095,7 +2806,8 @@
 		"time": 600,
 		"machine": "Nuclear Power Plant",
 		"power_consumption": -2500,
-		"tags": ["production", "default", "power"]
+		"overclock_exponent": 0.7564708516651436,
+		"tags": ["production", "default", "power", "nuclear_power_plant"]
 	},
 	"Uranium Waste": {
 		"inputs": {"Uranium Fuel Rod": 1, "Water": 1500},
@@ -2103,7 +2815,8 @@
 		"time": 300,
 		"machine": "Nuclear Power Plant",
 		"power_consumption": -2500,
-		"tags": ["production", "default", "power"]
+		"overclock_exponent": 0.7564708516651436,
+		"tags": ["production", "default", "power", "nuclear_power_plant"]
 	},
 
 	# Awesome Sink Recipes
