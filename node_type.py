@@ -14,7 +14,7 @@ class NodeType:
 
 		self . allocation_variable = Real (name + '_allocation')
 
-	def add_constraints (self, solver):
+	def add_constraints (self, solver, consuming_recipes):
 
 		solver . add (
 			self . allocation_variable == sum (

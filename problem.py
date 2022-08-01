@@ -35,7 +35,7 @@ class Problem:
 		self . node_types = node_types
 		self . well_configurations = well_configurations
 		self . node_recipes = node_recipes
-		self . well_recipes = well_recipes,
+		self . well_recipes = well_recipes
 		self . processing_recipes = processing_recipes
 		self . input_items = input_items
 		self . output_items = output_items
@@ -65,16 +65,19 @@ class Problem:
 			)
 
 			used_node_types . add (node_recipe . node_type)
-			used_items . add (node_recipe . resource)
 			used_machines . add (node_recipe . recipe . machine)
 
-			node_type_consuming_recipes [node_type] . append (
+			node_type_consuming_recipes [node_recipe . node_type] . append (
 				node_recipe
 			)
 
-			item_producing_recipes [node_recipe . resource] . append (
-				node_recipe
-			)
+			if node_recipe . resource != None:
+
+				used_items . add (node_recipe . resource)
+
+				item_producing_recipes [node_recipe . resource] . append (
+					node_recipe
+				)
 
 			machine_supported_recipes [
 				node_recipe . recipe . machine
@@ -82,7 +85,9 @@ class Problem:
 
 		configured_well_recipes = dict ()
 
-		for well_type, well_configurations in self . well_configurations:
+		for well_type, well_configurations in (
+			self . well_configurations . items ()
+		):
 
 			for well_configuration in well_configurations . keys ():
 
@@ -95,11 +100,10 @@ class Problem:
 
 					configured_well_recipe . add_constraints (
 						solver,
-						overclocking [well_recipe]
+						self . overclocking [well_recipe]
 					)
 
-					used_items . add (well_recipe . resource)
-					used_machines . add (well_recipe . recipe . machine)
+					used_machines . add (well_recipe . machine)
 
 					well_configuration_consuming_recipes [
 						well_configuration
@@ -107,17 +111,21 @@ class Problem:
 						configured_well_recipe
 					)
 
-					item_producing_recipes [well_recipe . resource] . append (
-						configured_well_recipe
-					)
+					if well_recipe . resource != None:
+
+						used_items . add (well_recipe . resource)
+
+						item_producing_recipes [
+							well_recipe . resource
+						] . append (configured_well_recipe)
 
 					machine_supported_recipes [
-						well_recipe . recipe . machine
+						well_recipe . machine
 					] . append (configured_well_recipe)
 
-					encoded_well_recipes [(well_recipe, well_configuration)] = (
-						configured_well_recipe
-					)
+					configured_well_recipes [
+						(well_recipe, well_configuration)
+					] = (configured_well_recipe)
 
 		for processing_recipe in self . processing_recipes . values ():
 
@@ -192,9 +200,11 @@ class Problem:
 
 		print ('Encoding wells', file = sys . stderr)
 
-		for well_type, well_configurations in self . well_configurations:
+		for well_type, well_configurations in (
+			self . well_configurations . items ()
+		):
 
-			for well_configuration, count in well_configurations:
+			for well_configuration, count in well_configurations . items ():
 
 				well_configuration . add_constraints (
 					solver,
@@ -377,7 +387,7 @@ class Problem:
 				[
 					(
 						node_recipe . pretty_name,
-						recipe . interpret_model (model)
+						node_recipe . interpret_model (model)
 					)
 					for node_recipe in self . node_recipes . values ()
 				]

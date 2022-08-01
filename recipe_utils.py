@@ -110,13 +110,13 @@ def filter_recipe_sets (
 		filter (recipe_in_used_recipes, node_recipes . items ())
 	)
 
-	used_well_recipes = dict (
-		(
-			well_type,
-			dict (filter (recipe_in_used_recipes, well_type_recipes . items ()))
+	used_well_recipes = defaultdict (dict)
+
+	for well_type, well_type_recipes in well_recipes . items ():
+
+		used_well_recipes [well_type] = dict (
+			filter (recipe_in_used_recipes, well_type_recipes . items ())
 		)
-		for well_type, well_type_recipes in well_recipes . items ()
-	)
 
 	used_processing_recipes = dict (
 		filter (recipe_in_used_recipes, processing_recipes . items ())

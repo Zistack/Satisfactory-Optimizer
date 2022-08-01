@@ -1,4 +1,6 @@
-from cvxpy import *
+from z3 import *
+
+import utils
 
 from item import get_item, get_finite_item_quantities
 from recipe_utils import get_recipe
@@ -37,7 +39,7 @@ class ItemsObjectiveFunction:
 
 		pretty_name = ' ' . join (
 			str (ratio) + ' ' + item . pretty_name
-			for item, ratio in self . item_ratios
+			for item, ratio in self . item_ratios . items ()
 		)
 
 		name = utils . name (pretty_name)
@@ -46,9 +48,11 @@ class ItemsObjectiveFunction:
 
 	def add_objective (self, solver):
 
-		for item, ratio in self . item_ratios:
+		for item, ratio in self . item_ratios . items ():
 
-			solver . add (item_variable (item) == self . variable * ratio)
+			solver . add (
+				self . item_variable (item) == self . variable * ratio
+			)
 
 		self . optimization_type (solver, self . variable)
 

@@ -37,7 +37,7 @@ class NodeRecipe:
 
 		assert (item == self . resource)
 
-		return self . recipe . magnitude () * self . rate
+		return self . recipe . magnitude_variable * self . rate
 
 	def add_constraints (self, solver, overclock_limits):
 
@@ -47,13 +47,13 @@ class NodeRecipe:
 
 			self . resource . constrain_total_flow_rate (
 				solver,
-				self . recipe . magnitude () * self . rate,
+				self . recipe . magnitude_variable * self . rate,
 				self . recipe . machine_count_variable
 			)
 
 	def interpret_model (self, model):
 
-		interpretation = self . recipe . get_interpretation ()
+		interpretation = self . recipe . interpret_model (model)
 
 		if interpretation == None:
 
@@ -61,7 +61,7 @@ class NodeRecipe:
 
 		interpretation ['output'] = {
 			self . resource . pretty_name:
-				str (model . eval (self . output_rates [self . resource]))
+				str (model . eval (self . output_rate (self . resource)))
 		}
 
 		return interpretation

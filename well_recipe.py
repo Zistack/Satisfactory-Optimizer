@@ -40,15 +40,11 @@ class ConfiguredWellRecipe:
 			well_recipe . pretty_name + ' ' + well_configuration . pretty_name
 		)
 
-		self . recipe = Recipe (
-			well_recipe . machine,
-			well_recipe . power_consumption,
-			well_recipe . overclock_exponent
-		)
+		self . resource = well_recipe . resource
 
 		self . purity_outputs = dict ()
 
-		for purity, count in well_configuration . purity_counts . keys ():
+		for purity, count in well_configuration . purity_counts . items ():
 
 			purity_output_pretty_name = pretty_name + ' ' + purity
 
@@ -60,18 +56,25 @@ class ConfiguredWellRecipe:
 				count
 			)
 
+		self . recipe = Recipe (
+			well_recipe . pretty_name,
+			well_recipe . machine,
+			well_recipe . power_consumption,
+			well_recipe . overclock_exponent
+		)
+
 	def output_rate (self, item):
 
 		assert (item == self . resource)
 
 		return sum (
-			purity_output . output_rate (self . recipe . machine_count_variable)
+			purity_output . rate_variable
 			for purity_output in self . purity_outputs . values ()
 		)
 
 	def add_constraints (self, solver, overclock_limits):
 
-		recipe_constraints = self . recipe . add_constraints (overclock_limits)
+		self . recipe . add_constraints (solver, overclock_limits)
 
 		for purity_output in self . purity_outputs . values ():
 
@@ -90,7 +93,7 @@ class ConfiguredWellRecipe:
 
 	def interpret_model (self, model):
 
-		self . interpretation = recipe . interpret_model (model)
+		interpretation = self . recipe . interpret_model (model)
 
 		if interpretation == None:
 
