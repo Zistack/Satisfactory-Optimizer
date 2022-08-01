@@ -696,7 +696,7 @@
 		"power_consumption": 150,
 		"tags": ["extraction", "well_pressurizer"]
 	},
-	"Pressurize Nitrogen Gas": {
+	"Pressurize Water": {
 		"well_type": "Water Well",
 		"resource": "Water",
 		"purity_rates": {"Impure": 30, "Normal": 60, "Pure": 120},
