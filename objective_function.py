@@ -1,4 +1,4 @@
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -9,33 +9,30 @@ item_flow = lambda item: item . flow_variable
 item_consumption = lambda item: item . input_variable
 item_production = lambda item: item . output_variable
 
-def maximize (solver, objective):
-
-	solver . maximize (objective)
-
-def minimize (solver, objective):
-
-	solver . minimize (objective)
+maximize = lambda v: - v
+minimize = lambda v: v
 
 class ItemObjectiveFunction:
 
-	def __init__ (self, item, item_variable, optimization_type):
+	def __init__ (self, item, item_variable, objective_type):
 
 		self . item = item
 		self . item_variable = item_variable
-		self . optimization_type = optimization_type
+		self . objective_type = objective_type
 
-	def add_objective (self, solver):
+	def add_objective (self, constraints, objectives):
 
-		self . optimization_type (solver, self . item_variable (self . item))
+		objectives . append (
+			self . objective_type (self . item_variable (self . item))
+		)
 
 class ItemsObjectiveFunction:
 
-	def __init__ (self, item_ratios, item_variable, optimization_type):
+	def __init__ (self, item_ratios, item_variable, objective_type):
 
 		self . item_ratios = item_ratios
 		self . item_variable = item_variable
-		self . optimization_type = optimization_type
+		self . objective_type = objective_type
 
 		pretty_name = ' ' . join (
 			str (ratio) + ' ' + item . pretty_name
@@ -44,28 +41,18 @@ class ItemsObjectiveFunction:
 
 		name = utils . name (pretty_name)
 
-		self . variable = Real (name)
+		self . variable = lp . Variable (name)
 
-	def add_objective (self, solver):
+	def add_objective (self, constraints, objectives):
 
 		for item, ratio in self . item_ratios . items ():
 
-			solver . add (
+			constraints . append (self . variable >= 0)
+			constraints . append (
 				self . item_variable (item) == self . variable * ratio
 			)
 
-		self . optimization_type (solver, self . variable)
-
-class VariableObjectiveFunction:
-
-	def __init__ (self, variable, optimization_type):
-
-		self . variable = variable
-		self . optimization_type = optimization_type
-
-	def add_constraints (self, solver):
-
-		self . optimization_type (solver, self . variable)
+		objectives . append (self . objective_type (self . variable))
 
 def get_objective_function (function_type, function_data, items):
 

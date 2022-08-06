@@ -1,6 +1,6 @@
 import commentjson
 
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -13,15 +13,20 @@ class Item:
 
 		name = utils . name (pretty_name)
 
-		self . flow_variable = Real (name + '_flow')
-		self . input_variable = Real (name + '_input')
-		self . output_variable = Real (name + '_output')
+		self . flow_variable = lp . Variable (name + '_flow')
+		self . input_variable = lp . Variable (name + '_input')
+		self . output_variable = lp . Variable (name + '_output')
 
-	def constrain_total_flow_rate (self, solver, total_flow_rate, output_count):
+	def constrain_total_flow_rate (
+		self,
+		constraints,
+		total_flow_rate,
+		output_count
+	):
 
 		if self . max_flow_rate != None:
 
-			return solver . add (
+			return constraints . append (
 				total_flow_rate <= self . max_flow_rate * output_count
 			)
 
@@ -45,32 +50,37 @@ class Item:
 			+ [self . output_variable]
 		)
 
-	def add_constraints (self, solver, producing_recipes, consuming_recipes):
+	def add_constraints (
+		self,
+		constraints,
+		producing_recipes,
+		consuming_recipes
+	):
 
-		#solver . add (self . flow_variable >= 0)
-		solver . add (self . input_variable >= 0)
-		solver . add (self . output_variable >= 0)
+		constraints . append (self . flow_variable >= 0)
+		constraints . append (self . input_variable >= 0)
+		constraints . append (self . output_variable >= 0)
 
-		solver . add (
+		constraints . append (
 			self . flow_variable
 				== self . __production (self, producing_recipes)
 		)
-		solver . add (
+		constraints . append (
 			self . flow_variable
 				== self . __consumption (self, consuming_recipes)
 		)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		amount = model . eval (self . flow_variable)
+		amount = model [self . flow_variable]
 
-		if amount == 0:
+		if utils . interpret_approximate (amount, precision) == 0:
 
 			return None
 
 		else:
 
-			return str (amount)
+			return utils . format_value (amount, precision)
 
 def load_items (items_file_name):
 
@@ -84,7 +94,7 @@ def load_items (items_file_name):
 
 		if 'max_flow_rate' in item_data:
 
-			max_flow_rate = RealVal (item_data ['max_flow_rate'])
+			max_flow_rate = utils . real (item_data ['max_flow_rate'])
 
 		else:
 
@@ -111,7 +121,7 @@ def get_item_quantities (item_quantities_data, items):
 		item = get_item (item_name, items)
 
 		item_quantity = (
-			'unlimited' if quantity == 'unlimited' else RealVal (quantity)
+			'unlimited' if quantity == 'unlimited' else utils . real (quantity)
 		)
 
 		item_quantities [item] = item_quantity
@@ -126,7 +136,7 @@ def get_finite_item_quantities (item_quantities_data, items):
 
 		item = get_item (item_name, items)
 
-		item_quantity = RealVal (quantity)
+		item_quantity = utils . real (quantity)
 
 		item_quantities [item] = item_quantity
 

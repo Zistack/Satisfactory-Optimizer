@@ -1,6 +1,6 @@
 import commentjson
 
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -12,11 +12,12 @@ class NodeType:
 
 		name = utils . name (pretty_name)
 
-		self . allocation_variable = Real (name + '_allocation')
+		self . allocation_variable = lp . Variable (name + '_allocation')
 
-	def add_constraints (self, solver, consuming_recipes):
+	def add_constraints (self, constraints, consuming_recipes):
 
-		solver . add (
+		constraints . append (self . allocation_variable >= 0)
+		constraints . append (
 			self . allocation_variable == sum (
 				node_recipe . recipe . machine_count_variable
 				for node_recipe in consuming_recipes

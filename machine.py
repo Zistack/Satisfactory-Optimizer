@@ -1,6 +1,6 @@
 import commentjson
 
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -12,7 +12,7 @@ class Machine:
 
 		name = utils . name (pretty_name)
 
-		self . count_variable = Real (name + '_count')
+		self . count_variable = lp . Variable (name + '_count')
 
 	def __count (self, supported_recipes):
 
@@ -21,21 +21,22 @@ class Machine:
 			for supported_recipe in supported_recipes
 		)
 
-	def add_constraints (self, solver, supported_recipes):
+	def add_constraints (self, constraints, supported_recipes):
 
-		solver . add (
+		constraints . append (self . count_variable >= 0)
+		constraints . append (
 			self . count_variable == self . __count (supported_recipes)
 		)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		count = model . eval (self . count_variable)
+		count = model [self . count_variable]
 
-		if count == 0:
+		if utils . interpret_approximate (count, precision) == 0:
 
 			return None
 
-		return str (count)
+		return utils . format_value (count, precision)
 
 def load_machines (machines_file_name):
 

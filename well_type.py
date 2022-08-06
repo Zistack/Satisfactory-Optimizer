@@ -26,7 +26,7 @@ def get_well_type (well_type_name, well_types):
 
 		raise ValueError (
 			'\''
-			+ well_type_data
+			+ well_type_name
 			+ '\' does not name a valid well type.'
 		)
 

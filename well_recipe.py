@@ -1,6 +1,6 @@
 import commentjson
 
-from z3 import *
+import utils
 
 from well_type import get_well_type
 from item import get_item
@@ -57,7 +57,7 @@ class ConfiguredWellRecipe:
 			)
 
 		self . recipe = Recipe (
-			well_recipe . pretty_name,
+			pretty_name,
 			well_recipe . machine,
 			well_recipe . power_consumption,
 			well_recipe . overclock_exponent
@@ -72,28 +72,35 @@ class ConfiguredWellRecipe:
 			for purity_output in self . purity_outputs . values ()
 		)
 
-	def add_constraints (self, solver, overclock_limits):
+	def interpret_output_rate (self, model):
 
-		self . recipe . add_constraints (solver, overclock_limits)
+		return sum (
+			model [purity_output . rate_variable]
+			for purity_output in self . purity_outputs . values ()
+		)
+
+	def add_constraints (self, constraints, overclock_limits):
+
+		self . recipe . add_constraints (constraints, overclock_limits)
 
 		for purity_output in self . purity_outputs . values ():
 
 			purity_output . add_constraints (
-				solver,
+				constraints,
 				self . recipe . magnitude_variable
 			)
 
 			if self . resource != None:
 
 				purity_output . add_resource_flow_constraints (
-					solver,
+					constraints,
 					self . resource,
 					self . recipe . machine_count_variable
 				)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		interpretation = self . recipe . interpret_model (model)
+		interpretation = self . recipe . interpret_model (model, precision)
 
 		if interpretation == None:
 
@@ -101,7 +108,10 @@ class ConfiguredWellRecipe:
 
 		interpretation ['output'] = {
 			self . resource . pretty_name:
-				str (model . eval (self . output_rate (self . resource)))
+				utils . format_value (
+					self . interpret_output_rate (model),
+					precision
+				)
 		}
 
 		return interpretation
@@ -109,7 +119,7 @@ class ConfiguredWellRecipe:
 def get_purity_rates (purity_rates_data):
 
 	return dict (
-		(purity, RealVal (rate))
+		(purity, utils . real (rate))
 		for purity, rate in purity_rates_data . items ()
 	)
 
@@ -132,11 +142,13 @@ def get_well_recipe (
 	)
 
 	machine = get_machine (well_recipe_data ['machine'], machines)
-	power_consumption = RealVal (well_recipe_data ['power_consumption'])
+	power_consumption = utils . real (well_recipe_data ['power_consumption'])
 
 	if 'overclock_exponent' in well_recipe_data:
 
-		overclock_exponent = float (well_recipe_data ['overclock_exponent'])
+		overclock_exponent = utils . real (
+			well_recipe_data ['overclock_exponent']
+		)
 
 	else:
 

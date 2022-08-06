@@ -3,8 +3,6 @@
 import json
 import sys
 
-from z3 import *
-
 from options import parse_args
 
 from node_type import load_node_types
@@ -52,12 +50,7 @@ def main ():
 		groups
 	)
 
-	if options . precision >= 0:
-
-		set_option (rational_to_decimal = True)
-		set_option (precision = options . precision)
-
-	results = problem . solve ()
+	results = problem . solve (options . precision)
 
 	if results == None:
 

@@ -1,6 +1,4 @@
-from z3 import *
-
-from utils import *
+import utils
 
 from node_type import get_node_type
 from item import get_item
@@ -39,30 +37,39 @@ class NodeRecipe:
 
 		return self . recipe . magnitude_variable * self . rate
 
-	def add_constraints (self, solver, overclock_limits):
+	def interpret_output_rate (self, model):
 
-		self . recipe . add_constraints (solver, overclock_limits)
+		return model [self . recipe . magnitude_variable] * self . rate
+
+	def add_constraints (self, constraints, overclock_limits):
+
+		self . recipe . add_constraints (constraints, overclock_limits)
 
 		if self . resource != None:
 
 			self . resource . constrain_total_flow_rate (
-				solver,
+				constraints,
 				self . recipe . magnitude_variable * self . rate,
 				self . recipe . machine_count_variable
 			)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		interpretation = self . recipe . interpret_model (model)
+		interpretation = self . recipe . interpret_model (model, precision)
 
 		if interpretation == None:
 
 			return None
 
-		interpretation ['output'] = {
-			self . resource . pretty_name:
-				str (model . eval (self . output_rate (self . resource)))
-		}
+		if self . resource != None:
+
+			interpretation ['output'] = {
+				self . resource . pretty_name:
+					utils . format_value (
+						self . interpret_output_rate (model),
+						precision
+					)
+			}
 
 		return interpretation
 
@@ -82,7 +89,7 @@ def get_node_recipe (
 	if 'resource' in node_recipe_data:
 
 		resource = get_item (node_recipe_data ['resource'], items)
-		rate = RealVal (node_recipe_data ['rate'])
+		rate = utils . real (node_recipe_data ['rate'])
 
 	else:
 
@@ -90,11 +97,13 @@ def get_node_recipe (
 		rate = None
 
 	machine = get_machine (node_recipe_data ['machine'], machines)
-	power_consumption = RealVal (node_recipe_data ['power_consumption'])
+	power_consumption = utils . real (node_recipe_data ['power_consumption'])
 
 	if 'overclock_exponent' in node_recipe_data:
 
-		overclock_exponent = float (node_recipe_data ['overclock_exponent'])
+		overclock_exponent = utils . real (
+			node_recipe_data ['overclock_exponent']
+		)
 
 	else:
 

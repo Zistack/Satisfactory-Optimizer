@@ -1,4 +1,4 @@
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -21,7 +21,7 @@ class Recipe:
 
 		else:
 
-			if simplify (self . power_consumption >= 0):
+			if self . power_consumption >= 0:
 
 				self . overclock_exponent = 1.6
 
@@ -31,14 +31,16 @@ class Recipe:
 
 		self . name = utils . name (pretty_name)
 
-		self . machine_count_variable = Real (self . name + '_machine_count')
-		self . magnitude_variable = Real (self . name + '_magnitude')
-		self . power_consumption_variable = Real (
+		self . machine_count_variable = lp . Variable (
+			self . name + '_machine_count',
+		)
+		self . magnitude_variable = lp . Variable (self . name + '_magnitude')
+		self . power_consumption_variable = lp . Variable (
 			self . name + '_power_consumption'
 		)
 
-		self . linear_magnitude_variable = Real (
-			self . name + '_linear_magnitude'
+		self . linear_magnitude_variable = lp . Variable (
+			self . name + '_linear_magnitude',
 		)
 
 	def __linear_magnitude (self, machine_count_variables, overclock_limits):
@@ -64,7 +66,7 @@ class Recipe:
 
 	def __magnitude (self, machine_count_variables, overclock_limits):
 
-		if simplify (self . power_consumption >= 0):
+		if self . power_consumption >= 0:
 
 			return self . __linear_magnitude (
 				machine_count_variables,
@@ -89,10 +91,10 @@ class Recipe:
 			)
 		)
 
-	def add_constraints (self, solver, overclock_limits):
+	def add_constraints (self, constraints, overclock_limits):
 
 		machine_count_variables = list (
-			Real (
+			lp . Variable (
 				self . name + '_machine_count_clock_' + str (scaled_clock_speed)
 			)
 			for scaled_clock_speed
@@ -101,51 +103,63 @@ class Recipe:
 
 		for machine_count_variable in machine_count_variables:
 
-			solver . add (machine_count_variable >= 0)
+			constraints . append (machine_count_variable >= 0)
 
-		solver . add (
+		constraints . append (self . machine_count_variable >= 0)
+		constraints . append (
 			self . machine_count_variable == sum (machine_count_variables)
 		)
-		solver . add (
+		constraints . append (self . magnitude_variable >= 0)
+		constraints . append (
 			self . magnitude_variable == self . __magnitude (
 				machine_count_variables,
 				overclock_limits
 			)
 		)
-		solver . add (
+		constraints . append (
 			self . power_consumption_variable == self . __power_consumption (
 				machine_count_variables,
 				overclock_limits
 			)
 		)
 
-		solver . add (
+		constraints . append (self . linear_magnitude_variable >= 0)
+		constraints . append (
 			self . linear_magnitude_variable == self . __linear_magnitude (
 				machine_count_variables,
 				overclock_limits
 			)
 		)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		machine_count = model . eval (self . machine_count_variable)
+		machine_count = model [self . machine_count_variable]
 
-		if machine_count == 0:
+		if utils . interpret_approximate (machine_count, precision) == 0:
 
 			return None
 
-		results = {'machine_count': str (machine_count)}
+		results = {
+			'machine_count': utils . format_value (machine_count, precision)
+		}
 
-		clock_speed = model . eval (
-			self . linear_magnitude_variable / self . machine_count_variable
+		clock_speed = (
+			model [self . linear_magnitude_variable]
+			/ model [self . machine_count_variable]
 		)
 
-		if simplify (clock_speed != 1):
+		if utils . interpret_approximate (clock_speed, precision) != 1:
 
-			results ['clock_speed'] = str (clock_speed)
+			results ['clock_speed'] = utils . format_value (
+				clock_speed,
+				precision
+			)
 
 		results ['power_consumption'] = (
-			str (model . eval (self . power_consumption_variable))
+			utils . format_value (
+				model [self . power_consumption_variable],
+				precision
+			)
 		)
 
 		return results

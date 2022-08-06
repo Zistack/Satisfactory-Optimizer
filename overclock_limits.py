@@ -1,7 +1,5 @@
 import math
 
-from z3 import *
-
 CLOCK_SPEED_DENOMINATOR = 400
 MIN_CLOCK_SPEED = 4
 MAX_CLOCK_SPEED = 1000
@@ -30,17 +28,15 @@ class OverclockLimits:
 	def clock_speeds (self):
 
 		return (
-			Q (scaled_clock_speed, CLOCK_SPEED_DENOMINATOR)
+			scaled_clock_speed / CLOCK_SPEED_DENOMINATOR
 			for scaled_clock_speed in self . scaled_clock_speeds ()
 		)
 
 	def power_factors (self, exponent):
 
-		# Z3 can't _actually_ handle exact exponentiation, so we have to do all
-		# of this as float math before Z3 gets to touch it.
 		return (
-			(scaled_clock_speed / CLOCK_SPEED_DENOMINATOR) ** exponent
-			for scaled_clock_speed in self . scaled_clock_speeds ()
+			clock_speed ** exponent
+			for clock_speed in self . clock_speeds ()
 		)
 
 def get_overclock_limits (overclock_limits_data):

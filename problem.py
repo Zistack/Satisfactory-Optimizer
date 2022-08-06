@@ -2,7 +2,7 @@ import commentjson
 import sys
 
 from collections import defaultdict
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -43,7 +43,7 @@ class Problem:
 		self . max_power_consumption = max_power_consumption
 		self . objective_functions = objective_functions
 
-	def encode_recipes (self, solver):
+	def encode_recipes (self, constraints):
 
 		print ('Encoding recipes', file = sys . stderr)
 
@@ -60,7 +60,7 @@ class Problem:
 		for node_recipe in self . node_recipes . values ():
 
 			node_recipe . add_constraints (
-				solver,
+				constraints,
 				self . overclocking [node_recipe]
 			)
 
@@ -99,7 +99,7 @@ class Problem:
 					)
 
 					configured_well_recipe . add_constraints (
-						solver,
+						constraints,
 						self . overclocking [well_recipe]
 					)
 
@@ -130,7 +130,7 @@ class Problem:
 		for processing_recipe in self . processing_recipes . values ():
 
 			processing_recipe . add_constraints (
-				solver,
+				constraints,
 				self . overclocking [processing_recipe]
 			)
 
@@ -168,7 +168,7 @@ class Problem:
 
 	def encode_node_types (
 		self,
-		solver,
+		constraints,
 		used_node_types,
 		node_type_consuming_recipes
 	):
@@ -180,7 +180,7 @@ class Problem:
 		for node_type in used_node_types:
 
 			node_type . add_constraints (
-				solver,
+				constraints,
 				node_type_consuming_recipes [node_type]
 			)
 
@@ -190,11 +190,11 @@ class Problem:
 				else 0
 			)
 
-			solver . add (node_type . allocation_variable <= count)
+			constraints . append (node_type . allocation_variable <= count)
 
 	def encode_well_configurations (
 		self,
-		solver,
+		constraints,
 		well_configuration_consuming_recipes
 	):
 
@@ -207,15 +207,17 @@ class Problem:
 			for well_configuration, count in well_configurations . items ():
 
 				well_configuration . add_constraints (
-					solver,
+					constraints,
 					well_configuration_consuming_recipes [well_configuration]
 				)
 
-				solver . add (well_configuration . allocation_variable <= count)
+				constraints . append (
+					well_configuration . allocation_variable <= count
+				)
 
 	def encode_items (
 		self,
-		solver,
+		constraints,
 		used_items,
 		item_producing_recipes,
 		item_consuming_recipes
@@ -229,7 +231,7 @@ class Problem:
 		for item in used_items:
 
 			item . add_constraints (
-				solver,
+				constraints,
 				item_producing_recipes [item],
 				item_consuming_recipes [item]
 			)
@@ -238,29 +240,29 @@ class Problem:
 
 				if type (self . input_items [item]) != str:
 
-					solver . add (
+					constraints . append (
 						item . input_variable == self . input_items [item]
 					)
 
 			else:
 
-				solver . add (item . input_variable == 0)
+				constraints . append (item . input_variable == 0)
 
 			if item in self . output_items:
 
 				if type (self . output_items [item]) != str:
 
-					solver . add (
+					constraints . append (
 						item . output_variable == self . output_items [item]
 					)
 
 			else:
 
-				solver . add (item . output_variable == 0)
+				constraints . append (item . output_variable == 0)
 
 	def encode_machines (
 		self,
-		solver,
+		constraints,
 		used_machines,
 		machine_supported_recipes
 	):
@@ -270,11 +272,11 @@ class Problem:
 		for machine in used_machines:
 
 			machine . add_constraints (
-				solver,
+				constraints,
 				machine_supported_recipes [machine]
 			)
 
-	def encode_power_consumption (self, solver, configured_well_recipes):
+	def encode_power_consumption (self, constraints, configured_well_recipes):
 
 		print ('Encoding total power consumption', file = sys . stderr)
 
@@ -293,9 +295,11 @@ class Problem:
 			for processing_recipe in self . processing_recipes . values ()
 		)
 
-		total_power_consumption_variable = Real ('total_power_consumption')
+		total_power_consumption_variable = lp . Variable (
+			'total_power_consumption'
+		)
 
-		solver . add (
+		constraints . append (
 			total_power_consumption_variable == (
 				node_recipe_power_consumption
 				+ well_recipe_power_consumption
@@ -305,19 +309,20 @@ class Problem:
 
 		if self . max_power_consumption != None:
 
-			solver . add (
+			constraints . append (
 				total_power_consumption_variable <= self . max_power_consumption
 			)
 
 		return total_power_consumption_variable
 
-	def encode_machine_count (self, solver, used_machines):
+	def encode_machine_count (self, constraints, used_machines):
 
 		print ('Encoding total machine count', file = sys . stderr)
 
-		total_machine_count_variable = Real ('total_machine_count')
+		total_machine_count_variable = lp . Variable ('total_machine_count')
 
-		solver . add (
+		constraints . append (total_machine_count_variable >= 0)
+		constraints . append (
 			total_machine_count_variable == sum (
 				machine . count_variable for machine in used_machines
 			)
@@ -327,7 +332,8 @@ class Problem:
 
 	def encode_objective_functions (
 		self,
-		solver,
+		constraints,
+		objectives,
 		used_items,
 		total_power_consumption_variable,
 		total_machine_count_variable
@@ -337,10 +343,10 @@ class Problem:
 
 		for objective_function in self . objective_functions:
 
-			objective_function . add_objective (solver)
+			objective_function . add_objective (constraints, objectives)
 
-		solver . minimize (total_power_consumption_variable)
-		solver . minimize (total_machine_count_variable)
+		objectives . append (total_power_consumption_variable)
+		#objectives . append (total_machine_count_variable)
 
 	def interpret_model (
 		self,
@@ -349,7 +355,8 @@ class Problem:
 		used_machines,
 		configured_well_recipes,
 		total_power_consumption_variable,
-		total_machine_count_variable
+		total_machine_count_variable,
+		precision
 	):
 
 		def has_interpretation (pair):
@@ -362,7 +369,10 @@ class Problem:
 			filter (
 				has_interpretation,
 				[
-					(item . pretty_name, item . interpret_model (model))
+					(
+						item . pretty_name,
+						item . interpret_model (model, precision)
+					)
 					for item in used_items
 				]
 			)
@@ -374,7 +384,7 @@ class Problem:
 				[
 					(
 						machine . pretty_name,
-						machine . interpret_model (model)
+						machine . interpret_model (model, precision)
 					)
 					for machine in used_machines
 				]
@@ -387,7 +397,7 @@ class Problem:
 				[
 					(
 						node_recipe . pretty_name,
-						node_recipe . interpret_model (model)
+						node_recipe . interpret_model (model, precision)
 					)
 					for node_recipe in self . node_recipes . values ()
 				]
@@ -404,7 +414,10 @@ class Problem:
 							+ ' '
 							+ well_configuration . pretty_name
 						),
-						configured_well_recipe . interpret_model (model)
+						configured_well_recipe . interpret_model (
+							model,
+							precision
+						)
 					)
 					for (well_recipe, well_configuration),
 						configured_well_recipe
@@ -419,7 +432,7 @@ class Problem:
 				[
 					(
 						processing_recipe . pretty_name,
-						processing_recipe . interpret_model (model)
+						processing_recipe . interpret_model (model, precision)
 					)
 					for processing_recipe
 					in self . processing_recipes . values ()
@@ -433,11 +446,13 @@ class Problem:
 			+ processing_recipe_interpretations_list
 		)
 
-		total_power_consumption_value = str (
-			model . eval (total_power_consumption_variable)
+		total_power_consumption_value = utils . format_value (
+			model [total_power_consumption_variable],
+			precision
 		)
-		total_machine_count_value = str (
-			model . eval (total_machine_count_variable)
+		total_machine_count_value = utils . format_value (
+			model [total_machine_count_variable],
+			precision
 		)
 
 		return {
@@ -448,12 +463,12 @@ class Problem:
 			'total_machine_count': total_machine_count_value
 		}
 
-	def solve (self):
+	def solve (self, precision):
 
 		print ('Encoding problem', file = sys . stderr)
 
-		solver = Optimize ()
-		solver . set (priority = 'lex')
+		constraints = list ()
+		objectives = list ()
 
 		(
 			used_node_types,
@@ -465,44 +480,45 @@ class Problem:
 			item_consuming_recipes,
 			machine_supported_recipes,
 			configured_well_recipes,
-		) = self . encode_recipes (solver)
+		) = self . encode_recipes (constraints)
 
 		self . encode_node_types (
-			solver,
+			constraints,
 			used_node_types,
 			node_type_consuming_recipes
 		)
 
 		self . encode_well_configurations (
-			solver,
+			constraints,
 			well_configuration_consuming_recipes
 		)
 
 		self . encode_items (
-			solver,
+			constraints,
 			used_items,
 			item_producing_recipes,
 			item_consuming_recipes
 		)
 
 		self . encode_machines (
-			solver,
+			constraints,
 			used_machines,
 			machine_supported_recipes
 		)
 
 		total_power_consumption_variable = self . encode_power_consumption (
-			solver,
+			constraints,
 			configured_well_recipes
 		)
 
 		total_machine_count_variable = self . encode_machine_count (
-			solver,
+			constraints,
 			used_machines
 		)
 
 		self . encode_objective_functions (
-			solver,
+			constraints,
+			objectives,
 			used_items,
 			total_power_consumption_variable,
 			total_machine_count_variable
@@ -510,19 +526,22 @@ class Problem:
 
 		print ('Solving problem', file = sys . stderr)
 
-		if solver . check () != sat:
+		model = lp . solve (constraints, objectives)
+
+		if model == None:
 
 			return None
 
 		print ('Interpreting model', file = sys . stderr)
 
 		return self . interpret_model (
-			solver . model (),
+			model,
 			used_items,
 			used_machines,
 			configured_well_recipes,
 			total_power_consumption_variable,
-			total_machine_count_variable
+			total_machine_count_variable,
+			precision
 		)
 
 def load_problem (
@@ -551,7 +570,7 @@ def load_problem (
 
 			node_type = get_node_type (node_type_name, node_types)
 
-			problem_node_types [node_type] = IntVal (count)
+			problem_node_types [node_type] = int (count)
 
 	# Wells
 
@@ -559,11 +578,12 @@ def load_problem (
 
 	if 'wells' in problem_data:
 
-		for well_type_name, well_configuration_data in (
-			problem_data ['wells'] . items ()
-		):
+		for well_configuration_data in problem_data ['wells']:
 
-			well_type = get_well_type (well_type_name, well_types)
+			well_type = get_well_type (
+				well_configuration_data ['type'],
+				well_types
+			)
 
 			well_configuration = get_well_configuration (
 				well_type,
@@ -572,11 +592,11 @@ def load_problem (
 
 			if 'count' in well_configuration_data:
 
-				count = IntVal (well_data ['count'])
+				count = int (well_data ['count'])
 
 			else:
 
-				count = IntVal (1)
+				count = 1
 
 			problem_well_configurations [well_type] [well_configuration] = count
 
@@ -663,7 +683,9 @@ def load_problem (
 
 	if 'max_power_consumption' in problem_data:
 
-		max_power_consumption = RealVal (problem_data ['max_power_consumption'])
+		max_power_consumption = utils . real (
+			problem_data ['max_power_consumption']
+		)
 
 	else:
 

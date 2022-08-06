@@ -1,7 +1,8 @@
 import commentjson
 
+import utils
+
 from collections import defaultdict
-from z3 import *
 
 from item import get_finite_item_quantities
 from machine import get_machine
@@ -33,48 +34,57 @@ class ProcessingRecipe:
 			overclock_exponent
 		)
 
-	def __rate (self, quantity):
+	def rate (self, quantity):
 
 		return (
 			self . recipe . magnitude_variable
 			* quantity
-			* IntVal (60)
+			* 60
+			/ self . time
+		)
+
+	def interpret_rate (self, model, quantity):
+
+		return (
+			model [self . recipe . magnitude_variable]
+			* quantity
+			* 60
 			/ self . time
 		)
 
 	def input_rate (self, item):
 
 		quantity = self . input_quantities [item]
-		return self . __rate (quantity)
+		return self . rate (quantity)
 
 	def output_rate (self, item):
 
 		quantity = self . output_quantities [item]
-		return self . __rate (quantity)
+		return self . rate (quantity)
 
-	def add_constraints (self, solver, overclock_limits):
+	def add_constraints (self, constraints, overclock_limits):
 
-		self . recipe . add_constraints (solver, overclock_limits)
+		self . recipe . add_constraints (constraints, overclock_limits)
 
 		for item, quantity in self . input_quantities . items ():
 
 			item . constrain_total_flow_rate (
-				solver,
-				self . __rate (quantity),
+				constraints,
+				self . rate (quantity),
 				self . recipe . machine_count_variable
 			)
 
 		for item, quantity in self . output_quantities . items ():
 
 			item . constrain_total_flow_rate (
-				solver,
-				self . __rate (quantity),
+				constraints,
+				self . rate (quantity),
 				self . recipe . machine_count_variable
 			)
 
-	def interpret_model (self, model):
+	def interpret_model (self, model, precision):
 
-		interpretation = self . recipe . interpret_model (model)
+		interpretation = self . recipe . interpret_model (model, precision)
 
 		if interpretation == None:
 
@@ -85,7 +95,10 @@ class ProcessingRecipe:
 			interpretation ['inputs'] = dict (
 				(
 					item . pretty_name,
-					str (model . eval (self . __rate (quantity)))
+					utils . format_value (
+						self . interpret_rate (model, quantity),
+						precision
+					)
 				)
 				for item, quantity in self . input_quantities . items ()
 			)
@@ -95,7 +108,10 @@ class ProcessingRecipe:
 			interpretation ['outputs'] = dict (
 				(
 					item . pretty_name,
-					str ( model . eval (self . __rate (quantity)))
+					utils . format_value (
+						self . interpret_rate (model, quantity),
+						precision
+					)
 				)
 				for item, quantity in self . output_quantities . items ()
 			)
@@ -131,14 +147,16 @@ def get_processing_recipe (
 
 		output_quantities = dict ()
 
-	time = RealVal (processing_recipe_data ['time'])
+	time = utils . real (processing_recipe_data ['time'])
 
 	machine = get_machine (processing_recipe_data ['machine'], machines)
-	power_consumption = RealVal (processing_recipe_data ['power_consumption'])
+	power_consumption = utils . real (
+		processing_recipe_data ['power_consumption']
+	)
 
 	if 'overclock_exponent' in processing_recipe_data:
 
-		overclock_exponent = float (
+		overclock_exponent = utils . real (
 			processing_recipe_data ['overclock_exponent']
 		)
 

@@ -1,4 +1,4 @@
-from z3 import *
+import linprog as lp
 
 import utils
 
@@ -12,11 +12,12 @@ class WellConfiguration:
 
 		name = utils . name (pretty_name)
 
-		self . allocation_variable = Real (name + '_allocation')
+		self . allocation_variable = lp . Variable (name + '_allocation')
 
-	def add_constraints (self, solver, consuming_recipes):
+	def add_constraints (self, constraints, consuming_recipes):
 
-		solver . add (
+		constraints . append (self . allocation_variable >= 0)
+		constraints . append (
 			self . allocation_variable == sum (
 				well_recipe . recipe . machine_count_variable
 				for well_recipe in consuming_recipes
@@ -26,7 +27,7 @@ class WellConfiguration:
 def get_purity_counts (purity_counts_data):
 
 	return dict (
-		(purity, IntVal (count))
+		(purity, int (count))
 		for purity, count in purity_counts_data . items ()
 	)
 
