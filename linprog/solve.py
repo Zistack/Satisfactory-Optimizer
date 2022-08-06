@@ -109,8 +109,6 @@ def pin_objective (objective, objective_value, variable_ids, bounds):
 
 		variable_value = objective_value / coefficient
 
-		print ('bounding ' + str (variable) + ' at value ' + str (variable_value))
-
 		bounds [variable_ids [variable]] = (variable_value, variable_value)
 
 def add_variables (expression, variable_ids):
