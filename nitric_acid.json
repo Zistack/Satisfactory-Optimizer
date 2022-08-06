@@ -1,0 +1,22 @@
+{
+	"included_recipes": [
+		"well_pressurizer",
+		"Extract Water",
+		"production"
+	],
+	"wells": {
+		"Nitrogen Gas Well": {
+			"satellites": {"Normal": 1, "Pure": 6}
+		}
+	},
+	"output_items": {
+		"Nitric Acid": "unlimited"
+	},
+	"input_items": {
+		"Iron Plate": "unlimited"
+	},
+	"overclocking": {
+		"well_pressurizer": {"min_clock_speed": 0.01, "max_clock_speed": 2.5}
+	},
+	"optimization_goals": [["maximize_item_production", "Nitric Acid"]]
+}

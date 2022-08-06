@@ -1,0 +1,30 @@
+{
+	"included_recipes": [
+		"default",
+		"alternate",
+		"Extract Water",
+		"Sink Plutonium Fuel Rod"
+	],
+	"input_items": {
+		"Iron Ore": "unlimited",
+		"Copper Ore": "unlimited",
+		"Limestone": "unlimited",
+		"Coal": "unlimited",
+		"Caterium Ore": "unlimited",
+		"Raw Quartz": "unlimited",
+		"Sulfur": "unlimited",
+		"Uranium": 2100,
+		"Bauxite": "unlimited",
+		"Nitrogen Gas": "unlimited",
+		"Crude Oil": "unlimited"
+	},
+	"output_items": {
+		"Awesome Sink Point": "unlimited"
+	},
+	"overclocking": {
+		"Uranium Waste": {"min_clock_speed": 0.01, "max_clock_speed": 2.5}
+	},
+	"optimization_goals": [
+		["maximize_item_flow", "Uranium Waste"]
+	]
+}

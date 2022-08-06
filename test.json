@@ -1,32 +1,15 @@
 {
 	"included_recipes": [
-		"default",
-		"alternate",
-		"Extract Water",
-		"sink_production"
+		"Iron Ingot",
+		"Iron Plate",
+		"Iron Rod",
+		"Screw",
+		"Reinforced Iron Plate"
 	],
 	"input_items": {
-		"Iron Ore": "unlimited",
-		"Copper Ore": "unlimited",
-		"Limestone": "unlimited",
-		"Coal": "unlimited",
-		"Caterium Ore": "unlimited",
-		"Raw Quartz": "unlimited",
-		"Sulfur": "unlimited",
-		"Uranium": 2100,
-		"Bauxite": "unlimited",
-		"Nitrogen Gas": "unlimited",
-		"Crude Oil": "unlimited"
+		"Iron Ore": "unlimited"
 	},
 	"output_items": {
-		"Uranium Waste": 0,
-		"Non-fissile Uranium": 0,
-		"Plutonium Pellet": 0,
-		"Encased Plutonium Cell": 0,
-		"Plutonium Fuel Rod": 0,
-		"Plutonium Waste": 0
-	},
-	"optimization_goals": [
-		["maximize_item_flow", "Uranium Waste"]
-	]
+		"Reinforced Iron Plate": 60
+	}
 }
