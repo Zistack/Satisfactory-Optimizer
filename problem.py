@@ -29,6 +29,7 @@ class Problem:
 		output_items,
 		overclocking,
 		max_power_consumption,
+		max_machine_count,
 		objective_functions
 	):
 
@@ -41,6 +42,7 @@ class Problem:
 		self . output_items = output_items
 		self . overclocking = overclocking
 		self . max_power_consumption = max_power_consumption
+		self . max_machine_count = max_machine_count
 		self . objective_functions = objective_functions
 
 	def encode_recipes (self, constraints):
@@ -328,6 +330,12 @@ class Problem:
 			)
 		)
 
+		if self . max_machine_count != None:
+
+			constraints . append (
+				total_machine_count_variable <= self . max_machine_count
+			)
+
 		return total_machine_count_variable
 
 	def encode_objective_functions (
@@ -346,7 +354,6 @@ class Problem:
 			objective_function . add_objective (constraints, objectives)
 
 		objectives . append (total_power_consumption_variable)
-		#objectives . append (total_machine_count_variable)
 
 	def interpret_model (
 		self,
@@ -691,6 +698,16 @@ def load_problem (
 
 		max_power_consumption = None
 
+	# Machine Count
+
+	if 'max_machine_count' in problem_data:
+
+		max_machine_count = utils . real (problem_data ['max_machine_count'])
+
+	else:
+
+		max_machine_count = None
+
 	# Objective Functions
 
 	if 'optimization_goals' in problem_data:
@@ -716,5 +733,6 @@ def load_problem (
 		output_items,
 		overclocking,
 		max_power_consumption,
+		max_machine_count,
 		objective_functions
 	)
