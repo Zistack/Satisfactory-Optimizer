@@ -2,7 +2,7 @@
 
 A simple command-line utility for planning factories in Satisfactory.
 In addition to being a full replacement for online calculators (albeit with a less convenient user interface), it is capable of responding to optimization queries, like maximizing the output of a product given a set of input resources.
-This tool uses [Z3](https://github.com/z3prover/z3), a powerful SMT solver to plan and optimize factories.
+This tool uses [scipy.optimize.linprog](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html) to plan and optimize factories.
 
 ## Installation
 
@@ -48,7 +48,10 @@ The solver minimizes the power consumption of all factories once all other const
 
 Some example problems may be found in the repository.
 
- * `test.json` describes a power-maximized waste-free nuclear power setup.
+ * `test.json` describes a factory that produces 60 reinforced iron plates per minute using only default recipes
+ * `fuel_power` describes a fuel power plant that extracts as much power as is possible from 2 pure oil nodes using alternate recipes
+ * `nitric_acid.json` describes a factory that produces as much nitric acid as is possible from the nitrogen gas well in the rocky desert.
+ * `clean_nuclear.json` describes a power-maximized waste-free nuclear power setup.
  * `employee_of_the_universe.json` describes a factory that exploits all of the resources on the map to produce as many of the phase 4 project parts as is possible in the correct ratios.
  * `the_big_cheese.json` describes a factory that exploits all of the resources on the map to produce as many awesome sink points as is possible.
 
@@ -94,22 +97,59 @@ There are also some additional recipes to be aware of that help plan factories.
 
 In addition to specifying recipes directly by name, they can also be specified in groups.
 The recipe groups are also defined in the recipes file.
-The groups in the file provided in this repo are "default", "alternate", "production", "ficsmas", "power", "sink_production", and "sink_ficsmas".
+The groups in the file provided in this repo are as follows.
 
+ * "miner_mkX" contains all recipes that use the Miner Mk.X (where X is 1, 2, or 3).
+ * "oil_extractor" contains all recipes for the Oil Extractor.
+ * "well_pressurizer" contains all recipes for the Resource Well Pressurizer.
+ * "extraction" contains all of the above recipes as well as the "Extract Water" recipe for the Water Extractor.
  * "default" contains all recipes in game which would be available to you after unlocking all of the milestones and completing all of the M.A.M. research.
    Note that this also contains the nuclear power plant recipes.
  * "alternate" contains all recipes which are unlocked by scanning hard drives.
- * "production" is equivalent to "default" + "alternate"
- * "ficsmas" contains all FICSMAS event recipes
+ * "production" is equivalent to "default" + "alternate".
+ * "ficsmas" contains all FICSMAS event recipes.
  * "power" contains all "Burn [Fuel Item]" recipes, as well as the nuclear power plant recipes.
  * "sink_production" contains the sink recipes for all standard sinkable items.
  * "sink_ficsmas" contains the sink recipes for all FICSMAS event items.
+ * "biomass_burner" contains all recipes for the Biomass Burner.
+ * "coal_generator" contains all recipes for the Coal Generator.
+ * "fuel_generator" contains all recipes for the Fuel Generator.
+ * "geothermal_generator" contains all recipes for the Geothermal Generator.
+ * "nuclear_power_plant" contains all recipes for the Nuclear Power Plant.
+ * "power" contains all recipes that generate power.
 
 ### "excluded_recipes": ["Recipe OR Group", ...] (optional)
 
 When specifying recipes in groups, it is sometimes useful to be able to exclude a handful of recipes from that group.
 This field accepts the same set of values (including groups) as the "included_recipes" field does, but instead of enabling recipes, it disables them.
 Disabling an already disabled recipe is not a problem.
+
+### "nodes": {"Node Type": Int, ...} (optional)
+
+If the factory will extract its own resources, then resource nodes may be specified.
+The node types file defines Impure, Normal, and Pure versions of all node types.
+Resource nodes are specified by their resource (sans the word 'Ore'), followed by the word 'Node'.
+Examples: "Impure Iron Node", "Normal Uranium Node", "Pure Raw Quartz Node".
+Geysers are also specified as "Impure/Normal/Pure Geyser".
+
+### "wells": [...]
+
+Resource wells may also be specified.
+Each well is a dictionary with the following fields
+
+#### "type": "Well Type"
+
+The type field identifies the type of well, which ultimately dictates the recipes that may be used to extract resources from the well.
+
+#### "satellites": {"Purity": Int, ...}
+
+The satellites field lists the purities and counts of the available satellites surrounding the central pressurization point.
+
+#### "count": Int (optional)
+
+The count field specifies the number of wells with this configuration.
+Defaults to 1.
+Unless planning factories for a modded game, it is unlikely that this field will ever be needed.
 
 ### "input_items": {"Item": Real, ...}
 
@@ -137,18 +177,40 @@ The format of this field is the same as for "input_items".
 By default, the output quantities of all items are left unconstrained (or set to "unlimited").
 Because of the minimization of power consumption, that means that the output factory plan won't produce anything unless it has to (unless you enable a power generation recipe, at which point it will try to plan a power plant with the available resources).
 
+By default, the factory planner assumes that no item may be output by the factory.
 Setting a nonzero value here tells the factory planner that it should plan a factory that produces that item in the specified quantity.
 
-Setting a zero value here has an interesting and sometimes useful effect.
-Specifying that an item must _not_ be produced in this way constrains the planner such that any quantity of item which is produced must also be consumed by one or more recipes.
-One place where this would be useful is when planning clean nuclear power.
-Setting the output quantities of nuclear waste and its products to 0 forces the planner to account for the cost of processing it into plutonium fuel rods and sinking them, while not constraining which recipes it is allowed to use in doing so.
+Setting the special value "unlimited" here tells the planner that the resource may be output in any quantity.
+This is useful for things like byproducts for factories with fixed outputs, or for outputs which you intend to maximize using optimization goals.
+Not taking care to ensure that a factory can output (by)products can easily result in a factory plan which is either infeasible (in the case of a requested fixed output rate), or empty (in the case of output product maximization).
+
+### "overclocking": {"Recipe OR Group": ...} (optional)
+
+The factory planner supports overclocking, including for power generator recipes.
+The recipe field acts much like the field for including or excluding recipes, in that groups may be specified as well as individual recipes.
+Clock speeds are specified as a multiplier rather than a percentage, so the range of valid values is 0.01 - 2.5.
+Values outside of that range will be clamped into that range.
+The value set should be a dictionary/object with at least one of the following fields.
+
+ * "min_clock_speed"
+
+   The minimum clock speed allowed for this recipe.  Defaults to 1.
+
+ * "max_clock_speed"
+
+   The maximum clock speed allowed for this recipe.  Defaults to 1.
 
 ### "max_power_consumption": Real (optional)
 
 If power consumption is a constraint, it may be specified.
 Setting a value here constrains the planned factory to consume _at most_ the specified amount of power, in MW.
 Negative values imply that the factory should produce _at least_ that much power.
+
+### "max_machine_count": Real (optional)
+
+For planning extremely large factories, it can be nice to put an upper bound on building count, as game performance becomes a concern.
+Setting a value here constrains the planned factory to use _at most_ this many buildings.
+Note that the planner operates on units of fractional buildings, so the actual number of buildings required to implement the output factory may be somewhat larger than the number given.
 
 ### "optimization_goals": [["optimization_goal", *], ...] (optional)
 
@@ -194,15 +256,6 @@ The goal types and their behaviors are described below.
 
    The analog to "maximize_items_production", but like the other "flow" objectives, does not require that the items are all outputs of the factory.
    Useful for designing a factory that produces the Phase 4 project parts in the right ratios but ultimately sinks them, for example.
-
- * ["maximize_recipe": "Recipe"]
-
-   Maximizes the use of the named recipe.
-   Can be useful for planning power plants.
-
- * ["minimize_recipe": "Recipe"]
-
-   Minimizes the use of the named recipe.
 
 Multiple goals may be specified.
 Goals are applied in the order that they are specified.
@@ -262,26 +315,64 @@ Negative values imply that the factory actually _generates_ power.
 
 # Appendix
 
-## items-file: ["Item", ...]
+## nodes-types-file: ["Node Type", ...]
 
-The contents of the items file is simply a list of strings, where each string is the name of an item.
+The contents of the node types file is a list of strings, where each string identifies a type of node.
+
+## well-types-file: ["Well Type", ...]
+
+The contents of the well types file is a list of strings, where each string identifies a type of well.
+
+## items-file: {"Item": {*}}
+
+The contents of the items file is a dictionary, where the keys are the names of items.
+
+The values are also dictionaries, optionally containing one field: "max_flow_rate".
+The max flow rate specifies the maximum attainable flow rate for an item traveling through a single conduit (belt/pipe/etc...).
 
 ## machines-file: ["Machine", ...]
 
-The contents of the machines file is simply a list of strings, where each string is the name of a machine.
+The contents of the machines file is a list of strings, where each string identifies a type of machine.
 
 ## recipes-file: {"Recipe": {*}, ...}
 
 The contents of the recipes file is a dictionary/object, where the keys are the recipe names, and the values are the recipe objects.
 Each recipe object has a number of fields which describe the recipe.
 
-### "inputs": {"Item": Real, ...}
+### "node_type": "Node Type" (optional)
+
+For node extraction recipes, this specifies the node type that the recipe may be used upon.
+This field is mutually exclusive with "well_type" and "inputs".
+
+### "well_type": "Well Type" (optional)
+
+For well extraction recipes, this specifies the well type that the recipe may be used upon.
+This field is mutually exclusive with "node_type" and "inputs".
+
+### "resource": "Resource" (optional)
+
+For node and well extraction recipes, this specifies the resource produced by the recipe.
+This is only compatible with recipes that specify either the "node_type" or "well_type" fields.
+If left unspecified, the node recipe is assumed not to produce any items.
+
+### "rate": Real (optional)
+
+For node extraction recipes, this specifies the production rate of the output resource in items per minute.
+
+### "purity_rates": {"Purity": Real}
+
+For well extraction recipes, this specifies the production rates per satellite of the given purity.
+
+### "inputs": {"Item": Real, ...} (optional)
 
 Specifies the inputs of the recipe.
+This field is mutually exclusive with "node_type" and "well_type".
 
-### "outputs": {"Item": Real, ...}
+### "outputs": {"Item": Real, ...} (optional)
 
 Specifies the outputs of the recipe.
+If the recipe does not specify a "node_type" or "well_type" field, then this field must be used to specify any outputs.
+Otherwise, the "resource" and "rate" or "purity_rates" fields must be used.
 
 ### "time": Real
 
@@ -294,6 +385,12 @@ Specifies which machine is used to produce this recipe.
 ### "power_consumption": Real
 
 Specifies the (average) power consumption of each machine in MW when producing this recipe.
+A negative power consumption implies that the recipe generates power.
+
+### "overclock_exponent": Real
+
+When calculating the power factors and resource consumption rates for various levels of overclocking, this overrides the default exponent used (1.6 for recipes that consume power, and 1/1.3 for recipes that produce power).
+Mostly used to handle the special case of nuclear power plants having unique overclocking behavior.
 
 ### "tags": ["tag", ...] (optional)
 
