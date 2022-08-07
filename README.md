@@ -6,7 +6,7 @@ This tool uses [scipy.optimize.linprog](https://docs.scipy.org/doc/scipy/referen
 
 ## Installation
 
-0: Ensure that you have Python 3 installed, along with Z3 (including the python API) and the commentjson package
+0: Ensure that you have Python 3 installed, along with scipy and the commentjson package
 
 1: Download repository
 
