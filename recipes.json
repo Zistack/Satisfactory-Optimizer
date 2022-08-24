@@ -3029,7 +3029,7 @@
 		"tags": ["sink_production"]
 	},
 	"Sink Iron Plate": {
-		"inputs": {"Copper Ingot": 1},
+		"inputs": {"Iron Plate": 1},
 		"outputs": {"Awesome Sink Point": 6},
 		"time": "60/780",
 		"machine": "Awesome Sink",
@@ -3165,7 +3165,7 @@
 		"tags": ["sink_production"]
 	},
 	"Sink Steel Pipe": {
-		"inputs": {"Copper Sheet": 1},
+		"inputs": {"Steel Pipe": 1},
 		"outputs": {"Awesome Sink Point": 24},
 		"time": "60/780",
 		"machine": "Awesome Sink",
