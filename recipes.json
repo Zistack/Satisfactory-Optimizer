@@ -2133,8 +2133,8 @@
 		"tags": ["production", "default"]
 	},
 	"Unpackage Sulfuric Acid": {
-		"inputs": {"Packaged Sulfuric Acid": 2},
-		"outputs": {"Sulfuric Acid": 2, "Empty Canister": 2},
+		"inputs": {"Packaged Sulfuric Acid": 1},
+		"outputs": {"Sulfuric Acid": 1, "Empty Canister": 1},
 		"time": 1,
 		"machine": "Packager",
 		"power_consumption": 10,
@@ -2176,7 +2176,7 @@
 	},
 	"Coated Cable": {
 		"inputs": {"Wire": 5, "Heavy Oil Residue": 2},
-		"outputs": {"Cable": 8},
+		"outputs": {"Cable": 9},
 		"time": 8,
 		"machine": "Refinery",
 		"power_consumption": 30,
