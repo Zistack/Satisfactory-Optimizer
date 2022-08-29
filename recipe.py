@@ -53,16 +53,14 @@ class Recipe:
 
 	def __power_magnitude (self, machine_count_variables, overclock_limits):
 
-			return sum (
-				machine_count_variable * power_factor
-				for machine_count_variable, power_factor
-				in zip (
-					machine_count_variables,
-					overclock_limits . power_factors (
-						self . overclock_exponent
-					)
-				)
+		return sum (
+			machine_count_variable * power_factor
+			for machine_count_variable, power_factor
+			in zip (
+				machine_count_variables,
+				overclock_limits . power_factors (self . overclock_exponent)
 			)
+		)
 
 	def __magnitude (self, machine_count_variables, overclock_limits):
 
@@ -82,12 +80,11 @@ class Recipe:
 
 	def __power_consumption (self, machine_count_variables, overclock_limits):
 
-		return self . power_consumption * sum (
-			machine_count_variable * power_factor
-			for machine_count_variable, power_factor
-			in zip (
+		return (
+			self . power_consumption
+			* self . __power_magnitude (
 				machine_count_variables,
-				overclock_limits . power_factors (self . overclock_exponent)
+				overclock_limits
 			)
 		)
 
