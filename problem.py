@@ -30,7 +30,8 @@ class Problem:
 		overclocking,
 		max_power_consumption,
 		max_machine_count,
-		objective_functions
+		objective_functions,
+		minimize_machine_count
 	):
 
 		self . node_types = node_types
@@ -44,6 +45,7 @@ class Problem:
 		self . max_power_consumption = max_power_consumption
 		self . max_machine_count = max_machine_count
 		self . objective_functions = objective_functions
+		self . minimize_machine_count = minimize_machine_count
 
 	def encode_recipes (self, constraints):
 
@@ -353,7 +355,13 @@ class Problem:
 
 			objective_function . add_objective (constraints, objectives)
 
-		objectives . append (total_power_consumption_variable)
+		if (self . minimize_machine_count):
+
+			objectives . append (total_machine_count_variable)
+
+		else:
+
+			objectives . append (total_power_consumption_variable)
 
 	def interpret_model (
 		self,
@@ -723,6 +731,16 @@ def load_problem (
 
 		objective_functions = list ()
 
+	# Passive Minimization
+
+	if 'minimize_machine_count' in problem_data:
+
+		minimize_machine_count = bool (problem_data ['minimize_machine_count'])
+
+	else:
+
+		minimize_machine_count = False
+
 	return Problem (
 		problem_node_types,
 		problem_well_configurations,
@@ -734,5 +752,6 @@ def load_problem (
 		overclocking,
 		max_power_consumption,
 		max_machine_count,
-		objective_functions
+		objective_functions,
+		minimize_machine_count
 	)

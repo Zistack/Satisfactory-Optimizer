@@ -212,6 +212,12 @@ For planning extremely large factories, it can be nice to put an upper bound on 
 Setting a value here constrains the planned factory to use _at most_ this many buildings.
 Note that the planner operates on units of fractional buildings, so the actual number of buildings required to implement the output factory may be somewhat larger than the number given.
 
+### "minimize_machine_count": Bool (optional)
+
+If you would like to minimize machine count rather than minimizing power consumption, set this field to 'true'.
+The field defaults to 'false'.
+This will prevent the planner from maximizing power production on its own, so if this is used when designing a power plant, make sure to maximize the flow of whatever item is being used as fuel, and enable/disable the appropriate recipes.
+
 ### "optimization_goals": [["optimization_goal", *], ...] (optional)
 
 This is where you specify parameters which you would like to maximize or minimize.
