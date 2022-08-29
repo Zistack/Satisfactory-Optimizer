@@ -3,7 +3,7 @@ import commentjson
 from collections import defaultdict
 
 from node_recipe import get_node_recipe
-from well_recipe import get_well_recipe
+from well_recipe import WellRecipe, get_well_recipe
 from processing_recipe import get_processing_recipe
 
 def get_tags (recipe_data):
@@ -92,6 +92,30 @@ def get_recipe_set (meta_recipe_name, all_recipes, groups):
 	else:
 
 		return {get_recipe (meta_recipe_name, all_recipes)}
+
+def make_recipe_set_concrete (
+	recipe_set,
+	well_configurations,
+	configured_well_recipes
+):
+
+	concrete_recipe_set = set ()
+
+	for recipe in recipe_set:
+
+		if type (recipe) == WellRecipe:
+
+			for well_configuration in well_configurations [recipe . well_type]:
+
+				concrete_recipe_set . add (
+					configured_well_recipes [(recipe, well_configuration)]
+				)
+
+		else:
+
+			concrete_recipe_set . add (recipe)
+
+	return concrete_recipe_set
 
 def filter_recipe_sets (
 	used_recipes,

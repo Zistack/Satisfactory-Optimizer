@@ -345,6 +345,7 @@ class Problem:
 		constraints,
 		objectives,
 		used_items,
+		configured_well_recipes,
 		total_power_consumption_variable,
 		total_machine_count_variable
 	):
@@ -353,7 +354,12 @@ class Problem:
 
 		for objective_function in self . objective_functions:
 
-			objective_function . add_objective (constraints, objectives)
+			objective_function . add_objective (
+				constraints,
+				objectives,
+				self . well_configurations,
+				configured_well_recipes
+			)
 
 		if (self . minimize_machine_count):
 
@@ -535,6 +541,7 @@ class Problem:
 			constraints,
 			objectives,
 			used_items,
+			configured_well_recipes,
 			total_power_consumption_variable,
 			total_machine_count_variable
 		)
@@ -723,7 +730,13 @@ def load_problem (
 		objective_functions_data = problem_data ['optimization_goals']
 
 		objective_functions = list (
-			get_objective_function (function_type, function_data, items)
+			get_objective_function (
+				function_type,
+				function_data,
+				items,
+				all_recipes,
+				groups
+			)
 			for function_type, function_data in objective_functions_data
 		)
 

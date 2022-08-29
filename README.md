@@ -258,7 +258,7 @@ The goal types and their behaviors are described below.
    Minimizes the number of the named item that is produced by the factory, including internally.
    This could be used to push the factory away from using certain items that are difficult to transport like Screws, for example.
 
- * ["maximize_items_flow": {"Item": Real, ...}]
+ * ["maximize_items_flow", {"Item": Real, ...}]
 
    The analog to "maximize_items_production", but like the other "flow" objectives, does not require that the items are all outputs of the factory.
    Useful for designing a factory that produces the Phase 4 project parts in the right ratios but ultimately sinks them, for example.
@@ -274,6 +274,18 @@ If you don't want to plan a power plant, don't enable power generation recipes.
 This is one special item that is noteworthy here: "Awesome Sink Point".
 It is not an item in the traditional sense, but it is the output of all of the "Sink [Item]" recipes.
 It is possible to attempt to maximize or minimize the production of Awesome Sink points by naming this item in a maximization goal.
+
+ * ["maximize_recipe", "Recipe OR Group"]
+
+   This maximizes the number of machines used for a specific recipe or group of recipes.
+   Groups are the same as those defined in the recipes file.
+   Useful for constraining resource extraction or power generation, specifically.
+
+   When a recipe group is specified, the actual objective function is simply the sum of the machine counts times their clock speeds.
+
+ * ["minimize_recipe", "Recipe OR Group"]
+
+   Like maximization above, but minimizes instead.
 
 ## Output Format: {*}
 
