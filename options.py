@@ -47,10 +47,9 @@ parser . add_argument (
 parser . add_argument (
 	'--precision',
 	type = int,
-	default = 2,
+	default = 3,
 	help = 'Specifies the number of digits to display after the decimal point '
-		+ 'when reporting fractional results (default: 2).  Set to a negative '
-		+ 'number to display fractional values as exact fractions.'
+		+ 'when reporting fractional results (default: 3).'
 )
 
 parser . add_argument (
