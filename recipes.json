@@ -3294,7 +3294,7 @@
 	},
 	"Sink Iron Rebar": {
 		"inputs": {"Iron Rebar": 1},
-		"outputs": {"Awesome Sink Point": 100},
+		"outputs": {"Awesome Sink Point": 8},
 		"time": "60/780",
 		"machine": "Awesome Sink",
 		"power_consumption": 30,
