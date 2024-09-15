@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse . ArgumentParser (
-	description = 'A Satisfactory planner/optimizer based on Z3'
+	description = 'A Satisfactory planner/optimizer based on scipy.linprog.optimize'
 )
 
 parser . add_argument (
