@@ -255,11 +255,13 @@ class Sum:
 
 					new_terms [variable] = coefficient
 
+			new_constant = self . constant + other . constant
+
 			if len (new_terms) == 0:
 
-				return other . constant
+				return new_constant
 
-			return Sum (new_terms, other . constant)
+			return Sum (new_terms, new_constant)
 
 		raise TypeError (
 			'Addition with sum not supported for \''
