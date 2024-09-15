@@ -6,37 +6,86 @@ import utils
 
 class Machine:
 
-	def __init__ (self, pretty_name):
+	def __init__ (
+		self,
+		pretty_name,
+		overclock_exponent,
+		somersloop_slots,
+		required_somersloops
+	):
 
 		self . pretty_name = pretty_name
 
-		name = utils . name (pretty_name)
+		self . overclock_exponent = overclock_exponent
+		self . somersloop_slots = somersloop_slots
+		self . required_somersloops = required_somersloops
 
-		self . count_variable = lp . Variable (name + '_count')
+	def supports_overclocking (self):
 
-	def __count (self, supported_recipes):
+		return self . overclock_exponent != None
+
+	def supports_productivity (self):
+
+		return self . somersloop_slots != None
+
+	def requires_somersloops (self):
+
+		return self . required_somersloops != None
+
+	def add_constraints (self, constraints, using_recipes):
+
+		pass
+
+	def total_count (self, using_recipes):
 
 		return sum (
-			supported_recipe . recipe . machine_count_variable
-			for supported_recipe in supported_recipes
+			recipe . machine_count () for recipe in using_recipes
 		)
 
-	def add_constraints (self, constraints, supported_recipes):
+	def interpret (self, model, precision, interpreted_using_recipes):
 
-		constraints . append (self . count_variable >= 0)
-		constraints . append (
-			self . count_variable == self . __count (supported_recipes)
-		)
+		total_count = self . total_count (interpreted_using_recipes)
 
-	def interpret_model (self, model, precision):
-
-		count = model [self . count_variable]
-
-		if utils . interpret_approximate (count, precision) == 0:
+		if total_count == 0:
 
 			return None
 
-		return utils . format_value (count, precision)
+		return utils . format_value (total_count, precision)
+
+def load_machine (pretty_name, machine_data):
+
+	if 'overclock_exponent' in machine_data:
+
+		overclock_exponent = utils . real (machine_data ['overclock_exponent'])
+
+	else:
+
+		overclock_exponent = None
+
+	if 'somersloop_slots' in machine_data:
+
+		somersloop_slots = utils . real (machine_data ['somersloop_slots'])
+
+	else:
+
+		somersloop_slots = None
+
+	if 'required_somersloops' in machine_data:
+
+		required_somersloops = utils . real (
+			machine_data ['required_somersloops']
+		)
+
+	else:
+
+		required_somersloops = None
+
+	return Machine (
+		pretty_name,
+		overclock_exponent,
+		somersloop_slots,
+		required_somersloops
+	)
 
 def load_machines (machines_file_name):
 
@@ -46,9 +95,12 @@ def load_machines (machines_file_name):
 
 	machines = dict ()
 
-	for machine_pretty_name in machines_data:
+	for machine_pretty_name, machine_data in machines_data . items ():
 
-		machines [machine_pretty_name] = Machine (machine_pretty_name)
+		machines [machine_pretty_name] = load_machine (
+			machine_pretty_name,
+			machine_data
+		)
 
 	return machines
 

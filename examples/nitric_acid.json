@@ -4,11 +4,12 @@
 		"Extract Water",
 		"production"
 	],
-	"wells": {
-		"Nitrogen Gas Well": {
+	"wells": [
+		{
+			"type": "Nitrogen Gas Well",
 			"satellites": {"Normal": 1, "Pure": 6}
 		}
-	},
+	],
 	"output_items": {
 		"Nitric Acid": "unlimited"
 	},
@@ -18,5 +19,5 @@
 	"overclocking": {
 		"well_pressurizer": {"min_clock_speed": 0.01, "max_clock_speed": 2.5}
 	},
-	"optimization_goals": [["maximize_item_production", "Nitric Acid"]]
+	"optimization_goals": [["maximize_item_output", "Nitric Acid"]]
 }

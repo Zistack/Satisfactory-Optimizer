@@ -8,13 +8,15 @@ import utils
 
 from node_type import get_node_type
 from well_type import get_well_type
-from well_configuration import get_well_configuration
-from item import get_item_quantities
-from well_recipe import ConfiguredWellRecipe
-from recipe_utils import get_recipe, get_recipe_set, filter_recipe_sets
+from well_configuration import load_well_configuration
+from item import load_item_quantities
+from well_recipe import WellRecipe
+from recipe import RawRecipe
+from recipe_utils import get_recipe, get_recipe_set
+from recipe_registry import RecipeRegistry
+from overclock_limits import load_overclock_limits
 
-from overclock_limits import get_overclock_limits
-from objective_function import get_objective_function
+from objective_function import load_objective_function
 
 class Problem:
 
@@ -22,13 +24,13 @@ class Problem:
 		self,
 		node_types,
 		well_configurations,
-		node_recipes,
-		well_recipes,
-		processing_recipes,
+		searchable_recipes,
 		input_items,
 		output_items,
-		overclocking,
+		overclock_limits,
 		max_power_consumption,
+		available_somersloops,
+		power_augmentation_recipes,
 		max_machine_count,
 		objective_functions,
 		minimize_machine_count
@@ -36,171 +38,128 @@ class Problem:
 
 		self . node_types = node_types
 		self . well_configurations = well_configurations
-		self . node_recipes = node_recipes
-		self . well_recipes = well_recipes
-		self . processing_recipes = processing_recipes
+		self . searchable_recipes = searchable_recipes
 		self . input_items = input_items
 		self . output_items = output_items
-		self . overclocking = overclocking
+		self . overclock_limits = overclock_limits
+		self . available_somersloops = available_somersloops
+		self . power_augmentation_recipes = power_augmentation_recipes
 		self . max_power_consumption = max_power_consumption
 		self . max_machine_count = max_machine_count
 		self . objective_functions = objective_functions
 		self . minimize_machine_count = minimize_machine_count
 
-	def encode_recipes (self, constraints):
+	def __model_productivity (self):
+
+		return self . available_somersloops != 0
+
+	def __encode_recipe (self, constraints, recipe, recipe_registry):
+
+		if type (recipe) == RawRecipe:
+
+			encoded_recipe = recipe . encode (
+				constraints,
+				self . overclock_limits [recipe],
+				self . __model_productivity ()
+			)
+
+			recipe_registry . register_recipe (recipe, encoded_recipe)
+
+			return [encoded_recipe]
+
+		if type (recipe) == WellRecipe:
+
+			encoded_recipes = list ()
+
+			for well_configuration \
+			in self . well_configurations [recipe . well_type] . keys ():
+
+				raw_recipe = recipe . specialize (well_configuration)
+
+				encoded_recipe = raw_recipe . encode (
+					constraints,
+					self . overclock_limits [recipe],
+					self . __model_productivity ()
+				)
+
+				recipe_registry . register_recipe (raw_recipe, encoded_recipe)
+				recipe_registry . register_well_recipe (recipe, encoded_recipe)
+
+				encoded_recipes . append (encoded_recipe)
+
+			return encoded_recipes
+
+	def __encode_recipes (self, constraints):
 
 		print ('Encoding recipes', file = sys . stderr)
 
-		used_node_types = set ()
-		used_items = set ()
-		used_machines = set ()
+		recipe_registry = RecipeRegistry ()
+		total_power_augmentation_factor = 0
 
-		node_type_consuming_recipes = defaultdict (list)
-		well_configuration_consuming_recipes = defaultdict (list)
-		item_producing_recipes = defaultdict (list)
-		item_consuming_recipes = defaultdict (list)
-		machine_supported_recipes = defaultdict (list)
+		for recipe in self . searchable_recipes:
 
-		for node_recipe in self . node_recipes . values ():
+			self . __encode_recipe (constraints, recipe, recipe_registry)
 
-			node_recipe . add_constraints (
+		for power_augmentation_recipe, machine_count \
+		in self . power_augmentation_recipes . items ():
+
+			encoded_recipes = self . __encode_recipe (
 				constraints,
-				self . overclocking [node_recipe]
+				power_augmentation_recipe,
+				recipe_registry
 			)
 
-			used_node_types . add (node_recipe . node_type)
-			used_machines . add (node_recipe . recipe . machine)
-
-			node_type_consuming_recipes [node_recipe . node_type] . append (
-				node_recipe
+			constraints . append (
+				sum (
+					encoded_recipe . machine_count ()
+					for encoded_recipe in encoded_recipes
+				)
+				== machine_count
 			)
 
-			if node_recipe . resource != None:
-
-				used_items . add (node_recipe . resource)
-
-				item_producing_recipes [node_recipe . resource] . append (
-					node_recipe
-				)
-
-			machine_supported_recipes [
-				node_recipe . recipe . machine
-			] . append (node_recipe)
-
-		configured_well_recipes = dict ()
-
-		for well_type, well_configurations in (
-			self . well_configurations . items ()
-		):
-
-			for well_configuration in well_configurations . keys ():
-
-				for well_recipe in self . well_recipes [well_type] . values ():
-
-					configured_well_recipe = ConfiguredWellRecipe (
-						well_recipe,
-						well_configuration,
-					)
-
-					configured_well_recipe . add_constraints (
-						constraints,
-						self . overclocking [well_recipe]
-					)
-
-					used_machines . add (well_recipe . machine)
-
-					well_configuration_consuming_recipes [
-						well_configuration
-					] . append (
-						configured_well_recipe
-					)
-
-					if well_recipe . resource != None:
-
-						used_items . add (well_recipe . resource)
-
-						item_producing_recipes [
-							well_recipe . resource
-						] . append (configured_well_recipe)
-
-					machine_supported_recipes [
-						well_recipe . machine
-					] . append (configured_well_recipe)
-
-					configured_well_recipes [
-						(well_recipe, well_configuration)
-					] = (configured_well_recipe)
-
-		for processing_recipe in self . processing_recipes . values ():
-
-			processing_recipe . add_constraints (
-				constraints,
-				self . overclocking [processing_recipe]
+			total_power_augmentation_factor += (
+				machine_count
+				* power_augmentation_recipe . power_augmentation_factor
 			)
-
-			used_items |= set (processing_recipe . output_quantities . keys ())
-			used_items |= set (processing_recipe . input_quantities . keys ())
-			used_machines . add (processing_recipe . recipe . machine)
-
-			for item in processing_recipe . output_quantities . keys ():
-
-				item_producing_recipes [item] . append (
-					processing_recipe
-				)
-
-			for item in processing_recipe . input_quantities . keys ():
-
-				item_consuming_recipes [item] . append (
-					processing_recipe
-				)
-
-			machine_supported_recipes [
-				processing_recipe . recipe . machine
-			] . append (processing_recipe)
 
 		return (
-			used_node_types,
-			used_items,
-			used_machines,
-			node_type_consuming_recipes,
-			well_configuration_consuming_recipes,
-			item_producing_recipes,
-			item_consuming_recipes,
-			machine_supported_recipes,
-			configured_well_recipes,
+			recipe_registry,
+			total_power_augmentation_factor
 		)
 
-	def encode_node_types (
-		self,
-		constraints,
-		used_node_types,
-		node_type_consuming_recipes
-	):
+	def __encode_somersloops (self, constraints, recipe_registry):
+
+		total_allocated_somersloops = sum (
+			recipe . allocated_somersloops ()
+			for recipe in recipe_registry . somersloop_allocating_recipes
+		)
+
+		constraints . append (total_allocated_somersloops >= 0)
+		constraints . append (
+			total_allocated_somersloops <= self . available_somersloops
+		)
+
+	def __encode_node_types (self, constraints, recipe_registry):
 
 		print ('Encoding nodes', file = sys . stderr)
 
-		used_node_types |= self . node_types . keys ()
+		for node_type, consuming_recipes \
+		in recipe_registry . node_type_consuming_recipes . items ():
 
-		for node_type in used_node_types:
+			if node_type in self . node_types:
 
-			node_type . add_constraints (
-				constraints,
-				node_type_consuming_recipes [node_type]
+				count = self . node_types [node_type]
+
+			else:
+
+				count = 0
+
+			constraints . append (
+				sum (recipe . machine_count () for recipe in consuming_recipes)
+				<= count
 			)
 
-			count = (
-				self . node_types [node_type]
-				if node_type in self . node_types
-				else 0
-			)
-
-			constraints . append (node_type . allocation_variable <= count)
-
-	def encode_well_configurations (
-		self,
-		constraints,
-		well_configuration_consuming_recipes
-	):
+	def __encode_well_configurations (self, constraints, recipe_registry):
 
 		print ('Encoding wells', file = sys . stderr)
 
@@ -212,142 +171,140 @@ class Problem:
 
 				well_configuration . add_constraints (
 					constraints,
-					well_configuration_consuming_recipes [well_configuration]
+					count,
+					recipe_registry . well_configuration_consuming_recipes [
+						well_configuration
+					]
 				)
 
-				constraints . append (
-					well_configuration . allocation_variable <= count
-				)
+	def __input_rate (self, item):
 
-	def encode_items (
-		self,
-		constraints,
-		used_items,
-		item_producing_recipes,
-		item_consuming_recipes
-	):
+		if item in self . input_items:
+
+			return self . input_items [item]
+
+		else:
+
+			return 0.0
+
+	def __output_rate (self, item):
+
+		if item in self . output_items:
+
+			return self . output_items [item]
+
+		else:
+
+			return 0.0
+
+	def __encode_items (self, constraints, recipe_registry):
 
 		print ('Encoding items', file = sys . stderr)
 
+		used_items = set ()
+
 		used_items |= self . input_items . keys ()
 		used_items |= self . output_items . keys ()
+
+		used_items |= recipe_registry . item_producing_recipes . keys ()
+		used_items |= recipe_registry . item_consuming_recipes . keys ()
 
 		for item in used_items:
 
 			item . add_constraints (
 				constraints,
-				item_producing_recipes [item],
-				item_consuming_recipes [item]
+				recipe_registry . item_producing_recipes [item],
+				recipe_registry . item_consuming_recipes [item],
+				self . __input_rate (item),
+				self . __output_rate (item)
 			)
 
-			if item in self . input_items:
+		return used_items
 
-				if type (self . input_items [item]) != str:
+	# This whole step is arguably a complete no-op now.
+	def __encode_machines (self, constraints, recipe_registry):
 
-					constraints . append (
-						item . input_variable == self . input_items [item]
-					)
+		print ('Encoding machines', file = sys . stderr)
 
-			else:
-
-				constraints . append (item . input_variable == 0)
-
-			if item in self . output_items:
-
-				if type (self . output_items [item]) != str:
-
-					constraints . append (
-						item . output_variable == self . output_items [item]
-					)
-
-			else:
-
-				constraints . append (item . output_variable == 0)
-
-	def encode_machines (
-		self,
-		constraints,
-		used_machines,
-		machine_supported_recipes
-	):
-
-		print ('Encoding items', file = sys . stderr)
-
-		for machine in used_machines:
+		for machine, using_recipes \
+		in recipe_registry . machine_using_recipes . items ():
 
 			machine . add_constraints (
 				constraints,
-				machine_supported_recipes [machine]
+				recipe_registry . machine_using_recipes [machine]
 			)
 
-	def encode_power_consumption (self, constraints, configured_well_recipes):
+	def __net_power_consumption (
+		self,
+		recipe_registry,
+		total_power_augmentation_factor
+	):
+
+		total_power_production = sum (
+			- recipe . power_consumption ()
+			for recipe in recipe_registry . power_producing_recipes
+		)
+
+		augmented_power_production = (
+			total_power_production
+			* (1 + total_power_augmentation_factor)
+		)
+
+		total_power_consumption = sum (
+			recipe . power_consumption ()
+			for recipe in recipe_registry . power_consuming_recipes
+		)
+
+		return total_power_consumption - augmented_power_production
+
+	def __encode_power_consumption (
+		self,
+		constraints,
+		recipe_registry,
+		total_power_augmentation_factor
+	):
 
 		print ('Encoding total power consumption', file = sys . stderr)
 
-		node_recipe_power_consumption = sum (
-			node_recipe . recipe . power_consumption_variable
-			for node_recipe in self . node_recipes . values ()
-		)
+		if self . max_power_consumption == None:
 
-		well_recipe_power_consumption = sum (
-			configured_well_recipe . recipe . power_consumption_variable
-			for configured_well_recipe in configured_well_recipes . values ()
-		)
-
-		processing_recipe_power_consumption = sum (
-			processing_recipe . recipe . power_consumption_variable
-			for processing_recipe in self . processing_recipes . values ()
-		)
-
-		total_power_consumption_variable = lp . Variable (
-			'total_power_consumption'
-		)
+			return
 
 		constraints . append (
-			total_power_consumption_variable == (
-				node_recipe_power_consumption
-				+ well_recipe_power_consumption
-				+ processing_recipe_power_consumption
+			self . __net_power_consumption (
+				recipe_registry,
+				total_power_augmentation_factor
 			)
+			<= self . max_power_consumption
 		)
 
-		if self . max_power_consumption != None:
+	def __total_machine_count (self, recipe_registry):
 
-			constraints . append (
-				total_power_consumption_variable <= self . max_power_consumption
-			)
+		return sum (
+			machine . total_count (using_recipes)
+			for machine, using_recipes
+			in recipe_registry . machine_using_recipes . items ()
+		)
 
-		return total_power_consumption_variable
-
-	def encode_machine_count (self, constraints, used_machines):
+	def __encode_machine_count (self, constraints, recipe_registry):
 
 		print ('Encoding total machine count', file = sys . stderr)
 
-		total_machine_count_variable = lp . Variable ('total_machine_count')
+		if self . max_machine_count == None:
 
-		constraints . append (total_machine_count_variable >= 0)
+			return
+
 		constraints . append (
-			total_machine_count_variable == sum (
-				machine . count_variable for machine in used_machines
-			)
+			self . __total_machine_count (recipe_registry)
+			<= self . max_machine_count
 		)
 
-		if self . max_machine_count != None:
-
-			constraints . append (
-				total_machine_count_variable <= self . max_machine_count
-			)
-
-		return total_machine_count_variable
-
-	def encode_objective_functions (
+	def __encode_objective_functions (
 		self,
 		constraints,
 		objectives,
-		used_items,
-		configured_well_recipes,
-		total_power_consumption_variable,
-		total_machine_count_variable
+		recipe_registry,
+		total_power_augmentation_factor
 	):
 
 		print ('Encoding objective functions', file = sys . stderr)
@@ -357,42 +314,88 @@ class Problem:
 			objective_function . add_objective (
 				constraints,
 				objectives,
-				self . well_configurations,
-				configured_well_recipes
+				recipe_registry
 			)
 
 		if (self . minimize_machine_count):
 
-			objectives . append (total_machine_count_variable)
+			objectives . append (self . __total_machine_count (recipe_registry))
 
 		else:
 
-			objectives . append (total_power_consumption_variable)
+			objectives . append (
+				self . __net_power_consumption (
+					recipe_registry,
+					total_power_augmentation_factor
+				)
+			)
 
-	def interpret_model (
+	def __interpret_model (
 		self,
 		model,
-		used_items,
-		used_machines,
-		configured_well_recipes,
-		total_power_consumption_variable,
-		total_machine_count_variable,
-		precision
+		precision,
+		recipe_registry,
+		total_power_augmentation_factor,
+		used_items
 	):
 
-		def has_interpretation (pair):
+		interpreted_recipe_registry = recipe_registry . interpret (model)
 
-			name, interpretation = pair
+		def has_report (tuple):
 
-			return interpretation != None
+			name, report = tuple
+
+			return report != None
+
+		searchable_recipe_interpretations = dict (
+			filter (
+				has_report,
+				[
+					(
+						interpreted_searchable_recipe . pretty_name (),
+						interpreted_searchable_recipe . get_report (precision)
+					)
+					for interpreted_searchable_recipe
+					in interpreted_recipe_registry . get_interpreted_recipes (
+						self . searchable_recipes
+					)
+				]
+			)
+		)
+
+		power_augmentation_recipe_interpretations = dict (
+			filter (
+				has_report,
+				[
+					(
+						interpreted_power_augmentation_recipe . pretty_name (),
+						interpreted_power_augmentation_recipe
+							. get_report (precision)
+					)
+					for interpreted_power_augmentation_recipe
+					in interpreted_recipe_registry . get_interpreted_recipes (
+						self . power_augmentation_recipes . keys ()
+					)
+				]
+			)
+		)
 
 		item_interpretations = dict (
 			filter (
-				has_interpretation,
+				has_report,
 				[
 					(
 						item . pretty_name,
-						item . interpret_model (model, precision)
+						item . interpret (
+							model,
+							precision,
+							interpreted_recipe_registry
+								. item_producing_recipes [item],
+							interpreted_recipe_registry
+								. item_consuming_recipes [item],
+							self . __input_rate (item),
+							self . __output_rate (item)
+						)
 					)
 					for item in used_items
 				]
@@ -401,85 +404,39 @@ class Problem:
 
 		machine_interpretations = dict (
 			filter (
-				has_interpretation,
+				has_report,
 				[
 					(
 						machine . pretty_name,
-						machine . interpret_model (model, precision)
+						machine . interpret (model, precision, using_recipes)
 					)
-					for machine in used_machines
+					for machine, using_recipes
+					in interpreted_recipe_registry
+						. machine_using_recipes
+						. items ()
 				]
 			)
-		)
-
-		node_recipe_interpretations_list = list (
-			filter (
-				has_interpretation,
-				[
-					(
-						node_recipe . pretty_name,
-						node_recipe . interpret_model (model, precision)
-					)
-					for node_recipe in self . node_recipes . values ()
-				]
-			)
-		)
-
-		well_recipe_interpretations_list = list (
-			filter (
-				has_interpretation,
-				[
-					(
-						(
-							well_recipe . pretty_name
-							+ ' '
-							+ well_configuration . pretty_name
-						),
-						configured_well_recipe . interpret_model (
-							model,
-							precision
-						)
-					)
-					for (well_recipe, well_configuration),
-						configured_well_recipe
-					in configured_well_recipes . items ()
-				]
-			)
-		)
-
-		processing_recipe_interpretations_list = list (
-			filter (
-				has_interpretation,
-				[
-					(
-						processing_recipe . pretty_name,
-						processing_recipe . interpret_model (model, precision)
-					)
-					for processing_recipe
-					in self . processing_recipes . values ()
-				]
-			)
-		)
-
-		recipe_interpretations = dict (
-			node_recipe_interpretations_list
-			+ well_recipe_interpretations_list
-			+ processing_recipe_interpretations_list
 		)
 
 		total_power_consumption_value = utils . format_value (
-			model [total_power_consumption_variable],
+			self . __net_power_consumption (
+				interpreted_recipe_registry,
+				total_power_augmentation_factor
+			),
 			precision
 		)
+
 		total_machine_count_value = utils . format_value (
-			model [total_machine_count_variable],
+			self . __total_machine_count (interpreted_recipe_registry),
 			precision
 		)
 
 		return {
 			'items': item_interpretations,
 			'machines': machine_interpretations,
-			'recipes': recipe_interpretations,
+			'recipes': searchable_recipe_interpretations,
+			'power_augmentation_recipes':
+				power_augmentation_recipe_interpretations,
 			'total_power_consumption': total_power_consumption_value,
 			'total_machine_count': total_machine_count_value
 		}
@@ -492,58 +449,33 @@ class Problem:
 		objectives = list ()
 
 		(
-			used_node_types,
-			used_items,
-			used_machines,
-			node_type_consuming_recipes,
-			well_configuration_consuming_recipes,
-			item_producing_recipes,
-			item_consuming_recipes,
-			machine_supported_recipes,
-			configured_well_recipes,
-		) = self . encode_recipes (constraints)
+			recipe_registry,
+			total_power_augmentation_factor
+		) = self . __encode_recipes (constraints)
 
-		self . encode_node_types (
+		self . __encode_somersloops (constraints, recipe_registry)
+
+		self . __encode_node_types (constraints, recipe_registry)
+
+		self . __encode_well_configurations (constraints, recipe_registry)
+
+		used_items = self . __encode_items (constraints, recipe_registry)
+
+		self . __encode_machines (constraints, recipe_registry)
+
+		self . __encode_power_consumption (
 			constraints,
-			used_node_types,
-			node_type_consuming_recipes
+			recipe_registry,
+			total_power_augmentation_factor
 		)
 
-		self . encode_well_configurations (
-			constraints,
-			well_configuration_consuming_recipes
-		)
+		self . __encode_machine_count (constraints, recipe_registry)
 
-		self . encode_items (
-			constraints,
-			used_items,
-			item_producing_recipes,
-			item_consuming_recipes
-		)
-
-		self . encode_machines (
-			constraints,
-			used_machines,
-			machine_supported_recipes
-		)
-
-		total_power_consumption_variable = self . encode_power_consumption (
-			constraints,
-			configured_well_recipes
-		)
-
-		total_machine_count_variable = self . encode_machine_count (
-			constraints,
-			used_machines
-		)
-
-		self . encode_objective_functions (
+		self . __encode_objective_functions (
 			constraints,
 			objectives,
-			used_items,
-			configured_well_recipes,
-			total_power_consumption_variable,
-			total_machine_count_variable
+			recipe_registry,
+			total_power_augmentation_factor
 		)
 
 		print ('Solving problem', file = sys . stderr)
@@ -556,14 +488,12 @@ class Problem:
 
 		print ('Interpreting model', file = sys . stderr)
 
-		return self . interpret_model (
+		return self . __interpret_model (
 			model,
-			used_items,
-			used_machines,
-			configured_well_recipes,
-			total_power_consumption_variable,
-			total_machine_count_variable,
-			precision
+			precision,
+			recipe_registry,
+			total_power_augmentation_factor,
+			used_items
 		)
 
 def load_problem (
@@ -571,10 +501,8 @@ def load_problem (
 	node_types,
 	well_types,
 	items,
-	all_recipes,
-	node_recipes,
-	well_recipes,
-	processing_recipes,
+	searchable_recipes,
+	power_augmentation_recipes,
 	groups
 ):
 
@@ -607,7 +535,7 @@ def load_problem (
 				well_types
 			)
 
-			well_configuration = get_well_configuration (
+			well_configuration = load_well_configuration (
 				well_type,
 				well_configuration_data
 			)
@@ -626,13 +554,13 @@ def load_problem (
 
 	included_recipes = problem_data ['included_recipes']
 
-	problem_recipes = set ()
+	problem_searchable_recipes = set ()
 
 	for included_recipe in included_recipes:
 
-		problem_recipes |= get_recipe_set (
+		problem_searchable_recipes |= get_recipe_set (
 			included_recipe,
-			all_recipes,
+			searchable_recipes,
 			groups
 		)
 
@@ -642,52 +570,41 @@ def load_problem (
 
 		for excluded_recipe in excluded_recipes:
 
-			problem_recipes -= get_recipe_set (
+			problem_searchable_recipes -= get_recipe_set (
 				excluded_recipe,
-				all_recipes,
+				searchable_recipes,
 				groups
 			)
-
-	(
-		problem_node_recipes,
-		problem_well_recipes,
-		problem_processing_recipes
-	) = filter_recipe_sets (
-		problem_recipes,
-		node_recipes,
-		well_recipes,
-		processing_recipes
-	)
 
 	# Input items
 
 	if 'input_items' in problem_data:
 
-		input_items = get_item_quantities (
+		problem_input_items = load_item_quantities (
 			problem_data ['input_items'],
 			items
 		)
 
 	else:
 
-		input_items = dict ()
+		problem_input_items = dict ()
 
 	# Output items
 
 	if 'output_items' in problem_data:
 
-		output_items = get_item_quantities (
+		problem_output_items = load_item_quantities (
 			problem_data ['output_items'],
 			items
 		)
 
 	else:
 
-		output_items = dict ()
+		problem_output_items = dict ()
 
 	# Overclocking
 
-	overclocking = defaultdict (lambda: get_overclock_limits ({}))
+	problem_overclock_limits = defaultdict (lambda: None)
 
 	if 'overclocking' in problem_data:
 
@@ -695,33 +612,67 @@ def load_problem (
 			problem_data ['overclocking'] . items ()
 		):
 
-			overclock_limits = get_overclock_limits (overclock_limits_data)
+			overclock_limits = load_overclock_limits (overclock_limits_data)
 
-			for recipe in get_recipe_set (recipe_name, all_recipes, groups):
+			for recipe in get_recipe_set (recipe_name, searchable_recipes, groups):
 
-				overclocking [recipe] = overclock_limits
+				if not recipe . supports_overclocking ():
+
+					raise ValueError (
+						'\'' + recipe_name + '\' does not support overclocking'
+					)
+
+				problem_overclock_limits [recipe] = overclock_limits
 
 	# Power Consumption
 
 	if 'max_power_consumption' in problem_data:
 
-		max_power_consumption = utils . real (
+		problem_max_power_consumption = utils . real (
 			problem_data ['max_power_consumption']
 		)
 
 	else:
 
-		max_power_consumption = None
+		problem_max_power_consumption = None
+
+	# Available Somersloops
+
+	if 'available_somersloops' in problem_data:
+
+		problem_available_somersloops = utils . real (
+			problem_data ['available_somersloops']
+		)
+
+	else:
+
+		problem_available_somersloops = 0
+
+	# Power Augmentation
+
+	problem_power_augmentation_recipes = dict ()
+
+	if 'power_augmentation' in problem_data:
+
+		for recipe_name, machine_count \
+		in problem_data ['power_augmentation'] . items ():
+
+			recipe = get_recipe (recipe_name, power_augmentation_recipes)
+			machine_count = utils . real (machine_count)
+
+			problem_power_augmentation_recipes [recipe] = machine_count
 
 	# Machine Count
 
 	if 'max_machine_count' in problem_data:
 
-		max_machine_count = utils . real (problem_data ['max_machine_count'])
+		problem_max_machine_count = utils . real (
+			problem_data ['max_machine_count']
+		)
 
 	else:
 
-		max_machine_count = None
+		problem_max_machine_count = None
 
 	# Objective Functions
 
@@ -729,12 +680,12 @@ def load_problem (
 
 		objective_functions_data = problem_data ['optimization_goals']
 
-		objective_functions = list (
-			get_objective_function (
+		problem_objective_functions = list (
+			load_objective_function (
 				function_type,
 				function_data,
 				items,
-				all_recipes,
+				searchable_recipes,
 				groups
 			)
 			for function_type, function_data in objective_functions_data
@@ -742,29 +693,31 @@ def load_problem (
 
 	else:
 
-		objective_functions = list ()
+		problem_objective_functions = list ()
 
 	# Passive Minimization
 
 	if 'minimize_machine_count' in problem_data:
 
-		minimize_machine_count = bool (problem_data ['minimize_machine_count'])
+		problem_minimize_machine_count = bool (
+			problem_data ['minimize_machine_count']
+		)
 
 	else:
 
-		minimize_machine_count = False
+		problem_minimize_machine_count = False
 
 	return Problem (
 		problem_node_types,
 		problem_well_configurations,
-		problem_node_recipes,
-		problem_well_recipes,
-		problem_processing_recipes,
-		input_items,
-		output_items,
-		overclocking,
-		max_power_consumption,
-		max_machine_count,
-		objective_functions,
-		minimize_machine_count
+		problem_searchable_recipes,
+		problem_input_items,
+		problem_output_items,
+		problem_overclock_limits,
+		problem_max_power_consumption,
+		problem_available_somersloops,
+		problem_power_augmentation_recipes,
+		problem_max_machine_count,
+		problem_objective_functions,
+		problem_minimize_machine_count
 	)

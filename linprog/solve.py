@@ -1,4 +1,5 @@
 import itertools
+import sys
 
 import numpy as np
 import scipy as sp
@@ -106,7 +107,13 @@ def pin_objective (objective, objective_value, variable_ids, A, b, bounds):
 
 	if type (objective) == Sum:
 
-		encode_linear_constraint (objective == objective_value, variable_ids, A, b)
+		if len (objective . terms) == 1:
+
+			encode_equality_bound (objective == objective_value, variable_ids, bounds)
+
+		else:
+
+			encode_linear_constraint (objective == objective_value, variable_ids, A, b)
 
 def add_variables (expression, variable_ids):
 
@@ -209,6 +216,8 @@ def solve (constraints, objectives):
 		result = sp . optimize . linprog (c, A_ub, b_ub, A_eq, b_eq, bounds)
 
 		if not result . success:
+
+			print ("Optimization Failed:", result . message, file = sys . stderr)
 
 			return None
 

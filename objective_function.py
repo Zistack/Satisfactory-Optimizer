@@ -2,42 +2,60 @@ import linprog as lp
 
 import utils
 
-from item import get_item, get_finite_item_quantities
-from recipe_utils import get_recipe, get_recipe_set, make_recipe_set_concrete
+from item import get_item, load_finite_item_quantities
+from recipe_utils import get_recipe, get_recipe_set
 
-item_flow = lambda item: item . flow_variable
-item_consumption = lambda item: item . input_variable
-item_production = lambda item: item . output_variable
+def item_production (item, recipe_registry):
+
+	return item . production (
+		recipe_registry . item_producing_recipes [item]
+	)
+
+def item_consumption (item, recipe_registry):
+
+	return item . consumption (
+		recipe_registry . item_consuming_recipes [item]
+	)
+
+def item_output (item, recipe_registry):
+
+	return (
+		item . production (recipe_registry . item_producing_recipes [item])
+		- item . consumption (recipe_registry . item_consuming_recipes [item])
+	)
+
+def item_input (item, recipe_registry):
+
+	return (
+		item . consumption (recipe_registry . item_consuming_recipes [item])
+		- item . production (recipe_registry . item_producing_recipes [item])
+	)
 
 maximize = lambda v: - v
 minimize = lambda v: v
 
 class ItemObjectiveFunction:
 
-	def __init__ (self, item, item_variable, objective_type):
+	def __init__ (self, item, item_expression, objective_type):
 
 		self . item = item
-		self . item_variable = item_variable
+		self . item_expression = item_expression
 		self . objective_type = objective_type
 
-	def add_objective (
-		self,
-		constraints,
-		objectives,
-		well_configurations,
-		configured_well_recipes
-	):
+	def add_objective (self, constraints, objectives, recipe_registry):
 
 		objectives . append (
-			self . objective_type (self . item_variable (self . item))
+			self . objective_type (
+				self . item_expression (self . item, recipe_registry)
+			)
 		)
 
 class ItemsObjectiveFunction:
 
-	def __init__ (self, item_ratios, item_variable, objective_type):
+	def __init__ (self, item_ratios, item_expression, objective_type):
 
 		self . item_ratios = item_ratios
-		self . item_variable = item_variable
+		self . item_expression = item_expression
 		self . objective_type = objective_type
 
 		pretty_name = ' ' . join (
@@ -47,68 +65,53 @@ class ItemsObjectiveFunction:
 
 		name = utils . name (pretty_name)
 
-		self . variable = lp . Variable (name)
+		self . combination_variable = lp . Variable (name)
 
-	def add_objective (
-		self,
-		constraints,
-		objectives,
-		well_configurations,
-		configured_well_recipes
-	):
+	def add_objective (self, constraints, objectives, recipe_registry):
 
-		constraints . append (self . variable >= 0)
+		constraints . append (self . combination_variable >= 0)
 
 		for item, ratio in self . item_ratios . items ():
 
 			constraints . append (
-				self . item_variable (item) == self . variable * ratio
+				self . item_expression (item, recipe_registry)
+				== self . combination_variable * ratio
 			)
 
-		objectives . append (self . objective_type (self . variable))
+		objectives . append (self . objective_type (self . combination_variable))
 
 class RecipeObjectiveFunction:
 
-	def __init__ (self, recipes, objective_type):
+	def __init__ (self, raw_recipes, objective_type):
 
-		self . recipes = recipes
+		self . raw_recipes = raw_recipes
 		self . objective_type = objective_type
-
-		pretty_name = ' ' . join (recipe . pretty_name for recipe in recipes)
-
-		name = utils . name (pretty_name)
-
-		self . variable = lp . Variable (name)
 
 	def add_objective (
 		self,
 		constraints,
 		objectives,
-		well_configurations,
-		configured_well_recipes
+		recipe_registry
 	):
 
-		concrete_recipes = make_recipe_set_concrete (
-			self . recipes,
-			well_configurations,
-			configured_well_recipes
+		encoded_recipes = recipe_registry . get_encoded_recipes (
+			self . raw_recipes
 		)
 
-		constraints . append (self . variable >= 0)
-		constraints . append (
-			self . variable == sum (
-				recipe . recipe . linear_magnitude_variable
-				for recipe in concrete_recipes
+		objectives . append (
+			self . objective_type (
+				sum (
+					encoded_recipe . output_magnitude ()
+					for encoded_recipe in encoded_recipes
+				)
 			)
 		)
 
-		objectives . append (self . objective_type (self . variable))
-
-def get_objective_function (
+def load_objective_function (
 	function_type,
 	function_data,
 	items,
-	recipes,
+	searchable_recipes,
 	groups
 ):
 
@@ -128,14 +131,6 @@ def get_objective_function (
 			minimize
 		)
 
-	if function_type == 'maximize_items_production':
-
-		return ItemsObjectiveFunction (
-			get_finite_item_quantities (function_data, items),
-			item_production,
-			maximize
-		)
-
 	if function_type == 'maximize_item_consumption':
 
 		return ItemObjectiveFunction (
@@ -152,41 +147,57 @@ def get_objective_function (
 			minimize
 		)
 
-	if function_type == 'maximize_item_flow':
+	if function_type == 'maximize_item_input':
 
 		return ItemObjectiveFunction (
 			get_item (function_data, items),
-			item_flow,
+			item_input,
 			maximize
 		)
 
-	if function_type == 'minimize_item_flow':
+	if function_type == 'minimize_item_input':
 
 		return ItemObjectiveFunction (
 			get_item (function_data, items),
-			item_flow,
+			item_input,
 			minimize
 		)
 
-	if function_type == 'maximize_items_flow':
+	if function_type == 'maximize_item_output':
+
+		return ItemObjectiveFunction (
+			get_item (function_data, items),
+			item_output,
+			maximize
+		)
+
+	if function_type == 'minimize_item_output':
+
+		return ItemObjectiveFunction (
+			get_item (function_data, items),
+			item_output,
+			minimize
+		)
+
+	if function_type == 'maximize_items_output':
 
 		return ItemsObjectiveFunction (
-			get_finite_item_quantities (function_data, items),
-			item_flow,
+			load_finite_item_quantities (function_data, items),
+			item_output,
 			maximize
 		)
 
 	if function_type == 'maximize_recipe':
 
 		return RecipeObjectiveFunction (
-			get_recipe_set (function_data, recipes, groups),
+			get_recipe_set (function_data, searchable_recipes, groups),
 			maximize
 		)
 
 	if function_type == 'minimize_recipe':
 
 		return RecipeObjectiveFunction (
-			get_recipe_set (function_data, recipes, groups),
+			get_recipe_set (function_data, searchable_recipes, groups),
 			minimize
 		)
 

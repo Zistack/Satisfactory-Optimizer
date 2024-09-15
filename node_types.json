@@ -35,6 +35,10 @@
 	"Normal Bauxite Node",
 	"Pure Bauxite Node",
 
+	"Impure SAM Node",
+	"Normal SAM Node",
+	"Pure SAM Node",
+
 	"Impure Crude Oil Node",
 	"Normal Crude Oil Node",
 	"Pure Crude Oil Node",

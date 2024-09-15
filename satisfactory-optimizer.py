@@ -23,17 +23,15 @@ def main ():
 	items = load_items (options . items_file_name)
 	machines = load_machines (options . machines_file_name)
 	(
-		all_recipes,
-		node_recipes,
-		well_recipes,
-		processing_recipes,
+		searchable_recipes,
+		power_augmentation_recipes,
 		groups
 	) = load_recipes (
 		options . recipes_file_name,
-		node_types,
+		machines,
 		well_types,
-		items,
-		machines
+		node_types,
+		items
 	)
 
 	print ('Loading problem', file = sys . stderr)
@@ -43,10 +41,8 @@ def main ():
 		node_types,
 		well_types,
 		items,
-		all_recipes,
-		node_recipes,
-		well_recipes,
-		processing_recipes,
+		searchable_recipes,
+		power_augmentation_recipes,
 		groups
 	)
 

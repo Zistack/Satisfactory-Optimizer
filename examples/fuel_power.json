@@ -13,6 +13,6 @@
 	},
 	"overclocking": {
 		"oil_extractor": {"min_clock_speed": 0.01, "max_clock_speed": 2.5},
-#		"Burn Fuel": {"min_clock_speed": 2.5, "max_clock_speed": 2.5}
+		"Burn Fuel": {"min_clock_speed": 2.5, "max_clock_speed": 2.5}
 	}
 }

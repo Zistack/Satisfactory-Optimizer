@@ -46,7 +46,7 @@ You decide what recipes to use, what resources are available, and what constrain
 You can also specify some optimization parameters as well.
 The solver minimizes the power consumption of all factories once all other constraints are satisfied.
 
-Some example problems may be found in the repository.
+Some example problems may be found in the `examples` directory of this repository.
 
  * `test.json` describes a factory that produces 60 reinforced iron plates per minute using only default recipes
  * `fuel_power` describes a fuel power plant that extracts as much power as is possible from 2 pure oil nodes using alternate recipes
@@ -65,9 +65,9 @@ By default, no recipes are enabled.
 Any recipes you want to use must be listed here.
 Recipes are specified as a list of strings.
 
-For the most part, the recipe names are the same as they are in-game.  The exceptions are:
+For the most part, the recipe names are the same as they are in-game, except that all alternate recipes have had their "Alternate: " prefix stripped from their name.
+Besides that, The exceptions are:
 
- * "Alternate: Alclad Casing" -> "Alclad Casing"
  * "Electrode - Aluminum Scrap" -> "Electrode Aluminum Scrap"
  * "Turbo Rifle Ammo" -> "Packaged Turbo Rifle Ammo" (For the recipe that uses the manufacturer)
 
@@ -80,20 +80,20 @@ There are also some additional recipes to be aware of that help plan factories.
 
  * "Burn [Fuel Item]"
 
-   This recipe exists for every fuel item in the game that is consumed by a Biomass Burner, a Coal Generator, or a Fuel Generator.
+   This recipe exists for every fuel item in the game that is consumed by a Biomass Burner, a Coal Generator, or a Fuel Generator.  It also exists for Ficsonium fuel rods in a Nuclear Power Plant
    They provide negative power consumption to the factory, and can help with planning power plants.
    Nuclear Power Plants have their own recipes.
 
  * "Uranium Waste" and "Plutonium Waste"
 
-   These are the recipes for nuclear power plants.
+   These are recipes for nuclear power plants.
    Like the above recipes, they provide negative power consumption.
    They also have material outputs, as nuclear power plants produce waste.
 
  * "Sink [Item]"
 
    For every item that has a sink value, this recipe exists and can be used to plan factories that generate awesome sink points.
-   These recipes assume that the awesome sink is fed by a mk.5 belt.
+   These recipes assume that the awesome sink is fed by a mk.6 belt.
 
 In addition to specifying recipes directly by name, they can also be specified in groups.
 The recipe groups are also defined in the recipes file.
@@ -117,6 +117,30 @@ The groups in the file provided in this repo are as follows.
  * "geothermal_generator" contains all recipes for the Geothermal Generator.
  * "nuclear_power_plant" contains all recipes for the Nuclear Power Plant.
  * "power" contains all recipes that generate power.
+
+There are also groups for all of the recipe categories defined by the game.  These groups are:
+
+ * "standard_parts"
+ * "electronics"
+ * "compounds"
+ * "biomass"
+ * "alien_remains"
+ * "power_shards"
+ * "space_elevator"
+ * "communications"
+ * "industrial_parts"
+ * "containers"
+ * "nuclear"
+ * "tools"
+ * "ammunition"
+ * "packaging" is notable because it contains all recipes for packing fluids into containers
+ * "unpackaging" is similarly notable because it contains all recipes for unpacking fluids from containers
+ * "oil_products"
+ * "advanced_refinement"
+ * "fuel"
+ * "ingots"
+ * "quantum_technology"
+ * "raw_resource_conversion" is notable because it contains all raw resource transmutation recipes
 
 ### "excluded_recipes": ["Recipe OR Group", ...] (optional)
 
@@ -206,6 +230,30 @@ If power consumption is a constraint, it may be specified.
 Setting a value here constrains the planned factory to consume _at most_ the specified amount of power, in MW.
 Negative values imply that the factory should produce _at least_ that much power.
 
+### "available_somersloops": Real (optional)
+
+The factory planner can also optimize the allocation of somersloops to recipes for productivity boosts.
+It would also be able to weigh this against using somersloops to build machines required for certain recipes, but in vanilla Satisfactory the only machine that requires somersloops to build is the Alien Power Augmenter, which provides a power augmentation factor, making it ineligible for machine count search (more in this in the next section).
+
+Simply specify the number of somersloops that you are willing to dedicate to the factory, and the planner will try to determine the best place for them.
+
+Note that productivity boosts and overclocking are often synergistic, so it is a good idea to allow the planner to overclock your production recipes when trying to optimize somersloop allocation.
+
+Also note that, should any power augmentation recipes require somersloops in the construction of their machines, those must be made available for that construction here as well.
+In other words, you are specifying the total number of somersloops that you are willing to allocate to this factory for any purpose, including power augmentation buildings.  Any somersloops not used in power augmentation buildings _may_ be allocated to boost the productivity of various recipes.
+
+### "power_augmentation": {"Recipe": Real, ...} (optional)
+
+Power augmentation recipes are a bit special.
+The factory planner cannot reason about a variable power augmentation factor, because that would make the problem nonlinear.
+If you want to use power augmentation in your factory, then you must manually specify how many machines you would like to dedicate to each recipe.
+There are only two power augmentation recipes available:
+
+ * "Alien Power Augmenter (Passive)" provides 500MW of power and a 10% power generation boost, tying up 10 somersloops and consuming no resources.
+ * "Alien Power Augmenter (Active)" is like the above, but provides a 30% power generation boost, and consumes 5 Alien Power Matrix per minute.
+
+Note that a sufficient quantity of somersloops must be made available via the "available_somersloops" field in order for the problem to have a solution.
+
 ### "max_machine_count": Real (optional)
 
 For planning extremely large factories, it can be nice to put an upper bound on building count, as game performance becomes a concern.
@@ -222,58 +270,49 @@ This will prevent the planner from maximizing power production on its own, so if
 
 This is where you specify parameters which you would like to maximize or minimize.
 Each goal is a list with two parameters.
-The first parameter is a string that specifies the type of optimization goal, and the second parameter .
+The first parameter is a string that specifies the type of optimization goal, and the type of the second parameter is determined by the type of goal.
 The goal types and their behaviors are described below.
 
  * ["maximize_item_production", "Item"]
 
-   Maximizes the number of the named item that is output by the factory (produced and not consumed).
+   Maximizes the number of the named item that is produced by any recipe (these items may be consumed).
 
  * ["minimize_item_production", "Item"]
 
-   Minimizes the number of the named item that is output by the factory.
-   This is useful for minimizing byproducts.
-
- * ["maximize_items_production", {"Item": Real, ...}]
-
-   Maximizes the number of the named items that are output by the factory in the ratio specified by the quantities.
-   For example, `"maximize_items_production": {"Iron Plate": 2, "Iron Rod": 1}` would maximize iron plate and iron rod production, but would maintain a 2:1 ratio between them.
+   Minimizes the number of the named item that is produced by any recipe.
+   This could be used to push the factory away from using certain items that are difficult to transport, like Screws, for example.
 
  * ["maximize_item_consumption", "Item"]
 
-   Maximizes the number of the named item that is _input_ by the factory (consumed but not produced).
+   Maximizes the number of the named item that is consumed by any recipe (these items may be produced).
    Mostly included for symmetry, but might be useful for pushing around which recipes are favored by the planner, though there are more direct ways to do that.
 
  * ["minimize_item_consumption", "Item"]
 
+   Minimizes the number of the named item that is consumed by any recipe.
+
+ * ["maximize_item_input", "Item"]
+
+   Maximizes the number of the named item that is input by the factory (consumed or output but not produced).
+
+ * ["minimize_item_input", "Item"]
+
    Minimizes the number of the named item that is input by the factory.
 
- * ["maximize_item_flow", "Item"]
+ * ["maximize_item_output", "Item"]
 
-   Maximizes the number of the named item that is produced by the factory, but does not require that all of those items are outputs.
+   Maximizes the number of the named item that is output by the factory (produced or input but not consumed)
    This can be used to maximize the production of an item that is ultimately sunk, for example.
 
- * ["minimize_item_flow", "Item"]
+ * ["minimize_item_output", "Item"]
 
-   Minimizes the number of the named item that is produced by the factory, including internally.
-   This could be used to push the factory away from using certain items that are difficult to transport like Screws, for example.
+   Minimizes the number of the named item that is output by the factory.
+   This is useful for minimizing byproducts.
 
- * ["maximize_items_flow", {"Item": Real, ...}]
+ * ["maximize_items_output", {"Item": Real, ...}]
 
-   The analog to "maximize_items_production", but like the other "flow" objectives, does not require that the items are all outputs of the factory.
-   Useful for designing a factory that produces the Phase 4 project parts in the right ratios but ultimately sinks them, for example.
-
-Multiple goals may be specified.
-Goals are applied in the order that they are specified.
-This means that the factory is first optimized according to the first goal, and then the achieved consumption/flow/production is added as a hard constraint before optimizing according to the next goal, and so on.
-
-After all listed goals are achieved, the factory is optimized for minimal power consumption.
-This tends to cause the planner to plan power plants when power generation recipes are enabled and appropriate resources are available.
-If you don't want to plan a power plant, don't enable power generation recipes.
-
-This is one special item that is noteworthy here: "Awesome Sink Point".
-It is not an item in the traditional sense, but it is the output of all of the "Sink [Item]" recipes.
-It is possible to attempt to maximize or minimize the production of Awesome Sink points by naming this item in a maximization goal.
+   Maximizes the number of the named items that are output (produced or input but not consumed) by the factory in the ratio specified by the quantities.
+   For example, `"maximize_items_production": {"Iron Plate": 2, "Iron Rod": 1}` would maximize iron plate and iron rod production, but would maintain a 2:1 ratio between them.
 
  * ["maximize_recipe", "Recipe OR Group"]
 
@@ -287,6 +326,18 @@ It is possible to attempt to maximize or minimize the production of Awesome Sink
 
    Like maximization above, but minimizes instead.
 
+Multiple goals may be specified.
+Goals are applied in the order that they are specified.
+This means that the factory is first optimized according to the first goal, and then the achieved consumption/flow/production is added as a hard constraint before optimizing according to the next goal, and so on.
+
+After all listed goals are achieved, the factory is optimized for minimal power consumption.
+This tends to cause the planner to plan power plants when power generation recipes are enabled and appropriate resources are available.
+If you don't want to plan a power plant, don't enable power generation recipes.
+
+This is one special item that is noteworthy here: "Awesome Sink Point".
+It is not an item in the traditional sense, but it is the output of all of the "Sink [Item]" recipes.
+It is possible to attempt to maximize or minimize the production of Awesome Sink points by naming this item in an optimization goal.
+
 ## Output Format: {*}
 
 Once the script is run, it will produce some output.
@@ -294,10 +345,16 @@ Assuming that there are no syntax errors or runtime bugs, it will either produce
 
 The factory plan is reported as a JSON dictionary/object with 4 entries.
 
-### "items": {"Item": Real, ...}
+### "items": {"Item": {*}, ...}
 
 The "items" entry reports the number per minute of each item that passes through the factory, be that as in input, an output, an intermediate product, or some combination thereof.
 Only items that actually appear in the factory plan with nonzero flows are reported.
+
+### "machines": {"Machine": Real, ...}
+
+The "machines" entry reports the number of each type of machine that is used in the factory.
+As it is the sum of potentially fractional values, and a single machine cannot be used for more than one recipe, this is really a lower bound on the actual number of machines that you will have to build.
+It can still be used to get an idea of how the production is distributed.
 
 ### "recipes": {"Recipe": {*}, ...}
 
@@ -308,6 +365,23 @@ Each recipe has 4 entries.
 
    The number of machines used to produce this recipe.
 
+ * "power consumption": Real
+
+   The power consumption of all of the machines used to produce this recipe.
+
+ * "overclock_setting": Real
+
+   The overclock setting applied to the machines using this recipe.
+
+ * "somersloops_slotted": Real
+
+   The total number of somersloops slotted into machines producing this recipe.
+   This can interact with the overclock setting in a slightly strange way.
+   The planner internally instantiates a number of 'corners' for each recipe, each being a machine count associated with the recipe at a specific overclock setting and productivity multiplier.
+   Generally, the planner will want to overclock productivity-boosted machines, but may not want to overclock machines _not_ boosted with somersloops.
+   If not enough somersloops are provided to boost every recipe, and the overclock setting is not pegged at 2.5, then most likely the somersloops were dumped into a subset of machines which were overclocked, while the remaining machines were left alone.
+   Perhaps in future versions of this tool, we'll be able to report this more clearly.
+
  * "inputs": {"Item": Real, ...}
 
    The number of items consumed by this recipe per minute for each item consumed.
@@ -316,20 +390,24 @@ Each recipe has 4 entries.
 
    The number of items produced by this recipe per minute for each item produced.
 
- * "power consumption": Real
+### "power_augmentation_recipes": {"Recipe": {*}, ...}
 
-   The power consumption of all of the machines used to produce this recipe.
+The "power_augmentation_recipes" entry reports recipe statistics for the power augmentation recipes that were manually specified in the problem description.
+The format is the same, except for an additional field:
 
-### "machines": {"Machine": Real, ...}
+ * "total_power_augmentation_factor": Real
 
-The "machines" entry reports the number of each type of machine that is used in the factory.
-As it is the sum of potentially fractional values, and a single machine cannot be used for more than one recipe, this is really a lower bound on the actual number of machines that you will have to build.
-It can still be used to get an idea of how the production is distributed.
+   The _total_ power augmentation factor contributed by all machines using this recipe.
 
 ### "total_power_consumption": Real
 
-Lastly, the "total_power_consumption" entry reports the total power consumption of the entire factory, in MW.
+The "total_power_consumption" entry reports the total power consumption of the entire factory, in MW.
 Negative values imply that the factory actually _generates_ power.
+
+### "total_machine_count": Real
+
+The "total_machine_count" entry reports the total number of machines used in the factory plan.
+The same caveats about the use of fractional machines for the "machines" entry applies here as well.
 
 # Appendix
 
@@ -341,16 +419,29 @@ The contents of the node types file is a list of strings, where each string iden
 
 The contents of the well types file is a list of strings, where each string identifies a type of well.
 
-## items-file: {"Item": {*}}
+## items-file: ["Item", ...]
 
-The contents of the items file is a dictionary, where the keys are the names of items.
+The contents of the items file is a list of strings, where each string identifies a type of item.
 
-The values are also dictionaries, optionally containing one field: "max_flow_rate".
-The max flow rate specifies the maximum attainable flow rate for an item traveling through a single conduit (belt/pipe/etc...).
+## machines-file: {"Machine": {*}, ...}
 
-## machines-file: ["Machine", ...]
+The contents of the machines file is a dictionary.
+The string keys name the types of machine.
+The values are objects that can set properties of each machine.
+These properties are:
 
-The contents of the machines file is a list of strings, where each string identifies a type of machine.
+ * "overclock_exponent": Real (optional)
+
+   The presence of this field indicates that the machine supports overclocking and specifies the exponent associated with the power consumption modifier.
+
+ * "somersloop_slots": Real (optional)
+
+   The presence of this field indicates that the machine supports productivity boosting and specifies how many somersloops are required to achieve the maximum (2x) productivity bonus.
+
+ * "required_somersloops": Real (optional)
+
+   This field indicates how many somersloops are required to build the machine.
+   The default value is 0.
 
 ## recipes-file: {"Recipe": {*}, ...}
 
@@ -360,37 +451,34 @@ Each recipe object has a number of fields which describe the recipe.
 ### "node_type": "Node Type" (optional)
 
 For node extraction recipes, this specifies the node type that the recipe may be used upon.
-This field is mutually exclusive with "well_type" and "inputs".
+This field is mutually exclusive with "well_type".
 
 ### "well_type": "Well Type" (optional)
 
 For well extraction recipes, this specifies the well type that the recipe may be used upon.
-This field is mutually exclusive with "node_type" and "inputs".
+This field is mutually exclusive with "node_type".
 
-### "resource": "Resource" (optional)
+### "resource": "Resource"
 
-For node and well extraction recipes, this specifies the resource produced by the recipe.
-This is only compatible with recipes that specify either the "node_type" or "well_type" fields.
-If left unspecified, the node recipe is assumed not to produce any items.
+For well extraction recipes, this specifies the resource produced by the recipe.
+This is only compatible with recipes that specify the "well_type" fields.
+This must be specified for well recipes.
 
-### "rate": Real (optional)
+### "purity_quantities": {"Purity": Real}
 
-For node extraction recipes, this specifies the production rate of the output resource in items per minute.
-
-### "purity_rates": {"Purity": Real}
-
-For well extraction recipes, this specifies the production rates per satellite of the given purity.
+For well extraction recipes, this specifies the production quantity per satellite of the given purity.
+The output rate (in items per second) would be calculated by dividing this quantity by the value of the "time" field.
+This must be specified for well recipes.
 
 ### "inputs": {"Item": Real, ...} (optional)
 
 Specifies the inputs of the recipe.
-This field is mutually exclusive with "node_type" and "well_type".
 
 ### "outputs": {"Item": Real, ...} (optional)
 
 Specifies the outputs of the recipe.
-If the recipe does not specify a "node_type" or "well_type" field, then this field must be used to specify any outputs.
-Otherwise, the "resource" and "rate" or "purity_rates" fields must be used.
+For recipes that specify a "well_type" field, this should not include the resource output from the satellite nodes.
+For that purpose, the "resource" and "rate" or "purity_quantities" fields must be used.
 
 ### "time": Real
 
@@ -405,11 +493,12 @@ Specifies which machine is used to produce this recipe.
 Specifies the (average) power consumption of each machine in MW when producing this recipe.
 A negative power consumption implies that the recipe generates power.
 
-### "overclock_exponent": Real
+### "power_augmentation_factor": Real
 
-When calculating the power factors and resource consumption rates for various levels of overclocking, this overrides the default exponent used (1.6 for recipes that consume power, and 1/1.3 for recipes that produce power).
-Mostly used to handle the special case of nuclear power plants having unique overclocking behavior.
+Specifies the power augmentation bonus provided by each machine using this recipe.
+The presence of a power augmentation factor makes the recipe a power augmentation recipe, and so it becomes ineligible for optimization.
+Power augmentation recipes must be requested manually in the problem description.
 
 ### "tags": ["tag", ...] (optional)
 
-Specifies which groups the recipe belongs to, for the purpose of making it easier to enable recipes in the problems file.
+Specifies which groups the recipe belongs to, for the purpose of making it easier to enable/disable recipes in the problems file.

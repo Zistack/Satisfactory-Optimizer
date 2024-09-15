@@ -1,23 +1,80 @@
-[
-	"Water Extractor",
-	"Oil Extractor",
-	"Resource Well Pressurizer",
-	"Constructor",
-	"Assembler",
-	"Manufacturer",
-	"Packager",
-	"Refinery",
-	"Blender",
-	"Particle Accelerator",
-	"Miner Mk.1",
-	"Miner Mk.2",
-	"Miner Mk.3",
-	"Smelter",
-	"Foundry",
-	"Biomass Burner",
-	"Coal Generator",
-	"Fuel Generator",
-	"Geothermal Generator",
-	"Nuclear Power Plant",
-	"Awesome Sink"
-]
+{
+	"Water Extractor": {
+		"overclock_exponent": 1.321928
+	},
+	"Oil Extractor": {
+		"overclock_exponent": 1.321928
+	},
+	"Resource Well Pressurizer": {
+		"overclock_exponent": 1.321928
+	},
+	"Constructor": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 1
+	},
+	"Assembler": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 2
+	},
+	"Manufacturer": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 4
+	},
+	"Packager": {
+		"overclock_exponent": 1.321928
+	},
+	"Refinery": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 2
+	},
+	"Blender": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 4
+	},
+	"Particle Accelerator": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 4
+	},
+	"Converter": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 2
+	},
+	"Quantum Encoder": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 4
+	},
+	"Miner Mk.1": {
+		"overclock_exponent": 1.321928
+	},
+	"Miner Mk.2": {
+		"overclock_exponent": 1.321928
+	},
+	"Miner Mk.3": {
+		"overclock_exponent": 1.321928
+	},
+	"Smelter": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 1
+	},
+	"Foundry": {
+		"overclock_exponent": 1.321928,
+		"somersloop_slots": 2
+	},
+	"Biomass Burner": {
+		"overclock_exponent": 1
+	},
+	"Coal Generator": {
+		"overclock_exponent": 1
+	},
+	"Fuel Generator": {
+		"overclock_exponent": 1
+	},
+	"Geothermal Generator": {},
+	"Nuclear Power Plant": {
+		"overclock_exponent": 1
+	},
+	"Alien Power Augmenter": {
+		"required_somersloops": 10
+	},
+	"Awesome Sink": {}
+}

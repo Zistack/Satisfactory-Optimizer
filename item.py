@@ -6,81 +6,103 @@ import utils
 
 class Item:
 
-	def __init__ (self, pretty_name, max_flow_rate):
+	def __init__ (self, pretty_name):
 
 		self . pretty_name = pretty_name
-		self . max_flow_rate = max_flow_rate
 
-		name = utils . name (pretty_name)
 
-		self . flow_variable = lp . Variable (name + '_flow')
-		self . input_variable = lp . Variable (name + '_input')
-		self . output_variable = lp . Variable (name + '_output')
 
-	def constrain_total_flow_rate (
-		self,
-		constraints,
-		total_flow_rate,
-		output_count
-	):
-
-		if self . max_flow_rate != None:
-
-			return constraints . append (
-				total_flow_rate <= self . max_flow_rate * output_count
-			)
-
-	def __production (self, item, producing_recipes):
+	def production (self, producing_recipes):
 
 		return sum (
-			[
-				producing_recipe . output_rate (item)
-				for producing_recipe in producing_recipes
-			]
-			+ [self . input_variable]
+			producing_recipe . output_rate (self)
+			for producing_recipe in producing_recipes
 		)
 
-	def __consumption (self, item, consuming_recipes):
+	def consumption (self, consuming_recipes):
 
 		return sum (
-			[
-				consuming_recipe . input_rate (item)
-				for consuming_recipe in consuming_recipes
-			]
-			+ [self . output_variable]
+			consuming_recipe . input_rate (self)
+			for consuming_recipe in consuming_recipes
 		)
 
 	def add_constraints (
 		self,
 		constraints,
-		producing_recipes,
-		consuming_recipes
+		encoded_producing_recipes,
+		encoded_consuming_recipes,
+		input_rate,
+		output_rate
 	):
 
-		constraints . append (self . flow_variable >= 0)
-		constraints . append (self . input_variable >= 0)
-		constraints . append (self . output_variable >= 0)
+		if input_rate == 'unlimited' and output_rate == 'unlimited':
 
-		constraints . append (
-			self . flow_variable
-				== self . __production (self, producing_recipes)
-		)
-		constraints . append (
-			self . flow_variable
-				== self . __consumption (self, consuming_recipes)
-		)
+			# There are no meaningful constraints
 
-	def interpret_model (self, model, precision):
+			pass
 
-		amount = model [self . flow_variable]
+		elif input_rate == 'unlimited':
 
-		if utils . interpret_approximate (amount, precision) == 0:
+			constraints . append (
+				self . production (encoded_producing_recipes)
+				<= self . consumption (encoded_consuming_recipes) + output_rate
+			)
 
-			return None
+		elif output_rate == 'unlimited':
+
+			constraints . append (
+				self . production (encoded_producing_recipes) + input_rate
+				>= self . consumption (encoded_consuming_recipes)
+			)
 
 		else:
 
-			return utils . format_value (amount, precision)
+			constraints . append (
+				self . production (encoded_producing_recipes) + input_rate
+				== self . consumption (encoded_consuming_recipes) + output_rate
+			)
+
+			constraint = (
+				self . production (encoded_producing_recipes) + input_rate
+				== self . consumption (encoded_consuming_recipes) + output_rate
+			)
+
+	def interpret (
+		self,
+		model,
+		precision,
+		interpreted_producing_recipes,
+		interpreted_consuming_recipes,
+		input_rate,
+		output_rate
+	):
+
+		item_report = dict ()
+
+		amount_produced = self . production (interpreted_producing_recipes)
+		amount_consumed = self . consumption (interpreted_consuming_recipes)
+
+		if utils . interpret_approximate (amount_produced, precision) != 0:
+
+			item_report ['produced'] = utils . format_value (
+				amount_produced,
+				precision
+			)
+
+		if utils . interpret_approximate (amount_consumed, precision) != 0:
+
+			item_report ['consumed'] = utils . format_value (
+				amount_consumed,
+				precision
+			)
+
+		if len (item_report) != 0:
+
+			return item_report
+
+		else:
+
+			return None
 
 def load_items (items_file_name):
 
@@ -90,17 +112,9 @@ def load_items (items_file_name):
 
 	items = dict ()
 
-	for item_pretty_name, item_data in items_data . items ():
+	for item_pretty_name in items_data:
 
-		if 'max_flow_rate' in item_data:
-
-			max_flow_rate = utils . real (item_data ['max_flow_rate'])
-
-		else:
-
-			max_flow_rate = None
-
-		items [item_pretty_name] = Item (item_pretty_name, max_flow_rate)
+		items [item_pretty_name] = Item (item_pretty_name)
 
 	return items
 
@@ -112,7 +126,7 @@ def get_item (item_name, items):
 
 	return items [item_name]
 
-def get_item_quantities (item_quantities_data, items):
+def load_item_quantities (item_quantities_data, items):
 
 	item_quantities = dict ()
 
@@ -128,7 +142,7 @@ def get_item_quantities (item_quantities_data, items):
 
 	return item_quantities
 
-def get_finite_item_quantities (item_quantities_data, items):
+def load_finite_item_quantities (item_quantities_data, items):
 
 	item_quantities = dict ()
 

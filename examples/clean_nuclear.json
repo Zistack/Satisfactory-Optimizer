@@ -25,6 +25,6 @@
 		"Uranium Waste": {"min_clock_speed": 0.01, "max_clock_speed": 2.5}
 	},
 	"optimization_goals": [
-		["maximize_item_flow", "Uranium Waste"]
+		["maximize_item_production", "Uranium Waste"]
 	]
 }

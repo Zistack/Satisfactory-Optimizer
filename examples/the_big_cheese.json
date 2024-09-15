@@ -5,33 +5,38 @@
 		"well_pressurizer",
 		"Extract Water",
 		"production",
-		"power"
+		"power",
+		"sink_production"
 	],
 	"nodes": {
-		"Impure Iron Node": 33,
-		"Normal Iron Node": 41,
+		"Impure Iron Node": 39,
+		"Normal Iron Node": 42,
 		"Pure Iron Node": 46,
-		"Impure Copper Node": 9,
-		"Normal Copper Node": 28,
-		"Pure Copper Node": 12,
-		"Impure Limestone Node": 12,
-		"Normal Limestone Node": 47,
-		"Pure Limestone Node": 27,
-		"Impure Coal Node": 6,
-		"Normal Coal Node": 29,
-		"Pure Coal Node": 15,
-		"Normal Caterium Node": 8,
+		"Impure Copper Node": 13,
+		"Normal Copper Node": 29,
+		"Pure Copper Node": 13,
+		"Impure Limestone Node": 15,
+		"Normal Limestone Node": 49,
+		"Pure Limestone Node": 30,
+		"Impure Coal Node": 15,
+		"Normal Coal Node": 31,
+		"Pure Coal Node": 16,
+		"Normal Caterium Node": 9,
 		"Pure Caterium Node": 8,
-		"Normal Raw Quartz Node": 11,
-		"Pure Raw Quartz Node": 5,
-		"Impure Sulfur Node": 1,
-		"Normal Sulfur Node": 7,
-		"Pure Sulfur Node": 3,
-		"Impure Uranium Node": 1,
-		"Normal Uranium Node": 3,
+		"Impure Raw Quartz Node": 3,
+		"Normal Raw Quartz Node": 7,
+		"Pure Raw Quartz Node": 7,
+		"Impure Sulfur Node": 6,
+		"Normal Sulfur Node": 5,
+		"Pure Sulfur Node": 5,
+		"Impure Uranium Node": 3,
+		"Normal Uranium Node": 2,
 		"Impure Bauxite Node": 5,
 		"Normal Bauxite Node": 6,
 		"Pure Bauxite Node": 6,
+		"Impure SAM Node": 10,
+		"Normal SAM Node": 6,
+		"Pure SAM Node": 3,
 		"Impure Crude Oil Node": 10,
 		"Normal Crude Oil Node": 12,
 		"Pure Crude Oil Node": 8,
@@ -58,11 +63,15 @@
 		},
 		{
 			"type": "Nitrogen Gas Well",
-			"satellites": {"Impure": 2, "Normal": 2, "Pure": 3}
+			"satellites": {"Impure": 2, "Normal": 2, "Pure": 4}
 		},
 		{
 			"type": "Nitrogen Gas Well",
 			"satellites": {"Normal": 2, "Pure": 4}
+		},
+		{
+			"type": "Crude Oil Well",
+			"satellites": {"Impure": 2, "Normal": 2, "Pure": 1}
 		},
 		{
 			"type": "Crude Oil Well",
@@ -106,27 +115,19 @@
 		}
 	],
 	"output_items": {
-		"Assembly Director System": "unlimited",
-		"Magnetic Field Generator": "unlimited",
-		"Nuclear Pasta": "unlimited",
-		"Thermal Propulsion Rocket": "unlimited",
-		"Plutonium Waste": "unlimited"
+		"Awesome Sink Point": "unlimited"
 	},
 	"overclocking": {
 		"miner_mk3": {"min_clock_speed": 0.01, "max_clock_speed": 2.5},
 		"oil_extractor": {"min_clock_speed": 0.01, "max_clock_speed": 2.5},
-		"well_pressurizer": {"min_clock_speed": 0.01, "max_clock_speed": 2.5}
+		"well_pressurizer": {"min_clock_speed": 0.01, "max_clock_speed": 2.5},
+		"Extract Water": {"max_clock_speed": 2.5},
+		"production": {"max_clock_speed": 2.5},
+		"coal_generator": {"max_clock_speed": 2.5},
+		"fuel_generator": {"max_clock_speed": 2.5},
+		"nuclear_power_plant": {"max_clock_speed": 2.5}
 	},
 	"max_power_consumption": 0,
-	"optimization_goals": [
-		[
-			"maximize_items_production",
-			{
-				"Assembly Director System": 4,
-				"Magnetic Field Generator": 4,
-				"Nuclear Pasta": 1,
-				"Thermal Propulsion Rocket": 1
-			}
-		]
-	]
+	"available_somersloops": 103,
+	"optimization_goals": [["maximize_item_output", "Awesome Sink Point"]]
 }
