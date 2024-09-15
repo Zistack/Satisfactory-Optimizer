@@ -54,12 +54,18 @@ def encode_equality_bound (equality, variable_ids, bounds):
 	return True
 
 def encode_linear_constraint (
-	constraint_idx,
 	constraint,
 	variable_ids,
 	A,
 	b
 ):
+
+	(num_constraints, num_variables) = A . shape
+
+	A . resize ((num_constraints + 1, num_variables))
+	b . resize ((num_constraints + 1,), refcheck = False)
+
+	constraint_idx = num_constraints
 
 	for variable, coefficient in constraint . terms . items ():
 
@@ -80,36 +86,27 @@ def encode_objective (objective, variable_ids):
 
 	if type (objective) == Sum:
 
-		if len (objective . terms) == 1:
+		c = np . zeros ((len (variable_ids),))
 
-			variable, coefficient = tuple (objective . terms . items ()) [0]
+		for variable, coefficient in objective . terms . items ():
 
-			c = np . zeros ((len (variable_ids),))
 			c [variable_ids [variable]] = coefficient
 
-			return c
-
-		raise ValueError (
-			'Only objective containing a single variable may be encoded'
-		)
+		return c
 
 	raise TypeError (
 		'\'' + str (type (objective)) + '\' is not a valid objective type'
 	)
 
-def pin_objective (objective, objective_value, variable_ids, bounds):
+def pin_objective (objective, objective_value, variable_ids, A, b, bounds):
 
 	if type (objective) == Variable:
 
-		bounds [variable_ids [objective]] = (objective_value, objective_value)
+		encode_equality_bound (objective == objective_value, variable_ids, bounds)
 
 	if type (objective) == Sum:
 
-		variable, coefficient = tuple (objective . terms . items ()) [0]
-
-		variable_value = objective_value / coefficient
-
-		bounds [variable_ids [variable]] = (variable_value, variable_value)
+		encode_linear_constraint (objective == objective_value, variable_ids, A, b)
 
 def add_variables (expression, variable_ids):
 
@@ -130,6 +127,16 @@ def solve (constraints, objectives):
 	linear_eq_constraints = list ()
 
 	for constraint in constraints:
+
+		if type (constraint) == bool:
+
+			if not constraint:
+
+				return None
+
+			else:
+
+				continue
 
 		add_variables (constraint, variable_ids)
 
@@ -166,14 +173,14 @@ def solve (constraints, objectives):
 	bounds = np . full ((len (variable_ids), 2), (- np . inf, np . inf))
 
 	A_ub = sp . sparse . dok_array (
-		(len (linear_ub_constraints), len (variable_ids))
+		(0, len (variable_ids))
 	)
-	b_ub = np . ndarray ((len (linear_ub_constraints),))
+	b_ub = np . ndarray ((0,))
 
 	A_eq = sp . sparse . dok_array (
-		(len (linear_eq_constraints), len (variable_ids))
+		(0, len (variable_ids))
 	)
-	b_eq = np . ndarray ((len (linear_eq_constraints),))
+	b_eq = np . ndarray ((0,))
 
 	for inequality in unary_ub_constraints:
 
@@ -187,19 +194,13 @@ def solve (constraints, objectives):
 
 			return None
 
-	for i, inequality in zip (
-		range (0, len (linear_ub_constraints)),
-		linear_ub_constraints
-	):
+	for inequality in linear_ub_constraints:
 
-		encode_linear_constraint (i, inequality, variable_ids, A_ub, b_ub)
+		encode_linear_constraint (inequality, variable_ids, A_ub, b_ub)
 
-	for i, equality in zip (
-		range (0, len (linear_eq_constraints)),
-		linear_eq_constraints
-	):
+	for equality in linear_eq_constraints:
 
-		encode_linear_constraint (i, equality, variable_ids, A_eq, b_eq)
+		encode_linear_constraint (equality, variable_ids, A_eq, b_eq)
 
 	for objective in objectives:
 
@@ -213,7 +214,14 @@ def solve (constraints, objectives):
 
 		objective_value = result . fun
 
-		pin_objective (objective, objective_value, variable_ids, bounds)
+		pin_objective (
+			objective,
+			objective_value,
+			variable_ids,
+			A_eq,
+			b_eq,
+			bounds
+		)
 
 	return dict (
 		(variable, result . x [idx])
