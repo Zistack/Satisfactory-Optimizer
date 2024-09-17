@@ -1976,7 +1976,7 @@
 	"Ballistic Warp Drive": {
 		"time": 60,
 		"machine": "Manufacturer",
-		"power_consumption": 55,
+		"power_consumption": 1500,
 		"inputs": {
 			"Thermal Propulsion Rocket": 1,
 			"Singularity Cell": 5,
