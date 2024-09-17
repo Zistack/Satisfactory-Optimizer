@@ -1364,7 +1364,7 @@
 		"machine": "Assembler",
 		"power_consumption": 15,
 		"inputs": {"Iron Ingot": 5, "Plastic": 1},
-		"outputs": {"Iron Plate": 1},
+		"outputs": {"Iron Plate": 10},
 		"tags": ["production", "alternate", "standard_parts"]
 	},
 
