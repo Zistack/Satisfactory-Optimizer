@@ -16,7 +16,7 @@ This tool uses [scipy.optimize.linprog](https://docs.scipy.org/doc/scipy/referen
 
 	usage: satisfactory-optimizer.py [-h] [--items-file ITEMS_FILE_NAME] [--machines-file MACHINES_FILE_NAME] [--recipes-file RECIPES_FILE_NAME] [--precision PRECISION] problem_file_name
 
-	A Satisfactory planner/optimizer based on Z3
+	A Satisfactory planner/optimizer based on scipy.linprog.optimize
 
 	positional arguments:
 	  problem_file_name     The location of the file containing the problem description.
