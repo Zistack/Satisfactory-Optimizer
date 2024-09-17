@@ -274,7 +274,7 @@
 	"Mine Mk.2 Impure Iron": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -283,7 +283,7 @@
 	"Mine Mk.2 Normal Iron": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -292,7 +292,7 @@
 	"Mine Mk.2 Pure Iron": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -301,7 +301,7 @@
 	"Mine Mk.2 Impure Copper": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -310,7 +310,7 @@
 	"Mine Mk.2 Normal Copper": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -319,7 +319,7 @@
 	"Mine Mk.2 Pure Copper": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -328,7 +328,7 @@
 	"Mine Mk.2 Impure Limestone": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -337,7 +337,7 @@
 	"Mine Mk.2 Normal Limestone": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -346,7 +346,7 @@
 	"Mine Mk.2 Pure Limestone": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -355,7 +355,7 @@
 	"Mine Mk.2 Impure Coal": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -364,7 +364,7 @@
 	"Mine Mk.2 Normal Coal": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -373,7 +373,7 @@
 	"Mine Mk.2 Pure Coal": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -382,7 +382,7 @@
 	"Mine Mk.2 Impure Caterium": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -391,7 +391,7 @@
 	"Mine Mk.2 Normal Caterium": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -400,7 +400,7 @@
 	"Mine Mk.2 Pure Caterium": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -409,7 +409,7 @@
 	"Mine Mk.2 Impure Raw Quartz": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -418,7 +418,7 @@
 	"Mine Mk.2 Normal Raw Quartz": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -427,7 +427,7 @@
 	"Mine Mk.2 Pure Raw Quartz": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -436,7 +436,7 @@
 	"Mine Mk.2 Impure Sulfur": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -445,7 +445,7 @@
 	"Mine Mk.2 Normal Sulfur": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -454,7 +454,7 @@
 	"Mine Mk.2 Pure Sulfur": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -463,7 +463,7 @@
 	"Mine Mk.2 Impure Uranium": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -472,7 +472,7 @@
 	"Mine Mk.2 Normal Uranium": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -481,7 +481,7 @@
 	"Mine Mk.2 Pure Uranium": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -490,7 +490,7 @@
 	"Mine Mk.2 Impure Bauxite": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -499,7 +499,7 @@
 	"Mine Mk.2 Normal Bauxite": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -508,7 +508,7 @@
 	"Mine Mk.2 Pure Bauxite": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -517,7 +517,7 @@
 	"Mine Mk.2 Impure SAM": {
 		"time": 1,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Impure SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -526,7 +526,7 @@
 	"Mine Mk.2 Normal SAM": {
 		"time": 0.5,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Normal SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -535,7 +535,7 @@
 	"Mine Mk.2 Pure SAM": {
 		"time": 0.25,
 		"machine": "Miner Mk.2",
-		"power_consumption": 12,
+		"power_consumption": 15,
 		"node_type": "Pure SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk2"]
@@ -545,7 +545,7 @@
 	"Mine Mk.3 Impure Iron": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -554,7 +554,7 @@
 	"Mine Mk.3 Normal Iron": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -563,7 +563,7 @@
 	"Mine Mk.3 Pure Iron": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Iron Node",
 		"outputs": {"Iron Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -572,7 +572,7 @@
 	"Mine Mk.3 Impure Copper": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -581,7 +581,7 @@
 	"Mine Mk.3 Normal Copper": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -590,7 +590,7 @@
 	"Mine Mk.3 Pure Copper": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Copper Node",
 		"outputs": {"Copper Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -599,7 +599,7 @@
 	"Mine Mk.3 Impure Limestone": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -608,7 +608,7 @@
 	"Mine Mk.3 Normal Limestone": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -617,7 +617,7 @@
 	"Mine Mk.3 Pure Limestone": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Limestone Node",
 		"outputs": {"Limestone": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -626,7 +626,7 @@
 	"Mine Mk.3 Impure Coal": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -635,7 +635,7 @@
 	"Mine Mk.3 Normal Coal": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -644,7 +644,7 @@
 	"Mine Mk.3 Pure Coal": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Coal Node",
 		"outputs": {"Coal": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -653,7 +653,7 @@
 	"Mine Mk.3 Impure Caterium": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -662,7 +662,7 @@
 	"Mine Mk.3 Normal Caterium": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -671,7 +671,7 @@
 	"Mine Mk.3 Pure Caterium": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Caterium Node",
 		"outputs": {"Caterium Ore": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -680,7 +680,7 @@
 	"Mine Mk.3 Impure Raw Quartz": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -689,7 +689,7 @@
 	"Mine Mk.3 Normal Raw Quartz": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -698,7 +698,7 @@
 	"Mine Mk.3 Pure Raw Quartz": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Raw Quartz Node",
 		"outputs": {"Raw Quartz": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -707,7 +707,7 @@
 	"Mine Mk.3 Impure Sulfur": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -716,7 +716,7 @@
 	"Mine Mk.3 Normal Sulfur": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -725,7 +725,7 @@
 	"Mine Mk.3 Pure Sulfur": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Sulfur Node",
 		"outputs": {"Sulfur": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -734,7 +734,7 @@
 	"Mine Mk.3 Impure Uranium": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -743,7 +743,7 @@
 	"Mine Mk.3 Normal Uranium": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -752,7 +752,7 @@
 	"Mine Mk.3 Pure Uranium": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Uranium Node",
 		"outputs": {"Uranium": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -761,7 +761,7 @@
 	"Mine Mk.3 Impure Bauxite": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -770,7 +770,7 @@
 	"Mine Mk.3 Normal Bauxite": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -779,7 +779,7 @@
 	"Mine Mk.3 Pure Bauxite": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure Bauxite Node",
 		"outputs": {"Bauxite": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -788,7 +788,7 @@
 	"Mine Mk.3 Impure SAM": {
 		"time": 0.5,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Impure SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -797,7 +797,7 @@
 	"Mine Mk.3 Normal SAM": {
 		"time": 0.25,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Normal SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk3"]
@@ -806,7 +806,7 @@
 	"Mine Mk.3 Pure SAM": {
 		"time": 0.125,
 		"machine": "Miner Mk.3",
-		"power_consumption": 30,
+		"power_consumption": 45,
 		"node_type": "Pure SAM Node",
 		"outputs": {"SAM": 1},
 		"tags": ["extraction", "miner_mk3"]
