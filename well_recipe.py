@@ -72,7 +72,7 @@ class WellRecipe:
 			self . pretty_name + ' ' + well_configuration . pretty_name
 		)
 
-		output_quantities = self . output_quantities
+		output_quantities = self . output_quantities . copy ()
 
 		resource_output_quantity = 0
 
