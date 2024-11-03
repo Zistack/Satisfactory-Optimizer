@@ -3134,7 +3134,7 @@
 		"time": 3,
 		"machine": "Particle Accelerator",
 		"power_consumption": 500,
-		"inputs": {"Coal": 30, "Turbofuel": 2},
+		"inputs": {"Coal": 30, "Packaged Turbofuel": 2},
 		"outputs": {"Diamonds": 3},
 		"tags": ["production", "alternate", "advanced_refinement"]
 	},
