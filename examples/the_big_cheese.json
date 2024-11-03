@@ -71,7 +71,7 @@
 		},
 		{
 			"type": "Crude Oil Well",
-			"satellites": {"Impure": 2, "Normal": 2, "Pure": 1}
+			"satellites": {"Impure": 2, "Normal": 3, "Pure": 1}
 		},
 		{
 			"type": "Crude Oil Well",
