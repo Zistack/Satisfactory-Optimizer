@@ -240,6 +240,23 @@ class Problem:
 		total_power_augmentation_factor
 	):
 
+		(
+			total_power_production,
+			augmented_power_production,
+			total_power_consumption
+		) = self . __net_power_consumption_parts (
+			recipe_registry,
+			total_power_augmentation_factor
+		)
+
+		return total_power_consumption - augmented_power_production
+
+	def __net_power_consumption_parts (
+		self,
+		recipe_registry,
+		total_power_augmentation_factor
+	):
+
 		total_power_production = sum (
 			- recipe . power_consumption ()
 			for recipe in recipe_registry . power_producing_recipes
@@ -255,7 +272,11 @@ class Problem:
 			for recipe in recipe_registry . power_consuming_recipes
 		)
 
-		return total_power_consumption - augmented_power_production
+		return (
+			total_power_production,
+			augmented_power_production,
+			total_power_consumption
+		)
 
 	def __encode_power_consumption (
 		self,
@@ -418,11 +439,32 @@ class Problem:
 			)
 		)
 
-		total_power_consumption_value = utils . format_value (
-			self . __net_power_consumption (
-				interpreted_recipe_registry,
-				total_power_augmentation_factor
-			),
+		(
+			power_production,
+			augmented_power_production,
+			power_consumption
+		) = self . __net_power_consumption_parts (
+			interpreted_recipe_registry,
+			total_power_augmentation_factor
+		)
+
+		power_production_value = utils . format_value (
+			power_production,
+			precision
+		)
+
+		augmented_power_production_value = utils . format_value (
+			augmented_power_production,
+			precision
+		)
+
+		power_consumption_value = utils . format_value (
+			power_consumption,
+			precision
+		)
+
+		net_power_consumption_value = utils . format_value (
+			power_consumption - augmented_power_production,
 			precision
 		)
 
@@ -431,15 +473,29 @@ class Problem:
 			0
 		)
 
-		return {
+		report = {
 			'items': item_interpretations,
 			'machines': machine_interpretations,
 			'recipes': searchable_recipe_interpretations,
 			'power_augmentation_recipes':
 				power_augmentation_recipe_interpretations,
-			'total_power_consumption': total_power_consumption_value,
-			'total_machine_count': total_machine_count_value
 		}
+
+		if power_production != 0:
+
+			report ['power_production'] = power_production_value
+
+			if augmented_power_production != power_production:
+
+				report ['augmented_power_production'] = augmented_power_production_value
+
+			report ['power_consumption'] = power_consumption_value
+
+		report ['net_power_consumption'] = net_power_consumption_value
+
+		report ['total_machine_count'] = total_machine_count_value
+
+		return report
 
 	def solve (self, precision):
 
