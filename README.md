@@ -350,6 +350,14 @@ The factory plan is reported as a JSON dictionary/object with 4 entries.
 The "items" entry reports the number per minute of each item that passes through the factory, be that as in input, an output, an intermediate product, or some combination thereof.
 Only items that actually appear in the factory plan with nonzero flows are reported.
 
+ * "produced_by": {"Recipe": Real, ...}
+
+   The amount of the item produced by each recipe is listed here for convenience.
+
+ * "consumed_by": {"Recipe": Real, ...}
+
+   The recipes which consume the item and the amount consumed by each is listed here.
+
 ### "machines": {"Machine": Real, ...}
 
 The "machines" entry reports the number of each type of machine that is used in the factory.

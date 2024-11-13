@@ -89,11 +89,39 @@ class Item:
 				precision
 			)
 
+			item_report ['produced_by'] = dict (
+				[
+					(
+						recipe . pretty_name (),
+						utils . format_value (
+							recipe . output_rate (self),
+							precision
+						)
+					)
+					for recipe in interpreted_producing_recipes
+					if utils . interpret_approximate(recipe . output_rate (self), precision) != 0
+				]
+			)
+
 		if utils . interpret_approximate (amount_consumed, precision) != 0:
 
 			item_report ['consumed'] = utils . format_value (
 				amount_consumed,
 				precision
+			)
+
+			item_report ['consumed_by'] = dict (
+				[
+					(
+						recipe . pretty_name (),
+						utils . format_value (
+							recipe . input_rate (self),
+							precision
+						)
+					)
+					for recipe in interpreted_consuming_recipes
+					if utils . interpret_approximate(recipe . input_rate (self), precision) != 0
+				]
 			)
 
 		if len (item_report) != 0:
