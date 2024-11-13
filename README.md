@@ -373,7 +373,7 @@ Each recipe has 4 entries.
 
    The overclock setting applied to the machines using this recipe.
 
- * "somersloops_slotted": Real
+ * "somersloops_slotted": Integer
 
    The total number of somersloops slotted into machines producing this recipe.
    This can interact with the overclock setting in a slightly strange way.

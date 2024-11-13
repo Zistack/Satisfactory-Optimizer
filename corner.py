@@ -34,13 +34,25 @@ class Corner:
 
 		name = utils . name (self . pretty_name)
 
-		self . machine_count_variable = lp . Variable (
+		self . fractional_machine_count_variable = lp . Variable (
 			 name + '_machine_count'
 		)
 
+		self . integer_machine_count_variable = None
+
+		if productivity_bonus is not None and productivity_bonus > 0.0:
+
+			self . integer_machine_count_variable = lp . Variable (
+				name + '_machine_count_integer',
+				1 # integer constraint
+			)
+
 	def machine_count (self):
 
-		return self . machine_count_variable
+		# While the integer_machine_count_variable would probably be more correct here,
+		# having too many integer constraints makes the solver take too long to finish.
+		# As a compromise for performance, it is only used for somersloops.
+		return self . fractional_machine_count_variable
 
 	def __speed_multiplier (self):
 
@@ -54,7 +66,7 @@ class Corner:
 
 	def input_magnitude (self):
 
-		return self . machine_count_variable * self . __speed_multiplier ()
+		return self . fractional_machine_count_variable * self . __speed_multiplier ()
 
 	def __productivity_multiplier (self):
 
@@ -69,7 +81,7 @@ class Corner:
 	def output_magnitude (self):
 
 		return (
-			self . machine_count_variable
+			self . fractional_machine_count_variable
 			* self . __speed_multiplier ()
 			* self . __productivity_multiplier ()
 		)
@@ -101,7 +113,7 @@ class Corner:
 	def power_magnitude (self, machine):
 
 		return (
-			self . machine_count_variable
+			self . fractional_machine_count_variable
 			* self . __power_multiplier (machine)
 		)
 
@@ -117,18 +129,34 @@ class Corner:
 
 	def somersloops_slotted (self, machine):
 
-		return (
-			self . machine_count_variable
-			* self . __somersloop_factor (machine)
-		)
+		if self . integer_machine_count_variable is not None:
+
+			return (
+				self . integer_machine_count_variable
+				* self . __somersloop_factor (machine)
+			)
+
+		else:
+
+			return 0.0
 
 	def add_constraints (self, constraints):
 
-		constraints . append (self . machine_count_variable >= 0)
+		constraints . append (self . fractional_machine_count_variable >= 0)
+
+		if self . integer_machine_count_variable is not None:
+
+			constraints . append (self . integer_machine_count_variable >= self . fractional_machine_count_variable)
+
+			# We don't need a constraint to keep the integer count close to the fractional count.
+			# The optimization process will do this naturally if it matters. The number of machines
+			# should be interpreted with ciel(fractional_machine_count_variable), instead of reading
+			# integer_machine_count_variable, because if it isn't important for optimization
+			# the integer value may be larger than expected.
 
 	def interpret_model (self, model, machine):
 
-		machine_count = model [self . machine_count_variable]
+		machine_count = model [self . fractional_machine_count_variable]
 
 		return InterpretedCorner (
 			machine_count,

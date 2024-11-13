@@ -242,7 +242,7 @@ class InterpretedRecipe:
 
 			interpretation ['somersloops_slotted'] = utils . format_value (
 				self . interpreted_corners . somersloops_slotted,
-				precision
+				0
 			)
 
 		if self . raw_recipe . input_quantities:
