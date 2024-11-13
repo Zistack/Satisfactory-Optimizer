@@ -353,34 +353,59 @@ Only items that actually appear in the factory plan with nonzero flows are repor
 ### "machines": {"Machine": Real, ...}
 
 The "machines" entry reports the number of each type of machine that is used in the factory.
-As it is the sum of potentially fractional values, and a single machine cannot be used for more than one recipe, this is really a lower bound on the actual number of machines that you will have to build.
-It can still be used to get an idea of how the production is distributed.
 
 ### "recipes": {"Recipe": {*}, ...}
 
 The "recipes" entry reports some statistics about each recipe that is used in the factory plan.
-Each recipe has 4 entries.
+Each recipe has several entries.
 
- * "machine_count": Real
+ * "machine_count": Integer
 
    The number of machines used to produce this recipe.
 
- * "power consumption": Real
+ * "power_consumption": Real
 
    The power consumption of all of the machines used to produce this recipe.
+   This is an overestimate, and does not take into account the nonlinear
+   power benefits of underclocking.
 
  * "overclock_setting": Real
 
    The overclock setting applied to the machines using this recipe.
+   If this field is missing, it should be assumed to be 1.
+
+ * "underclock_one": Real
+
+   If a non-integer number of machines are needed, one machine should
+   be underclocked to the value shown in this field. If this field
+   is missing, all machines should use overclock_setting.
+
+ * "underclock_uniform": Real
+
+   If you prefer to clock all of the machines in a production equally,
+   they can be set to this value instead of the above two settings.
+   This method can save power, but has less precision and may cause
+   problems with a large number of machines.
 
  * "somersloops_slotted": Integer
 
    The total number of somersloops slotted into machines producing this recipe.
-   This can interact with the overclock setting in a slightly strange way.
-   The planner internally instantiates a number of 'corners' for each recipe, each being a machine count associated with the recipe at a specific overclock setting and productivity multiplier.
-   Generally, the planner will want to overclock productivity-boosted machines, but may not want to overclock machines _not_ boosted with somersloops.
-   If not enough somersloops are provided to boost every recipe, and the overclock setting is not pegged at 2.5, then most likely the somersloops were dumped into a subset of machines which were overclocked, while the remaining machines were left alone.
-   Perhaps in future versions of this tool, we'll be able to report this more clearly.
+
+ * "configurations": [{*}, ...]
+
+   Sometimes, when using somersloops or minimizing machines, the planner may need
+   to make multiple sets of machines with different settings. For example, it may
+   decide that the best approach for a given factory is to have two assemblers
+   producing Copper Rotor with two somersloops each at 250% overclock, and ten
+   more assemblers producing Copper Rotor with no somersloops at 100% overclock.
+   In these situations, the clocking and somersloop fields become ambiguous. In
+   this case, those fields are moved into separate configurations. Each one
+   may have the "overclock_setting", "underclock_one", "underclock_uniform", and
+   "somersloops_slotted" field. These fields will not appear in the outer object
+   when the "configurations" field is present. Each configuration will also have
+   a "machine_count" and "power_consumption" field with the machines and power
+   used specifically for that configuration. These two fields will also appear
+   in the outer object as totals for all configurations.
 
  * "inputs": {"Item": Real, ...}
 
@@ -404,10 +429,9 @@ The format is the same, except for an additional field:
 The "total_power_consumption" entry reports the total power consumption of the entire factory, in MW.
 Negative values imply that the factory actually _generates_ power.
 
-### "total_machine_count": Real
+### "total_machine_count": Integer
 
 The "total_machine_count" entry reports the total number of machines used in the factory plan.
-The same caveats about the use of fractional machines for the "machines" entry applies here as well.
 
 # Appendix
 

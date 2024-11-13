@@ -200,12 +200,7 @@ class InterpretedRecipe:
 
 	def get_report (self, precision):
 
-		if (
-			utils . interpret_approximate (
-				self . interpreted_corners . machine_count,
-				precision
-			) == 0
-		):
+		if self . interpreted_corners . machine_count == 0:
 
 			return None
 
@@ -213,7 +208,7 @@ class InterpretedRecipe:
 
 		interpretation ['machine_count'] = utils . format_value (
 			self . interpreted_corners . machine_count,
-			precision
+			0
 		)
 
 		interpretation ['power_consumption'] = utils . format_value (
@@ -222,28 +217,36 @@ class InterpretedRecipe:
 			precision
 		)
 
-		if (
-			utils . interpret_approximate (
-				self . interpreted_corners . overclock_setting,
-				6
-			) != 1
-		):
-			interpretation ['overclock_setting'] = utils . format_value (
-				self . interpreted_corners . overclock_setting,
-				6
-			)
+		if len (self . interpreted_corners . configurations) == 1:
 
-		if (
-			utils . interpret_approximate (
-				self . interpreted_corners . somersloops_slotted,
-				precision
-			) != 0
-		):
+			config = self . interpreted_corners . configurations [0]
 
-			interpretation ['somersloops_slotted'] = utils . format_value (
-				self . interpreted_corners . somersloops_slotted,
-				0
-			)
+			config . set_optional_fields (interpretation)
+
+		else:
+
+			configurations = []
+
+			for config in self . interpreted_corners . configurations:
+
+				config_interpretation = dict ()
+
+				config_interpretation ['machine_count'] = utils . format_value (
+					config . machine_count,
+					0
+				)
+
+				config_interpretation ['power_consumption'] = utils . format_value (
+					config . power_magnitude
+						* self . raw_recipe . power_consumption,
+					precision
+				)
+
+				config . set_optional_fields (config_interpretation)
+
+				configurations . append (config_interpretation)
+
+			interpretation ['configurations'] = configurations
 
 		if self . raw_recipe . input_quantities:
 

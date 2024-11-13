@@ -85,38 +85,27 @@ class Corners:
 		input_magnitude = 0
 		output_magnitude = 0
 		power_magnitude = 0
-		total_clock_speed = 0
-		somersloops_slotted = 0
+		configurations = []
 
 		for corner in self . corners:
 
 			interpreted_corner = corner . interpret_model (model, machine)
 
-			machine_count += interpreted_corner . machine_count
-			input_magnitude += interpreted_corner . input_magnitude
-			output_magnitude += interpreted_corner . output_magnitude
-			power_magnitude += interpreted_corner . power_magnitude
-			total_clock_speed += (
-				interpreted_corner . machine_count
-				* interpreted_corner . overclock_setting
-			)
-			somersloops_slotted += interpreted_corner . somersloops_slotted
+			if interpreted_corner . machine_count != 0:
 
-		if machine_count != 0:
+				machine_count += interpreted_corner . machine_count
+				input_magnitude += interpreted_corner . input_magnitude
+				output_magnitude += interpreted_corner . output_magnitude
+				power_magnitude += interpreted_corner . power_magnitude
 
-			overclock_setting = total_clock_speed / machine_count
-
-		else:
-
-			overclock_setting = 1.0
+				configurations . append (interpreted_corner)
 
 		return InterpretedCorners (
 			machine_count,
 			input_magnitude,
 			output_magnitude,
 			power_magnitude,
-			overclock_setting,
-			somersloops_slotted
+			configurations
 		)
 
 class InterpretedCorners:
@@ -127,13 +116,11 @@ class InterpretedCorners:
 		input_magnitude,
 		output_magnitude,
 		power_magnitude,
-		overclock_setting,
-		somersloops_slotted
+		configurations
 	):
 
 		self . machine_count = machine_count
 		self . input_magnitude = input_magnitude
 		self . output_magnitude = output_magnitude
 		self . power_magnitude = power_magnitude
-		self . overclock_setting = overclock_setting
-		self . somersloops_slotted = somersloops_slotted
+		self . configurations = configurations

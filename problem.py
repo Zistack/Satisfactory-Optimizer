@@ -428,7 +428,7 @@ class Problem:
 
 		total_machine_count_value = utils . format_value (
 			self . __total_machine_count (interpreted_recipe_registry),
-			precision
+			0
 		)
 
 		return {

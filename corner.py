@@ -1,4 +1,5 @@
 import linprog as lp
+import math
 
 import utils
 
@@ -156,10 +157,17 @@ class Corner:
 
 	def interpret_model (self, model, machine):
 
-		machine_count = model [self . fractional_machine_count_variable]
+		fractional_machine_count = model [self . fractional_machine_count_variable]
+
+		# There's a numerical issue in the solver where a fully saturated corner of machines can be very
+		# slightly over the intended integer value. This bug is reproducible for the "AI Expansion Server"
+		# recipe with the_big_cheese.json. Uncorrected, it will think there are 4 overclocked machines
+		# instead of the intended 3. Subtract a very small number before calling ceil to avoid overestimating.
+		machine_count = math . ceil (fractional_machine_count - 0.0000001)
 
 		return InterpretedCorner (
 			machine_count,
+			fractional_machine_count,
 			self . __speed_multiplier (),
 			self . __productivity_multiplier (),
 			self . __power_multiplier (machine),
@@ -171,6 +179,7 @@ class InterpretedCorner:
 	def __init__ (
 		self,
 		machine_count,
+		fractional_machine_count,
 		speed_multiplier,
 		productivity_multiplier,
 		power_multiplier,
@@ -178,12 +187,72 @@ class InterpretedCorner:
 	):
 
 		self . machine_count = machine_count
-		self . input_magnitude = machine_count * speed_multiplier
+		self . input_magnitude = fractional_machine_count * speed_multiplier
 		self . output_magnitude = (
-			machine_count
+			fractional_machine_count
 			* speed_multiplier
 			* productivity_multiplier
 		)
-		self . power_magnitude = machine_count * power_multiplier
+		self . power_magnitude = fractional_machine_count * power_multiplier
 		self . overclock_setting = speed_multiplier
+		self . underclock_uniform = speed_multiplier * fractional_machine_count / machine_count if machine_count != 0 else speed_multiplier
+		self . underclock_one = (fractional_machine_count % 1) * speed_multiplier
 		self . somersloops_slotted = machine_count * somersloop_factor
+
+	def set_optional_fields (self, report):
+
+		overclock_precision = 6
+
+		reported_overclock_setting = self . underclock_uniform if self . machine_count == 1 else self . overclock_setting
+
+		interpreted_overclock_setting = utils . interpret_approximate (
+			reported_overclock_setting,
+			overclock_precision
+		)
+
+		interpreted_underclock_one = utils . interpret_approximate (
+			self . underclock_one,
+			overclock_precision
+		)
+
+		interpreted_underclock_uniform = utils . interpret_approximate (
+			self . underclock_uniform,
+			overclock_precision
+		)
+
+		if interpreted_overclock_setting != 1:
+
+			report ['overclock_setting'] = utils . format_value (
+				reported_overclock_setting,
+				overclock_precision
+			)
+
+		if (
+			interpreted_underclock_one != 0
+			and interpreted_underclock_one != interpreted_overclock_setting
+		):
+
+			report ['underclock_one'] = utils . format_value (
+				self . underclock_one,
+				overclock_precision
+			)
+
+		if interpreted_underclock_uniform != interpreted_overclock_setting:
+
+			report ['underclock_uniform'] = utils . format_value (
+				self . underclock_uniform,
+				overclock_precision
+			)
+
+		if (
+			utils . interpret_approximate (
+				self . somersloops_slotted,
+				0
+			) != 0
+		):
+
+			report ['somersloops_slotted'] = utils . format_value (
+				self . somersloops_slotted,
+				0
+			)
+

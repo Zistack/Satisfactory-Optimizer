@@ -50,7 +50,7 @@ class Machine:
 
 			return None
 
-		return utils . format_value (total_count, precision)
+		return utils . format_value (total_count, 0)
 
 def load_machine (pretty_name, machine_data):
 
