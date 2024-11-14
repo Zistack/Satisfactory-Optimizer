@@ -66,7 +66,7 @@ class RawRecipe:
 		corners = Corners (
 			utils . name (self . pretty_name),
 			overclock_limits,
-			self . machine . supports_productivity () and model_productivity
+			self . machine . somersloop_slots if model_productivity else None
 		)
 
 		corners . add_constraints (constraints)
@@ -242,7 +242,7 @@ class InterpretedRecipe:
 
 			interpretation ['somersloops_slotted'] = utils . format_value (
 				self . interpreted_corners . somersloops_slotted,
-				precision
+				0
 			)
 
 		if self . raw_recipe . input_quantities:

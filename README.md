@@ -230,7 +230,7 @@ If power consumption is a constraint, it may be specified.
 Setting a value here constrains the planned factory to consume _at most_ the specified amount of power, in MW.
 Negative values imply that the factory should produce _at least_ that much power.
 
-### "available_somersloops": Real (optional)
+### "available_somersloops": Integer (optional)
 
 The factory planner can also optimize the allocation of somersloops to recipes for productivity boosts.
 It would also be able to weigh this against using somersloops to build machines required for certain recipes, but in vanilla Satisfactory the only machine that requires somersloops to build is the Alien Power Augmenter, which provides a power augmentation factor, making it ineligible for machine count search (more in this in the next section).

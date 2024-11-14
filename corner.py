@@ -32,10 +32,19 @@ class Corner:
 				' Productivity ' + str (1.0 + self . productivity_bonus)
 			)
 
+		if productivity_bonus != None and productivity_bonus != 0.0:
+
+			integrality = 1
+
+		else:
+
+			integrality = 0
+
 		name = utils . name (self . pretty_name)
 
 		self . machine_count_variable = lp . Variable (
-			 name + '_machine_count'
+			 name + '_machine_count',
+			 integrality
 		)
 
 	def machine_count (self):

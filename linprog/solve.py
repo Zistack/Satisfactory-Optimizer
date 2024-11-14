@@ -189,6 +189,12 @@ def solve (constraints, objectives):
 	)
 	b_eq = np . ndarray ((0,))
 
+	integrality = np . zeros ((len (variable_ids),), dtype = np . uint8)
+
+	for (variable, index) in variable_ids . items ():
+
+		integrality [index] = variable . integrality
+
 	for inequality in unary_ub_constraints:
 
 		if not encode_inequality_bound (inequality, variable_ids, bounds):
@@ -213,7 +219,16 @@ def solve (constraints, objectives):
 
 		c = encode_objective (objective, variable_ids)
 
-		result = sp . optimize . linprog (c, A_ub, b_ub, A_eq, b_eq, bounds)
+		result = sp . optimize . linprog (
+			c,
+			A_ub,
+			b_ub,
+			A_eq,
+			b_eq,
+			bounds,
+			integrality = integrality,
+			method = 'highs'
+		)
 
 		if not result . success:
 

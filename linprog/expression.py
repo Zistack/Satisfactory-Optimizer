@@ -5,9 +5,10 @@ from linprog . equality import Equality
 
 class Variable:
 
-	def __init__ (self, name):
+	def __init__ (self, name, integrality = 0):
 
 		self . name = name
+		self . integrality = integrality
 
 	def __str__ (self):
 

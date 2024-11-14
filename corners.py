@@ -8,7 +8,7 @@ class Corners:
 		self,
 		recipe_pretty_name,
 		overclock_limits,
-		model_productivity
+		somersloop_slots
 	):
 
 		if overclock_limits != None:
@@ -34,9 +34,9 @@ class Corners:
 
 			overclock_points = [None]
 
-		if model_productivity:
+		if somersloop_slots != None:
 
-			productivity_points = [0.0, 1.0]
+			productivity_points = [0.0] + [1.0 / i for i in range (somersloop_slots, 1, -1)]
 
 		else:
 
