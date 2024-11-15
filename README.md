@@ -361,7 +361,7 @@ It can still be used to get an idea of how the production is distributed.
 The "recipes" entry reports some statistics about each recipe that is used in the factory plan.
 Each recipe object contains the following entries:
 
- * "configurations": {...}
+ * "configurations": [...]
 
    Each configuration object describes a set of machines with a particular configuration (clock speed setting and number of somersloops slotted per machine).
 
