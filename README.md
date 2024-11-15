@@ -37,7 +37,7 @@ It takes a file listing the items, a file listing the machines, a file describin
 All file input and output is formatted as JSON, with the extension that single-line comments are allowed.
 
 The items, machines, and recipes are provided inside of the repository, and generally don't need to be specified unless you want to use a different set of recipes.
-The recipes provided are for U6.
+The recipes provided are for the 1.0 release of the game.
 
 ## problem-file: {*}
 
