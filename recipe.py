@@ -130,21 +130,22 @@ class EncodedRecipe:
 
 		return allocated_somersloops
 
-	def interpret (self, model):
+	def interpret (self, model, precision):
 
-		interpreted_corners = self . corners . interpret_model (
+		configurations = self . corners . interpret_model (
 			model,
-			self . raw_recipe . machine
+			self . raw_recipe . machine,
+			precision
 		)
 
-		return InterpretedRecipe (self . raw_recipe, interpreted_corners)
+		return InterpretedRecipe (self . raw_recipe, configurations)
 
 class InterpretedRecipe:
 
-	def __init__ (self, raw_recipe, interpreted_corners):
+	def __init__ (self, raw_recipe, configurations):
 
 		self . raw_recipe = raw_recipe
-		self . interpreted_corners = interpreted_corners
+		self . configurations = configurations
 
 	def pretty_name (self):
 
@@ -152,17 +153,37 @@ class InterpretedRecipe:
 
 	def machine_count (self):
 
-		return self . interpreted_corners . machine_count
+		return sum (
+			configuration . machine_count
+			for configuration in self . configurations . values ()
+		)
 
-	def output_magnitude (self):
+	def __input_magnitude (self):
 
-		return self . interpreted_corners . output_magnitude
+		return sum (
+			configuration . input_magnitude
+			for configuration in self . configurations . values ()
+		)
+
+	def __output_magnitude (self):
+
+		return sum (
+			configuration . output_magnitude
+			for configuration in self . configurations . values ()
+		)
+
+	def __power_magnitude (self):
+
+		return sum (
+			configuration . power_magnitude
+			for configuration in self . configurations . values ()
+		)
 
 	def input_rate (self, item):
 
 		quantity = self . raw_recipe . input_quantities [item]
 		return (
-			self . interpreted_corners . input_magnitude
+			self . __input_magnitude ()
 			* quantity
 			* 60
 			/ self . raw_recipe . time
@@ -172,7 +193,7 @@ class InterpretedRecipe:
 
 		quantity = self . raw_recipe . output_quantities [item]
 		return (
-			self . interpreted_corners . output_magnitude
+			self . __output_magnitude ()
 			* quantity
 			* 60
 			/ self . raw_recipe . time
@@ -181,77 +202,40 @@ class InterpretedRecipe:
 	def power_consumption (self):
 
 		return (
-			self . interpreted_corners . power_magnitude
+			self . __power_magnitude ()
 			* self . raw_recipe . power_consumption
 		)
-
-	def allocated_somersloops (self):
-
-		allocated_somersloops = self . interpreted_corners . somersloops_slotted
-
-		if self . raw_recipe . requires_somersloops ():
-
-			allocated_somersloops += (
-				self . interpreted_corners . machine_count
-				* self . raw_recipe . machine . required_somersloops
-			)
-
-		return allocated_somersloops
 
 	def get_report (self, precision):
 
 		if (
 			utils . interpret_approximate (
-				self . interpreted_corners . machine_count,
+				self . machine_count (),
 				precision
 			) == 0
 		):
 
 			return None
 
-		interpretation = dict ()
+		report = dict ()
 
-		interpretation ['machine_count'] = utils . format_value (
-			self . interpreted_corners . machine_count,
-			precision
-		)
-
-		interpretation ['power_consumption'] = utils . format_value (
-			self . interpreted_corners . power_magnitude
-				* self . raw_recipe . power_consumption,
-			precision
-		)
-
-		if (
-			utils . interpret_approximate (
-				self . interpreted_corners . overclock_setting,
-				6
-			) != 1
-		):
-			interpretation ['overclock_setting'] = utils . format_value (
-				self . interpreted_corners . overclock_setting,
-				6
-			)
-
-		if (
-			utils . interpret_approximate (
-				self . interpreted_corners . somersloops_slotted,
+		report ['configurations'] = list (
+			configuration . get_report (
+				somersloop_factor,
+				self . raw_recipe . machine . supports_overclocking (),
 				precision
-			) != 0
-		):
-
-			interpretation ['somersloops_slotted'] = utils . format_value (
-				self . interpreted_corners . somersloops_slotted,
-				0
 			)
+			for (somersloop_factor, configuration)
+			in self . configurations . items ()
+		)
 
 		if self . raw_recipe . input_quantities:
 
-			interpretation ['inputs'] = dict (
+			report ['inputs'] = dict (
 				(
 					item . pretty_name,
 					utils . format_value (
-						self . interpreted_corners . input_magnitude
+						self . __input_magnitude ()
 							* quantity
 							* 60
 							/ self . raw_recipe . time,
@@ -264,11 +248,11 @@ class InterpretedRecipe:
 
 		if self . raw_recipe . output_quantities:
 
-			interpretation ['outputs'] = dict (
+			report ['outputs'] = dict (
 				(
 					item . pretty_name,
 					utils . format_value (
-						self . interpreted_corners . output_magnitude
+						self . __output_magnitude ()
 							* quantity
 							* 60
 							/ self . raw_recipe . time,
@@ -279,9 +263,14 @@ class InterpretedRecipe:
 				in self . raw_recipe . output_quantities . items ()
 			)
 
+		report ['power_consumption'] = utils . format_value (
+			self . power_consumption (),
+			precision
+		)
+
 		if self . raw_recipe . power_augmentation_factor:
 
-			interpretation [
+			report [
 				'total_power_augmentation_factor'
 			] = utils . format_value (
 				self . interpreted_corners . machine_count
@@ -289,7 +278,7 @@ class InterpretedRecipe:
 				precision
 			)
 
-		return interpretation
+		return report
 
 def load_node_type (recipe_data, node_types):
 

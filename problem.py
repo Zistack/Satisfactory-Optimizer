@@ -339,7 +339,9 @@ class Problem:
 		used_items
 	):
 
-		interpreted_recipe_registry = recipe_registry . interpret (model)
+		interpreted_recipe_registry = (
+			recipe_registry . interpret (model, precision)
+		)
 
 		def has_report (tuple):
 

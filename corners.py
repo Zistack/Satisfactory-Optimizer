@@ -1,5 +1,10 @@
 import itertools
 
+from collections import defaultdict
+
+import utils
+
+from configuration import Configuration
 from corner import Corner
 
 class Corners:
@@ -79,61 +84,23 @@ class Corners:
 
 			corner . add_constraints (constraints)
 
-	def interpret_model (self, model, machine):
+	def interpret_model (self, model, machine, precision):
 
-		machine_count = 0
-		input_magnitude = 0
-		output_magnitude = 0
-		power_magnitude = 0
-		total_clock_speed = 0
-		somersloops_slotted = 0
+		configurations = defaultdict (Configuration)
 
 		for corner in self . corners:
 
 			interpreted_corner = corner . interpret_model (model, machine)
 
-			machine_count += interpreted_corner . machine_count
-			input_magnitude += interpreted_corner . input_magnitude
-			output_magnitude += interpreted_corner . output_magnitude
-			power_magnitude += interpreted_corner . power_magnitude
-			total_clock_speed += (
-				interpreted_corner . machine_count
-				* interpreted_corner . overclock_setting
-			)
-			somersloops_slotted += interpreted_corner . somersloops_slotted
+			if (
+				utils . interpret_approximate (
+					interpreted_corner . machine_count,
+					precision
+				) != 0
+			):
 
-		if machine_count != 0:
+				configurations [
+					interpreted_corner . somersloop_factor
+				] . add_corner_machines (interpreted_corner)
 
-			overclock_setting = total_clock_speed / machine_count
-
-		else:
-
-			overclock_setting = 1.0
-
-		return InterpretedCorners (
-			machine_count,
-			input_magnitude,
-			output_magnitude,
-			power_magnitude,
-			overclock_setting,
-			somersloops_slotted
-		)
-
-class InterpretedCorners:
-
-	def __init__ (
-		self,
-		machine_count,
-		input_magnitude,
-		output_magnitude,
-		power_magnitude,
-		overclock_setting,
-		somersloops_slotted
-	):
-
-		self . machine_count = machine_count
-		self . input_magnitude = input_magnitude
-		self . output_magnitude = output_magnitude
-		self . power_magnitude = power_magnitude
-		self . overclock_setting = overclock_setting
-		self . somersloops_slotted = somersloops_slotted
+		return configurations

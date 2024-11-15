@@ -85,14 +85,14 @@ class RecipeRegistry:
 
 		return encoded_recipes
 
-	def interpret (self, model):
+	def interpret (self, model, precision):
 
 		interpreted_raw_recipes = dict ()
 		interpreted_encoded_recipes = dict ()
 
 		for raw_recipe, encoded_recipe in self . encoded_recipes . items ():
 
-			interpreted_recipe = encoded_recipe . interpret (model)
+			interpreted_recipe = encoded_recipe . interpret (model, precision)
 
 			interpreted_raw_recipes [raw_recipe] = interpreted_recipe
 			interpreted_encoded_recipes [encoded_recipe] = interpreted_recipe

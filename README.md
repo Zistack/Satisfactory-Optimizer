@@ -343,7 +343,7 @@ It is possible to attempt to maximize or minimize the production of Awesome Sink
 Once the script is run, it will produce some output.
 Assuming that there are no syntax errors or runtime bugs, it will either produce a factory plan, or it will say 'No solution found' in the case that the problem specification is over-constrained.
 
-The factory plan is reported as a JSON dictionary/object with 4 entries.
+The factory plan is reported as a JSON dictionary/object with several entries.
 
 ### "items": {"Item": {*}, ...}
 
@@ -359,28 +359,24 @@ It can still be used to get an idea of how the production is distributed.
 ### "recipes": {"Recipe": {*}, ...}
 
 The "recipes" entry reports some statistics about each recipe that is used in the factory plan.
-Each recipe has 4 entries.
+Each recipe object contains the following entries:
 
- * "machine_count": Real
+ * "configurations": {...}
 
-   The number of machines used to produce this recipe.
+   Each configuration object describes a set of machines with a particular configuration (clock speed setting and number of somersloops slotted per machine).
+
+   The "machine_count" field reports the number of machines that use the configuration.
+
+   The "clock_speed_setting" reports the clock speed that all machines should be set to, if the machine supports overclocking.
+   The optimizer underclocks all machines uniformly when a fractional number of machines would have been required.
+
+   The "somersloops_slotted_per_machine" reports what it says it reports.
+   If this field is not present, then that means that no somersloops should be slotted for this set of machines.
 
  * "power consumption": Real
 
-   The power consumption of all of the machines used to produce this recipe.
-
- * "overclock_setting": Real
-
-   The overclock setting applied to the machines using this recipe.
-
- * "somersloops_slotted": Real
-
-   The total number of somersloops slotted into machines producing this recipe.
-   This can interact with the overclock setting in a slightly strange way.
-   The planner internally instantiates a number of 'corners' for each recipe, each being a machine count associated with the recipe at a specific overclock setting and productivity multiplier.
-   Generally, the planner will want to overclock productivity-boosted machines, but may not want to overclock machines _not_ boosted with somersloops.
-   If not enough somersloops are provided to boost every recipe, and the overclock setting is not pegged at 2.5, then most likely the somersloops were dumped into a subset of machines which were overclocked, while the remaining machines were left alone.
-   Perhaps in future versions of this tool, we'll be able to report this more clearly.
+   The approximate power consumption of all of the machines used to produce this recipe.
+   This is an over-estimate due to the fact that the solver can't fully account for the non-linear effect on power consumption caused by changing the clock speed of a machine.
 
  * "inputs": {"Item": Real, ...}
 

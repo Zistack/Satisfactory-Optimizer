@@ -155,16 +155,27 @@ class InterpretedCorner:
 		speed_multiplier,
 		productivity_multiplier,
 		power_multiplier,
-		somersloop_factor
+		somersloop_factor,
 	):
 
 		self . machine_count = machine_count
-		self . input_magnitude = machine_count * speed_multiplier
-		self . output_magnitude = (
-			machine_count
-			* speed_multiplier
-			* productivity_multiplier
-		)
-		self . power_magnitude = machine_count * power_multiplier
-		self . overclock_setting = speed_multiplier
-		self . somersloops_slotted = machine_count * somersloop_factor
+		self . speed_multiplier = speed_multiplier
+		self . productivity_multiplier = productivity_multiplier
+		self . power_multiplier = power_multiplier
+		self . somersloop_factor = somersloop_factor
+
+	def input_magnitude (self):
+
+		return self . machine_count * self . speed_multiplier
+
+	def output_magnitude (self):
+
+		return self . machine_count * self . speed_multiplier * self . productivity_multiplier
+
+	def power_magnitude (self):
+
+		return self . machine_count * self . power_multiplier
+
+	def somersloops_slotted (self):
+
+		return self . machine_count * self . somersloop_factor
