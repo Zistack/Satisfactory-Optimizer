@@ -80,7 +80,7 @@ There are also some additional recipes to be aware of that help plan factories.
 
  * "Burn [Fuel Item]"
 
-   This recipe exists for every fuel item in the game that is consumed by a Biomass Burner, a Coal Generator, or a Fuel Generator.  It also exists for Ficsonium fuel rods in a Nuclear Power Plant
+   This recipe exists for every fuel item in the game that is consumed by a Biomass Burner, a Coal Generator, or a Fuel Generator.  It also exists for Ficsonium fuel rods in a Nuclear Power Plant.
    They provide negative power consumption to the factory, and can help with planning power plants.
    Nuclear Power Plants have their own recipes.
 
