@@ -187,7 +187,6 @@ Input items are specified as a dictionary/object, with the item names as the key
 Any item may be specified, not just raw resources.
 Quantities can be numbers, including decimals.
 Quantities can also be strings containing numbers as decimals or fractions.
-Because these values are interpreted by the Z3 library, they are treated as exact, and can have an arbitrary number of digits.
 This is true of all locations where numbers may be specified.
 
 Quantities here are all specified in units of items per minute.
