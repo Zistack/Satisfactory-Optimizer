@@ -80,6 +80,25 @@ class ItemsObjectiveFunction:
 
 		objectives . append (self . objective_type (self . combination_variable))
 
+class WeightedItemsObjectiveFunction:
+
+	def __init__ (self, item_weights, item_expression, objective_type):
+
+		self . item_weights = item_weights
+		self . item_expression = item_expression
+		self . objective_type = objective_type
+
+	def add_objective (self, constraints, objectives, recipe_registry):
+
+		objectives . append (
+			self . objective_type (
+				sum (
+					self . item_expression (item, recipe_registry) * weight
+					for item, weight in self . item_weights . items ()
+				)
+			)
+		)
+
 class RecipeObjectiveFunction:
 
 	def __init__ (self, raw_recipes, objective_type):
@@ -131,6 +150,14 @@ def load_objective_function (
 			minimize
 		)
 
+	if function_type == 'maximize_items_production_by_weight':
+
+		return WeightedItemsObjectiveFunction (
+			load_finite_item_quantities (function_data, items),
+			item_production,
+			maximize
+		)
+
 	if function_type == 'maximize_item_consumption':
 
 		return ItemObjectiveFunction (
@@ -143,6 +170,14 @@ def load_objective_function (
 
 		return ItemObjectiveFunction (
 			get_item (function_data, items),
+			item_consumption,
+			minimize
+		)
+
+	if function_type == 'minimize_items_consumption_by_weight':
+
+		return WeightedItemsObjectiveFunction (
+			load_finite_item_quantities (function_data, items),
 			item_consumption,
 			minimize
 		)

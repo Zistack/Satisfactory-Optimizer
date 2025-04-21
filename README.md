@@ -281,6 +281,12 @@ The goal types and their behaviors are described below.
    Minimizes the number of the named item that is produced by any recipe.
    This could be used to push the factory away from using certain items that are difficult to transport, like Screws, for example.
 
+ * ["maximize_items_production_by_weight"]
+
+   Maximizes the production of the named items based on the provided weights.
+   Higher weights mean that the item is worth more.
+   The function being maximized is the rate of production of each item (per minute) times that item's weight.
+
  * ["maximize_item_consumption", "Item"]
 
    Maximizes the number of the named item that is consumed by any recipe (these items may be produced).
@@ -289,6 +295,12 @@ The goal types and their behaviors are described below.
  * ["minimize_item_consumption", "Item"]
 
    Minimizes the number of the named item that is consumed by any recipe.
+
+ * ["minimize_items_consumption_by_weight", {"Item": Real, ...}]
+
+   Minimizes the consumption of the named items based on a given set of weights.
+   Higher weights mean that the item costs more.
+   The function being minimized is the rate of consumption of each item (per minute) times that item's weight.
 
  * ["maximize_item_input", "Item"]
 

@@ -1,0 +1,40 @@
+{
+	"included_recipes": [
+		"production"
+	],
+	"input_items": {
+		"Iron Ore": "unlimited",
+		"Copper Ore": "unlimited",
+		"Limestone": "unlimited",
+		"Coal": "unlimited",
+		"Caterium Ore": "unlimited",
+		"Raw Quartz": "unlimited",
+		"Sulfur": "unlimited",
+		"Uranium": "unlimited",
+		"Bauxite": "unlimited",
+		"SAM": "unlimited",
+		"Crude Oil": "unlimited",
+		"Water": "unlimited"
+	},
+	"output_items": {
+		"Turbo Motor": 15
+	},
+	"optimization_goals": [
+		[
+			"minimize_items_consumption_by_weight",
+			{
+				"Iron Ore": 2,
+				"Copper Ore": 3,
+				"Limestone": 1,
+				"Coal": 5,
+				"Caterium Ore": 5,
+				"Raw Quartz": 5,
+				"Sulfur": 20,
+				"Uranium": 20,
+				"Bauxite": 15,
+				"SAM": 20,
+				"Crude Oil": 5
+			}
+		]
+	]
+}
