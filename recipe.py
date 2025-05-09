@@ -273,7 +273,7 @@ class InterpretedRecipe:
 			report [
 				'total_power_augmentation_factor'
 			] = utils . format_value (
-				self . interpreted_corners . machine_count
+				self . machine_count ()
 					* self . raw_recipe . power_augmentation_factor,
 				precision
 			)
