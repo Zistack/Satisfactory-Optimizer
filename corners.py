@@ -41,7 +41,7 @@ class Corners:
 
 		if somersloop_slots != None:
 
-			productivity_points = [0.0] + [1.0 / i for i in range (somersloop_slots, 1, -1)]
+			productivity_points = [0.0] + [i / somersloop_slots for i in range (1, somersloop_slots + 1)]
 
 		else:
 
