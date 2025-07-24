@@ -1,66 +1,213 @@
 import math
 
+from collections import defaultdict
+
+import linprog as lp
+
 import utils
+
+from corner import Corner
 
 class Configuration:
 
-	def __init__ (self):
-
-		self . machine_count = 0
-		self . input_magnitude = 0
-		self . output_magnitude = 0
-		self . power_magnitude = 0
-		self . somersloops_slotted = 0
-
-	def add_corner_machines (self, interpreted_corner):
-
-		self . machine_count += interpreted_corner . machine_count
-		self . input_magnitude += interpreted_corner . input_magnitude ()
-		self . output_magnitude += interpreted_corner . output_magnitude ()
-		self . power_magnitude += interpreted_corner . power_magnitude ()
-
-	def get_report (
+	def __init__ (
 		self,
-		somersloop_factor,
-		machine_supports_overclocking,
-		precision
+		recipe_pretty_name,
+		overclock_limits,
+		productivity_bonus
 	):
 
-		report = dict ()
+		self . pretty_name = recipe_pretty_name + ' Configuration'
 
-		if machine_supports_overclocking:
+		self . overclock_limits = overclock_limits
+		self . productivity_bonus = productivity_bonus
 
-			integer_machine_count = math . ceil (
-				utils . interpret_approximate (
-					self . machine_count,
-					precision
-				)
+		if overclock_limits is not None:
+
+			overclock_points = list ()
+
+			if (
+				overclock_limits . min_clock_speed <= 1.0
+				and overclock_limits . max_clock_speed >= 1.0
+			):
+
+				overclock_points . append (1.0)
+
+			if overclock_limits . min_clock_speed not in overclock_points:
+
+				overclock_points . append (overclock_limits . min_clock_speed)
+
+			if overclock_limits . max_clock_speed not in overclock_points:
+
+				overclock_points . append (overclock_limits . max_clock_speed)
+
+		else:
+
+			overclock_points = [None]
+
+		if productivity_bonus is not None:
+
+			self . pretty_name += (
+				' Productivity ' + str (1.0 + productivity_bonus)
 			)
 
-			report ['machine_count'] = utils . format_value (
-				integer_machine_count,
-				0
-			)
+		self . corners = list (
+			Corner (recipe_pretty_name, clock_speed, productivity_bonus)
+			for clock_speed in overclock_points
+		)
 
-			clock_speed_setting = self . input_magnitude / integer_machine_count
+		if (
+			self . productivity_bonus is not None
+			and self . productivity_bonus != 0.0
+		):
 
-			report ['clock_speed_setting'] = utils . format_value (
-				clock_speed_setting,
-				6
+			name = utils . name (self . pretty_name)
+
+			self . machine_count_variable = lp . Variable (
+				name + '_machine_count',
+				1
 			)
 
 		else:
 
-			report ['machine_count'] = utils . format_value (
-				self . machine_count,
-				precision
+			self . machine_count_variable = None
+
+	def machine_count (self):
+
+		return sum (corner . machine_count () for corner in self . corners)
+
+	def input_magnitude (self):
+
+		return sum (corner . input_magnitude () for corner in self . corners)
+
+	def output_magnitude (self):
+
+		return sum (corner . output_magnitude () for corner in self . corners)
+
+	def power_magnitude (self, machine):
+
+		return sum (
+			corner . power_magnitude (machine)
+			for corner in self . corners
+		)
+
+	def somersloops_slotted (self, somersloops_slotted_per_machine):
+
+		if self . machine_count_variable is not None:
+
+			return (
+				self . machine_count_variable * somersloops_slotted_per_machine
 			)
 
-		if utils . interpret_approximate (somersloop_factor, 0) != 0:
+		else:
 
-			report ['somersloops_slotted_per_machine'] = utils . format_value (
-				somersloop_factor,
+			return 0
+
+	def add_constraints (self, constraints):
+
+		for corner in self . corners:
+
+			corner . add_constraints (constraints)
+
+		if self . machine_count_variable is not None:
+
+			constraints . append (
+				self . machine_count_variable >= sum (
+					corner . machine_count () for corner in self . corners
+				)
+			)
+
+	def interpret_model (self, model, machine, precision):
+
+		interpreted_corners = list (
+			corner . interpret_model (model, machine)
+			for corner in self . corners
+		)
+
+		if self . machine_count_variable is not None:
+
+			integer_machine_count = model [self . machine_count_variable]
+
+		else:
+
+			integer_machine_count = math . ceil (
+				utils . interpret_approximate (
+					sum (
+						corner . machine_count
+						for corner in interpreted_corners
+					),
+					precision
+				)
+			)
+
+		return InterpretedConfiguration (
+			integer_machine_count,
+			interpreted_corners
+		)
+
+class InterpretedConfiguration:
+
+	def __init__ (self, integer_machine_count, interpreted_corners):
+
+		self . integer_machine_count = integer_machine_count
+		self . interpreted_corners = interpreted_corners
+
+	def machine_count (self):
+
+		return sum (
+			corner . machine_count
+			for corner in self . interpreted_corners
+		)
+
+	def input_magnitude (self):
+
+		return sum (
+			corner . input_magnitude ()
+			for corner in self . interpreted_corners
+		)
+
+	def output_magnitude (self):
+
+		return sum (
+			corner . output_magnitude ()
+			for corner in self . interpreted_corners
+		)
+
+	def power_magnitude (self):
+
+		return sum (
+			corner . power_magnitude ()
+			for corner in self . interpreted_corners
+		)
+
+	def get_report (self, machine, precision):
+
+		report = dict ()
+
+		if machine . supports_overclocking ():
+
+			report ['machine_count'] = utils . format_value (
+				self . integer_machine_count,
 				0
+			)
+
+			clock_speed_setting = utils . interpret_approximate (
+				self . input_magnitude () / self . integer_machine_count,
+				6
+			)
+
+			if clock_speed_setting != 1.0:
+
+				report ['clock_speed_setting'] = utils . format_value (
+					clock_speed_setting,
+					6
+				)
+
+		else:
+
+			report ['machine_count'] = utils . format_value (
+				self . machine_count (),
+				precision
 			)
 
 		return report

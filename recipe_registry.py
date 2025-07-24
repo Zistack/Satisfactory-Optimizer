@@ -38,13 +38,13 @@ class RecipeRegistry:
 
 			self . power_consuming_recipes . append (encoded_recipe)
 
-		if raw_recipe . well_configuration != None:
+		if raw_recipe . well_configuration is not None:
 
 			self . well_configuration_consuming_recipes [
 				raw_recipe . well_configuration
 			] . append (encoded_recipe)
 
-		if raw_recipe . node_type != None:
+		if raw_recipe . node_type is not None:
 
 			self . node_type_consuming_recipes [
 				raw_recipe . node_type

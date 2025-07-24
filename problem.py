@@ -287,7 +287,7 @@ class Problem:
 
 		print ('Encoding total power consumption', file = sys . stderr)
 
-		if self . max_power_consumption == None:
+		if self . max_power_consumption is None:
 
 			return
 
@@ -311,7 +311,7 @@ class Problem:
 
 		print ('Encoding total machine count', file = sys . stderr)
 
-		if self . max_machine_count == None:
+		if self . max_machine_count is None:
 
 			return
 
@@ -368,7 +368,7 @@ class Problem:
 
 			name, report = tuple
 
-			return report != None
+			return report is not None
 
 		searchable_recipe_interpretations = dict (
 			filter (
@@ -540,7 +540,7 @@ class Problem:
 
 		model = lp . solve (constraints, objectives)
 
-		if model == None:
+		if model is None:
 
 			return None
 

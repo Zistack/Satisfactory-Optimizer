@@ -22,15 +22,15 @@ class Machine:
 
 	def supports_overclocking (self):
 
-		return self . overclock_exponent != None
+		return self . overclock_exponent is not None
 
 	def supports_productivity (self):
 
-		return self . somersloop_slots != None
+		return self . somersloop_slots is not None
 
 	def requires_somersloops (self):
 
-		return self . required_somersloops != None
+		return self . required_somersloops is not None
 
 	def add_constraints (self, constraints, using_recipes):
 

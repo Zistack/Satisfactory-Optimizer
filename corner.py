@@ -11,7 +11,7 @@ class Corner:
 		productivity_bonus = None
 	):
 
-		self . pretty_name = recipe_pretty_name
+		self . pretty_name = recipe_pretty_name + ' Corner'
 
 		# From 0.01 to 2.5 or None
 		self . clock_speed = clock_speed
@@ -19,33 +19,22 @@ class Corner:
 		# From 0 to 1 or None
 		self . productivity_bonus = productivity_bonus
 
-		if clock_speed != None:
+		if clock_speed is not None:
 
 			self . pretty_name += (
 				' Clock '
 				+ utils . format_value (clock_speed, 6)
 			)
 
-		if productivity_bonus != None:
+		if productivity_bonus is not None:
 
 			self . pretty_name += (
 				' Productivity ' + str (1.0 + self . productivity_bonus)
 			)
 
-		if productivity_bonus != None and productivity_bonus != 0.0:
-
-			integrality = 1
-
-		else:
-
-			integrality = 0
-
 		name = utils . name (self . pretty_name)
 
-		self . machine_count_variable = lp . Variable (
-			 name + '_machine_count',
-			 integrality
-		)
+		self . machine_count_variable = lp . Variable (name + '_machine_count')
 
 	def machine_count (self):
 
@@ -53,7 +42,7 @@ class Corner:
 
 	def __speed_multiplier (self):
 
-		if self . clock_speed != None:
+		if self . clock_speed is not None:
 
 			return self . clock_speed
 
@@ -67,7 +56,7 @@ class Corner:
 
 	def __productivity_multiplier (self):
 
-		if self . productivity_bonus != None:
+		if self . productivity_bonus is not None:
 
 			return 1.0 + self . productivity_bonus
 
@@ -85,7 +74,7 @@ class Corner:
 
 	def __power_multiplier (self, machine):
 
-		if self . clock_speed != None:
+		if self . clock_speed is not None:
 
 			overclock_power_multiplier = (
 				self . clock_speed ** machine . overclock_exponent
@@ -95,7 +84,7 @@ class Corner:
 
 			overclock_power_multiplier = 1.0
 
-		if self . productivity_bonus != None:
+		if self . productivity_bonus is not None:
 
 			productivity_power_multiplier = (
 				self . __productivity_multiplier () ** 2
@@ -114,23 +103,6 @@ class Corner:
 			* self . __power_multiplier (machine)
 		)
 
-	def __somersloop_factor (self, machine):
-
-		if self . productivity_bonus != None:
-
-			return self . productivity_bonus * machine . somersloop_slots
-
-		else:
-
-			return 0.0
-
-	def somersloops_slotted (self, machine):
-
-		return (
-			self . machine_count_variable
-			* self . __somersloop_factor (machine)
-		)
-
 	def add_constraints (self, constraints):
 
 		constraints . append (self . machine_count_variable >= 0)
@@ -143,8 +115,7 @@ class Corner:
 			machine_count,
 			self . __speed_multiplier (),
 			self . __productivity_multiplier (),
-			self . __power_multiplier (machine),
-			self . __somersloop_factor (machine)
+			self . __power_multiplier (machine)
 		)
 
 class InterpretedCorner:
@@ -154,15 +125,13 @@ class InterpretedCorner:
 		machine_count,
 		speed_multiplier,
 		productivity_multiplier,
-		power_multiplier,
-		somersloop_factor,
+		power_multiplier
 	):
 
 		self . machine_count = machine_count
 		self . speed_multiplier = speed_multiplier
 		self . productivity_multiplier = productivity_multiplier
 		self . power_multiplier = power_multiplier
-		self . somersloop_factor = somersloop_factor
 
 	def input_magnitude (self):
 
@@ -170,12 +139,12 @@ class InterpretedCorner:
 
 	def output_magnitude (self):
 
-		return self . machine_count * self . speed_multiplier * self . productivity_multiplier
+		return (
+			self . machine_count
+			* self . speed_multiplier
+			* self . productivity_multiplier
+		)
 
 	def power_magnitude (self):
 
 		return self . machine_count * self . power_multiplier
-
-	def somersloops_slotted (self):
-
-		return self . machine_count * self . somersloop_factor
