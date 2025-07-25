@@ -1,0 +1,44 @@
+{
+	"included_recipes": [
+		"production",
+		"sink_production"
+	],
+	"input_items": {
+		"Bauxite": 12300,
+		"Caterium Ore": 15000,
+		"Coal": 42300,
+		"Copper Ore": 36900,
+		"Crude Oil": 12600,
+		"Iron Ore": 92100,
+		"Limestone": 69900,
+		"Nitrogen Gas": 12000,
+		"Raw Quartz": 13500,
+		"SAM": 10200,
+		"Sulfur": 10800,
+		"Uranium": 2090,
+		"Water": "unlimited"
+	},
+	"output_items": {
+		"Ficsonium Fuel Rod": 152,
+		"Awesome Sink Point": "unlimited",
+		"Bauxite": "unlimited",
+		"Caterium Ore": "unlimited",
+		"Coal": "unlimited",
+		"Copper Ore": "unlimited",
+		"Crude Oil": "unlimited",
+		"Iron Ore": "unlimited",
+		"Limestone": "unlimited",
+		"Nitrogen Gas": "unlimited",
+		"Raw Quartz": "unlimited",
+		"SAM": "unlimited",
+		"Sulfur": "unlimited",
+		"Uranium": "unlimited"
+	},
+	"optimization_goals": [
+		["minimize_item_consumption", "SAM"]
+	],
+	"available_somersloops": 103,
+	"overclocking": {
+		"production": {"min_clock_speed": 2.5, "max_clock_speed": 2.5}
+	}
+}
