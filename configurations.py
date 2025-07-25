@@ -18,7 +18,7 @@ class Configurations:
 
 		if somersloop_slots is not None:
 
-			for somersloop_count in range (1, somersloop_slots + 1):
+			for somersloop_count in range (0, somersloop_slots + 1):
 
 				productivity_bonus = somersloop_count / somersloop_slots
 
