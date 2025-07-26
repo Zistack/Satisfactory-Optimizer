@@ -179,15 +179,15 @@ Unless planning factories for a modded game, it is unlikely that this field will
 
 A factory needs resources.
 By default, the quantities of available items are all set to 0.
-While there is a recipe that will allow the creation (really extraction) of water from nothing (but power), the other resources will need to be specified here.
-Mining and other extraction recipes are not provided because of how irregular resource extraction is in this game.
-The power cost of that process will have to be calculated and accounted for manually.
 
 Input items are specified as a dictionary/object, with the item names as the keys, and the quantities as the values.
 Any item may be specified, not just raw resources.
 Quantities can be numbers, including decimals.
 Quantities can also be strings containing numbers as decimals or fractions.
 This is true of all locations where numbers may be specified.
+
+Specifying a rate of input for an item tells the planner that the factory should consume EXACTLY that many items per minute.
+If the factory should instead instead consume UP TO that many items per minute, you MUST set the output quantity for that item to be "unlimited" in the "output_items" section as well.
 
 Quantities here are all specified in units of items per minute.
 
@@ -197,14 +197,12 @@ This is useful for when you don't want to apply a particular upper bound to a re
 ### "output_items": {"Item": Real, ...} (optional)
 
 The format of this field is the same as for "input_items".
-By default, the output quantities of all items are left unconstrained (or set to "unlimited").
-Because of the minimization of power consumption, that means that the output factory plan won't produce anything unless it has to (unless you enable a power generation recipe, at which point it will try to plan a power plant with the available resources).
-
 By default, the factory planner assumes that no item may be output by the factory.
 Setting a nonzero value here tells the factory planner that it should plan a factory that produces that item in the specified quantity.
 
 Setting the special value "unlimited" here tells the planner that the resource may be output in any quantity.
-This is useful for things like byproducts for factories with fixed outputs, or for outputs which you intend to maximize using optimization goals.
+This is necessary for items which are provided as inputs but for which the entire supply is not expected to be used.
+This is additionally useful for things like byproducts for factories with fixed outputs, or for outputs which you intend to maximize using optimization goals.
 Not taking care to ensure that a factory can output (by)products can easily result in a factory plan which is either infeasible (in the case of a requested fixed output rate), or empty (in the case of output product maximization).
 
 ### "overclocking": {"Recipe OR Group": ...} (optional)
@@ -388,9 +386,12 @@ Each recipe object contains the following entries:
 
    The "clock_speed_setting" reports the clock speed that all machines should be set to, if the machine supports overclocking.
    The optimizer underclocks all machines uniformly when a fractional number of machines would have been required.
+   If this field is not present, then the clock speed used for those machines is 100%.
 
    The "somersloops_slotted_per_machine" reports what it says it reports.
    If this field is not present, then that means that no somersloops should be slotted for this set of machines.
+
+   If there is only one configuration, then these fields may instead be found directly in the recipe entry in place of the "configurations" entry.
 
  * "power consumption": Real
 
