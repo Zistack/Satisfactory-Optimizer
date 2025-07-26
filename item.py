@@ -62,11 +62,6 @@ class Item:
 				== self . consumption (encoded_consuming_recipes) + output_rate
 			)
 
-			constraint = (
-				self . production (encoded_producing_recipes) + input_rate
-				== self . consumption (encoded_consuming_recipes) + output_rate
-			)
-
 	def interpret (
 		self,
 		model,
