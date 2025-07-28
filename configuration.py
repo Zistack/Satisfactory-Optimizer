@@ -126,7 +126,12 @@ class Configuration:
 
 		if self . machine_count_variable is not None:
 
-			integer_machine_count = model [self . machine_count_variable]
+			integer_machine_count = math . ceil (
+				utils . interpret_approximate (
+					model [self . machine_count_variable],
+					precision
+				)
+			)
 
 		else:
 
