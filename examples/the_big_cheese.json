@@ -16,8 +16,8 @@
 		"Normal Copper Node": 29,
 		"Pure Copper Node": 13,
 		"Impure Limestone Node": 15,
-		"Normal Limestone Node": 49,
-		"Pure Limestone Node": 30,
+		"Normal Limestone Node": 50,
+		"Pure Limestone Node": 29,
 		"Impure Coal Node": 15,
 		"Normal Coal Node": 31,
 		"Pure Coal Node": 16,
@@ -40,9 +40,9 @@
 		"Impure Crude Oil Node": 10,
 		"Normal Crude Oil Node": 12,
 		"Pure Crude Oil Node": 8,
-		"Impure Geyser": 3,
-		"Normal Geyser": 9,
-		"Pure Geyser": 6
+		"Impure Geyser": 9,
+		"Normal Geyser": 13,
+		"Pure Geyser": 9
 	},
 	"wells": [
 		{
@@ -128,6 +128,6 @@
 		"nuclear_power_plant": {"max_clock_speed": 2.5}
 	},
 	"max_power_consumption": 0,
-	"available_somersloops": 103,
+	"available_somersloops": 106,
 	"optimization_goals": [["maximize_item_output", "Awesome Sink Point"]]
 }
