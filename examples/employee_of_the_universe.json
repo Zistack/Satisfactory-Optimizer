@@ -131,7 +131,7 @@
 		"nuclear_power_plant": {"min_clock_speed": 1.0, "max_clock_speed": 2.5}
 	},
 	"max_power_consumption": 0,
-	"available_somersloops": 106,
+	"available_somersloops": 103,
 	"optimization_goals": [
 		[
 			"maximize_items_output",
