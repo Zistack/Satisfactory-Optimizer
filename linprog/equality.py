@@ -8,12 +8,12 @@ class Equality:
 	def __str__ (self):
 
 		sum_terms = [
-			str (coefficient) + ' * ' + str (variable)
-			for variable, coefficient in self . terms . items ()
+			str (coefficient) + ' * ' + str (var_key)
+			for var_key, coefficient in self . terms . items ()
 		]
 
 		return ' + ' . join (sum_terms) + ' == ' + str (self . constant)
 
-	def variables (self):
+	def var_keys (self):
 
 		return self . terms . keys ()

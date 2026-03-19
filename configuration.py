@@ -128,7 +128,7 @@ class Configuration:
 
 			integer_machine_count = math . ceil (
 				utils . interpret_approximate (
-					model [self . machine_count_variable],
+					model [self . machine_count_variable . as_key ()],
 					precision
 				)
 			)

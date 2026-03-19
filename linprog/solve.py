@@ -10,11 +10,11 @@ from linprog . expression import Variable, Sum
 
 def encode_inequality_bound (inequality, variable_ids, bounds):
 
-	variable, coefficient = tuple (inequality . terms . items ()) [0]
+	var_key, coefficient = tuple (inequality . terms . items ()) [0]
 
 	value = inequality . constant / coefficient
 
-	idx = variable_ids [variable]
+	idx = variable_ids [var_key]
 
 	l, u = bounds [idx]
 
@@ -38,11 +38,11 @@ def encode_inequality_bound (inequality, variable_ids, bounds):
 
 def encode_equality_bound (equality, variable_ids, bounds):
 
-	variable, coefficient = tuple (equality . terms . items ()) [0]
+	var_key, coefficient = tuple (equality . terms . items ()) [0]
 
 	value = equality . constant / coefficient
 
-	idx = variable_ids [variable]
+	idx = variable_ids [var_key]
 
 	l, u = bounds [idx]
 
@@ -68,9 +68,9 @@ def encode_linear_constraint (
 
 	constraint_idx = num_constraints
 
-	for variable, coefficient in constraint . terms . items ():
+	for var_key, coefficient in constraint . terms . items ():
 
-		variable_idx = variable_ids [variable]
+		variable_idx = variable_ids [var_key]
 
 		A [constraint_idx, variable_idx] = coefficient
 
@@ -81,7 +81,7 @@ def encode_objective (objective, variable_ids):
 	if type (objective) == Variable:
 
 		c = np . zeros ((len (variable_ids),))
-		c [variable_ids [objective]] = 1
+		c [variable_ids [objective . as_key ()]] = 1
 
 		return c
 
@@ -89,9 +89,9 @@ def encode_objective (objective, variable_ids):
 
 		c = np . zeros ((len (variable_ids),))
 
-		for variable, coefficient in objective . terms . items ():
+		for var_key, coefficient in objective . terms . items ():
 
-			c [variable_ids [variable]] = coefficient
+			c [variable_ids [var_key]] = coefficient
 
 		return c
 
@@ -117,11 +117,11 @@ def pin_objective (objective, objective_value, variable_ids, A, b, bounds):
 
 def add_variables (expression, variable_ids):
 
-	for variable in expression . variables ():
+	for var_key in expression . var_keys ():
 
-		if variable not in variable_ids:
+		if var_key not in variable_ids:
 
-			variable_ids [variable] = len (variable_ids)
+			variable_ids [var_key] = len (variable_ids)
 
 def solve (constraints, objectives):
 
@@ -191,9 +191,9 @@ def solve (constraints, objectives):
 
 	integrality = np . zeros ((len (variable_ids),), dtype = np . uint8)
 
-	for (variable, index) in variable_ids . items ():
+	for (var_key, index) in variable_ids . items ():
 
-		integrality [index] = variable . integrality
+		integrality [index] = var_key . variable . integrality
 
 	for inequality in unary_ub_constraints:
 
@@ -248,6 +248,6 @@ def solve (constraints, objectives):
 		)
 
 	return dict (
-		(variable, result . x [idx])
-		for variable, idx in variable_ids . items ()
+		(var_key, result . x [idx])
+		for var_key, idx in variable_ids . items ()
 	)

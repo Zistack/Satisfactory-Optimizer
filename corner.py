@@ -109,7 +109,7 @@ class Corner:
 
 	def interpret_model (self, model, machine):
 
-		machine_count = model [self . machine_count_variable]
+		machine_count = model [self . machine_count_variable . as_key ()]
 
 		return InterpretedCorner (
 			machine_count,

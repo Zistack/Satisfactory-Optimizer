@@ -16,15 +16,11 @@ class Variable:
 
 	def __hash__ (self):
 
-		return self . name . __hash__ ()
-
-	def __cmp__ (self, other):
-
-		return self . name . __cmp__ (other . name)
+		return NotImplemented
 
 	def __neg__ (self):
 
-		return Sum ({self: -1}, 0)
+		return Sum ({self . as_key (): -1}, 0)
 
 	def __add__ (self, other):
 
@@ -38,23 +34,23 @@ class Variable:
 
 			else:
 
-				return Sum ({self: 1}, other)
+				return Sum ({self . as_key (): 1}, other)
 
 		if type (other) == Variable:
 
-			return Sum ({self: 1, other: 1}, 0)
+			return Sum ({self . as_key (): 1, other . as_key (): 1}, 0)
 
 		if type (other) == Sum:
 
-			if self in other . terms:
+			if self . as_key () in other . terms:
 
 				new_terms = dict (other . terms . items ())
 
-				new_terms [self] += 1
+				new_terms [self . as_key ()] += 1
 
-				if new_terms [self] == 0:
+				if new_terms [self . as_key ()] == 0:
 
-					del new_terms [self]
+					del new_terms [self . as_key ()]
 
 					if len (new_terms) == 0:
 
@@ -66,7 +62,7 @@ class Variable:
 
 				new_terms = dict ()
 
-				new_terms [self] = 1
+				new_terms [self . as_key ()] = 1
 
 				new_terms . update (other . terms . items ())
 
@@ -104,7 +100,7 @@ class Variable:
 
 			else:
 
-				return Sum ({self: other}, 0)
+				return Sum ({self . as_key (): other}, 0)
 
 		raise TypeError (
 			'Multiplication with variable not supported for \''
@@ -120,7 +116,7 @@ class Variable:
 
 		if type (other) == float:
 
-			return Sum ({self: 1 / other}, 0)
+			return Sum ({self . as_key (): 1 / other}, 0)
 
 	def __le__ (self, other):
 
@@ -128,11 +124,11 @@ class Variable:
 
 		if type (other) == float:
 
-			return Inequality ({self: 1}, other)
+			return Inequality ({self . as_key (): 1}, other)
 
 		if type (other) == Variable:
 
-			return Inequality ({self: 1, other: -1}, 0)
+			return self - other <= 0
 
 		if type (other) == Sum:
 
@@ -154,11 +150,11 @@ class Variable:
 
 		if type (other) == float:
 
-			return Equality ({self: 1}, other)
+			return Equality ({self . as_key (): 1}, other)
 
 		if type (other) == Variable:
 
-			return Equality ({self: 1, other: -1}, 0)
+			return self - other == 0
 
 		if type (other) == Sum:
 
@@ -170,9 +166,35 @@ class Variable:
 			+ '\''
 		)
 
-	def variables (self):
+	def as_key (self):
 
-		return [self]
+		return VarKey (self)
+
+	def var_keys (self):
+
+		return [self . as_key ()]
+
+class VarKey:
+
+	def __init__ (self, variable):
+
+		self . variable = variable
+
+	def __str__ (self):
+
+		return self . variable . __str__ ()
+
+	def __cmp__ (self, other):
+
+		return self . variable . name . __cmp__ (other . variable . name)
+
+	def __hash__ (self):
+
+		return self . variable . name . __hash__ ()
+
+	def __eq__ (self, other):
+
+		return self . variable . name == other . variable . name
 
 class Sum:
 
@@ -184,8 +206,8 @@ class Sum:
 	def __str__ (self):
 
 		sum_terms = [
-			str (coefficient) + ' * ' + str (variable)
-			for variable, coefficient in self . terms . items ()
+			str (coefficient) + ' * ' + str (var_key)
+			for var_key, coefficient in self . terms . items ()
 		]
 
 		if self . constant != 0:
@@ -193,6 +215,10 @@ class Sum:
 			sum_terms . append (str (self . constant))
 
 		return ' + ' . join (sum_terms)
+
+	def __hash__ (self):
+
+		return NotImplemented
 
 	def __neg__ (self):
 
@@ -220,13 +246,13 @@ class Sum:
 
 			new_terms = dict (self . terms . items ())
 
-			if other in new_terms:
+			if other . as_key () in new_terms:
 
-				new_terms [other] += 1
+				new_terms [other . as_key ()] += 1
 
-				if new_terms [other] == 0:
+				if new_terms [other . as_key ()] == 0:
 
-					del new_terms [other]
+					del new_terms [other . as_key ()]
 
 					if len (new_terms) == 0:
 
@@ -234,7 +260,7 @@ class Sum:
 
 			else:
 
-				new_terms [other] = 1
+				new_terms [other . as_key ()] = 1
 
 			return Sum (new_terms, self . constant)
 
@@ -242,19 +268,19 @@ class Sum:
 
 			new_terms = dict (self . terms . items ())
 
-			for variable, coefficient in other . terms . items ():
+			for var_key, coefficient in other . terms . items ():
 
-				if variable in new_terms:
+				if var_key in new_terms:
 
-					new_terms [variable] += coefficient
+					new_terms [var_key] += coefficient
 
-					if new_terms [variable] == 0:
+					if new_terms [var_key] == 0:
 
-						del new_terms [variable]
+						del new_terms [var_key]
 
 				else:
 
-					new_terms [variable] = coefficient
+					new_terms [var_key] = coefficient
 
 			new_constant = self . constant + other . constant
 
@@ -293,8 +319,8 @@ class Sum:
 				return 0
 
 			new_terms = dict (
-				(variable, coefficient * other)
-				for variable, coefficient in self . terms . items ()
+				(var_key, coefficient * other)
+				for var_key, coefficient in self . terms . items ()
 			)
 
 			new_constant = self . constant * other
@@ -318,8 +344,8 @@ class Sum:
 		if type (other) == float:
 
 			new_terms = dict (
-				(variable, coefficient / other)
-				for variable, coefficient in self . terms . items ()
+				(var_key, coefficient / other)
+				for var_key, coefficient in self . terms . items ()
 			)
 
 			new_constant = self . constant / other
@@ -374,6 +400,6 @@ class Sum:
 			+ '\''
 		)
 
-	def variables (self):
+	def var_keys (self):
 
 		return self . terms . keys ()
